@@ -17,5 +17,5 @@ function minetest.register_privilege(name, definition) end
 ---Map of registered privilege definitions, indexed by name.
 ---
 ---Registered privileges can be modified directly in this table.
----@type {[string]: privilege_definition}
+---@type table<string, privilege_definition>
 minetest.registered_privileges = {}
