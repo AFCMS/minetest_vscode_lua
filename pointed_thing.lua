@@ -1,0 +1,5 @@
+---@class pointed_thing
+---@field type '"nothing"'|'"node"'|'"object"'
+---@field under Vector
+---@field above Vector
+---@field ref ObjectRef
