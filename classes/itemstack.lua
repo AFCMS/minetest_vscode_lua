@@ -66,16 +66,19 @@ function stack:get_description() end
 ---@return string?
 function stack:get_short_description() end
 
-
 ---Removes all items from the stack, making it empty.
 function stack:clear() end
 
-
+---Replace the contents of the stack.
+---@param item ItemStack|string|table Can be an ItemStack, an itemstring or a table.
 function stack:replace(item) end
 
-
+---Returns the stack in itemstring form.
+---@return string
 function stack:to_string() end
 
+---Returns the stack in Lua table form.
+---@return table
 function stack:to_table() end
 
 ---Returns the maximum size of the stack (depends on the item).
@@ -102,10 +105,28 @@ function stack:get_tool_capabilities() end
 ---@param amount integer
 function stack:add_wear(amount) end
 
+---Put some item or stack onto this stack.
+---
+---Returns leftover `ItemStack`.
+---@param item ItemStack|string|table
+---@return ItemStack
 function stack:add_item(item) end
 
+---Returns `true` if item or stack can be fully added to this one.
+---@param item ItemStack|string|table
+---@return boolean
 function stack:item_fits(item) end
 
-function stack:take_item() end
+---Take (and remove) up to `n` items from this stack.
+---
+---Return taken `ItemStack`.
+---@param n integer
+---@return ItemStack
+function stack:take_item(n) end
 
+---Copy (don't remove) up to `n` items from this stack.
+---
+---Returns taken `ItemStack`.
+---@param n integer
+---@return ItemStack
 function stack:peek_item(n) end
