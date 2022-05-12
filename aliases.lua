@@ -10,4 +10,5 @@ function minetest.register_alias(alias, original_name) end
 function minetest.register_alias_force(alias, original_name) end
 
 ---Map of registered aliases, indexed by name
+---@type table<string, string>
 minetest.registered_aliases = {}
