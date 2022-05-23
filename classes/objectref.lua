@@ -62,9 +62,8 @@ function ObjectRef:get_hp() end
 ---@param reason table
 function ObjectRef:set_hp(hp, reason) end
 
---FIXME: table isn't InvRef
 ---Returns an `InvRef` for players, otherwise returns `nil`
----@return table?
+---@return InvRef?
 function ObjectRef:get_inventory() end
 
 ---Returns the inventory list the wielded item is in.

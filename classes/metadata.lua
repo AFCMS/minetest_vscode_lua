@@ -88,10 +88,8 @@ function NodeMetaRef:to_table() end
 ---@return boolean
 function NodeMetaRef:from_table(table) end
 
---FIXME
-
 ---Returns `InvRef`
----@return table
+---@return InvRef
 function NodeMetaRef:get_inventory() end
 
 ---Mark specific vars as private.
