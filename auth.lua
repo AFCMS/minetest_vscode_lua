@@ -87,10 +87,3 @@ function minetest.get_player_privs(name) end
 ---@return boolean
 ---@return table<string, boolean> missing_privs
 function minetest.check_player_privs(player_or_name, ...) end
-
----Remove player authentication data.
----
----Returns boolean indicating success (false if player nonexistant)
----@param name string
----@return boolean
-function minetest.remove_player_auth(name) end
