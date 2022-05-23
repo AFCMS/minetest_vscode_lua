@@ -108,12 +108,10 @@ function NodeMetaRef:mark_as_private(name) end
 ---@class ItemStackMetaRef: MetaDataRef
 local ItemStackMetaRef = {}
 
---FIXME
-
 ---Overrides the item's tool capabilities
 ---
 ---A nil value will clear the override data and restore the original behavior.
----@param tool_capabilities table
+---@param tool_capabilities tool_capabilities
 function ItemStackMetaRef:set_tool_capabilities(tool_capabilities) end
 
 

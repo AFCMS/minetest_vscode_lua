@@ -98,7 +98,7 @@ function stack:is_known() end
 function stack:get_definition() end
 
 ---Returns the digging properties of the item, or those of the hand if none are defined for this item type.
----@return table
+---@return tool_capabilities
 function stack:get_tool_capabilities() end
 
 ---Increases wear by `amount` if the item is a tool, otherwise does nothing.
