@@ -5,8 +5,8 @@
 ---The engine will scale the amount of worker threads automatically.
 ---
 ---When `func` returns, the callback is called (in the normal environment) with all of the return values as arguments.
----@param func fun(): unknown
----@param callback fun(...: unknown)
+---@param func fun(): any
+---@param callback fun(...: any)
 ---@param ... unknown Variable number of arguments that are passed to `func`.
 function minetest.handle_async(func, callback, ...) end
 
