@@ -1,6 +1,7 @@
 ---@class job
 local job = {}
 
+---Cancels the job function from being called.
 function job:cancel() end
 
 ---Call the function `func` after `time` seconds, may be fractional
