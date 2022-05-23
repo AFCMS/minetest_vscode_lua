@@ -1,7 +1,7 @@
 ---@alias ColorString string
 
 ---@alias ColorSpec
----| table
+---| {r: integer, g: integer, b: integer, a: integer}
 ---| integer
 ---| string
 

@@ -1,0 +1,1 @@
+---@class item_definition
