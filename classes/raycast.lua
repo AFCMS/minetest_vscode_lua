@@ -10,9 +10,25 @@ function Raycast(pos1, pos2, objects, liquids) end
 minetest.raycast = Raycast
 
 ---@class pointed_thing_raycast: pointed_thing
----@field intersection_point Vector
----@field box_id integer
----@field intersection_normal Vector
+local pointed_thing_raycast = {}
+
+---The absolute world coordinates of the point on the selection box which is pointed at.
+---
+---May be in the selection box if the pointer is in the box too.
+---@type Vector
+pointed_thing_raycast.intersection_point = nil
+
+---The ID of the pointed selection box (counting starts from 1).
+---@type integer
+pointed_thing_raycast.box_id = nil
+
+---Unit vector, points outwards of the selected selection box.
+---
+---This specifies which face is pointed at.
+---
+---Is a null vector `vector.zero()` when the pointer is inside the selection box.
+---@type Vector
+pointed_thing_raycast.intersection_normal = nil
 
 ---@class Raycast
 local raycast = {}
