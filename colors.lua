@@ -1,5 +1,6 @@
 ---@alias ColorString string
 
+---A ColorSpec specifies a 32-bit color.
 ---@alias ColorSpec
 ---| {r: integer, g: integer, b: integer, a: integer}
 ---| integer
@@ -37,3 +38,13 @@ function minetest.strip_background_colors(str) end
 ---@param str string
 ---@return string
 function minetest.strip_colors(str) end
+
+---Converts a `ColorSpec` to a `ColorString`. If the `ColorSpec` is invalid, returns `nil`.
+---@param colorspec ColorSpec
+---@return ColorString?
+function minetest.colorspec_to_colorstring(colorspec) end
+
+---Converts a `ColorSpec` to a raw string of four bytes in an RGBA layout, returned as a string.
+---@param colorspec ColorSpec
+---@return string
+function minetest.colorspec_to_bytes(colorspec) end
