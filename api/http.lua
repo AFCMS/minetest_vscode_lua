@@ -1,19 +1,64 @@
 ---@class HTTPRequest
----@field url string
----@field timeout number
----@field method '"GET"'|'"POST"'|'"PUT"'|'"DELETE"'
----@field data string|table
----@field user_agent string
----@field extra_headers string[]
----@field multipart boolean
+local http_request = {}
+
+---@type string
+http_request.url = nil
+
+---Timeout for request to be completed in seconds. Default depends on engine settings.
+---@type number
+http_request.timeout = nil
+
+---The http method to use. Defaults to `"GET"`.
+---@type '"GET"'|'"POST"'|'"PUT"'|'"DELETE"'
+http_request.method = nil
+
+---Data for the POST, PUT or DELETE request.
+---
+---Accepts both a string and a table. If a table is specified, encodes table as `x-www-form-urlencoded` key-value pairs.
+---@type string|table
+http_request.data = nil
+
+---Optional, if specified replaces the default minetest user agent with given string.
+---@type string
+http_request.user_agent = nil
+
+---Optional, if specified adds additional headers to the HTTP request.
+---
+---You must make sure that the header strings follow HTTP specification ("Key: Value").
+---@type string[]
+http_request.extra_headers = nil
+
+---Optional, if true performs a multipart HTTP request.
+---
+---Default is false.
+---
+---POST only, data must be array.
+---@type boolean
+http_request.multipart = nil
 
 
 ---@class HTTPRequestResult
----@field completed boolean
----@field succeeded boolean
----@field timeout boolean
----@field code integer
----@field data string
+local http_request_result = {}
+
+---If true, the request has finished (either succeeded, failed or timed out).
+---@type boolean
+http_request_result.completed = nil
+
+---If true, the request was successful.
+---@type boolean
+http_request_result.succeeded = nil
+
+---If true, the request timed out.
+---@type boolean
+http_request_result.timeout = nil
+
+---HTTP status code
+---@type integer
+http_request_result.code = nil
+
+---Responce data.
+---@type string
+http_request_result.data = nil
 
 
 ---@class HTTPApiTable
