@@ -9,6 +9,7 @@ function minetest.get_current_modname() end
 ---* Works regardless of whether the mod has been loaded yet.
 ---* Useful for loading additional `.lua` modules or static data from a mod,
 ---@param modname string
+---@return string
 function minetest.get_modpath(modname) end
 
 ---Returns a list of enabled mods, sorted alphabetically.
