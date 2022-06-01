@@ -40,3 +40,8 @@ function math.factorial(x) end
 ---@param x number
 ---@return integer
 function math.round(x) end
+
+---Returns the string without whitespace pre- and suffixes
+---
+---e.g. `string.trim("\n \t\tfoo bar\t ")` returns `"foo bar"`
+function string.trim() end
