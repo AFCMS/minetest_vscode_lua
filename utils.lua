@@ -171,10 +171,6 @@ player_informations.formspec_version = nil
 ---@type lang_code
 player_informations.lang_code = nil
 
-
-
--- the following keys can be missing if no stats have been collected yet
-
 ---Minimum round trip time.
 ---
 ---**Can be missing if no stats have been collected yet.**
