@@ -93,7 +93,7 @@ minetest.features.formspec_version_element = true
 
 ---Whether AreaStore's IDs are kept on save/load.
 ---
----**Minetest (5.1.0)
+---**Minetest 5.1.0**
 minetest.features.area_store_persistent_ids = true
 
 ---Whether minetest.find_path is functional.
