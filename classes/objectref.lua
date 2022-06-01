@@ -324,8 +324,25 @@ function ObjectRef:get_luaentity() end
 function ObjectRef:get_player_name() end
 
 
-function ObjectRef:get_look_dir() end
+---**Player Only**
+---
+---**DEPRECATED**, use `get_velocity()` instead.
+---@deprecated
+---@return Vector
+function ObjectRef:get_player_velocity() end
 
+---**Player Only**
+---
+---**DEPRECATED**, use `add_velocity(vel)` instead.
+---@deprecated
+---@param vel Vector
+function ObjectRef:add_player_velocity(vel) end
+
+---**Player Only**
+---
+---Get camera direction as a unit vector.
+---@return Vector
+function ObjectRef:get_look_dir() end
 
 ---**Player Only**
 ---
@@ -358,6 +375,51 @@ function ObjectRef:get_look_horizontal() end
 ---Angle is counter-clockwise from the +z direction.
 ---@param radians number
 function ObjectRef:set_look_horizontal(radians) end
+
+---**Player Only**
+---
+---Returns look pitch in radians.
+---
+---Angle ranges between -pi/2 and pi/2, which are straight down and up respectively.
+---
+---**DEPRECATED AS BROKEN**, use `get_look_vertical()`.
+---@deprecated
+---@return number
+function ObjectRef:get_look_pitch() end
+
+---**Player Only**
+---
+---Set look pitch in radians.
+---
+---Angle ranges between -pi/2 and pi/2, which are straight down and up respectively.
+---
+---**DEPRECATED AS BROKEN**, use `set_look_vertical(rad)`.
+---@deprecated
+---@param rad number
+function ObjectRef:set_look_pitch(rad) end
+
+
+---**Player Only**
+---
+---Returns look yaw in radians.
+---
+---Angle ranges between -pi/2 and pi/2, which are straight down and up respectively.
+---
+---**DEPRECATED AS BROKEN**, use `get_look_horizontal()`.
+---@deprecated
+---@return number
+function ObjectRef:get_look_yaw() end
+
+---**Player Only**
+---
+---Set look yaw in radians.
+---
+---Angle ranges between -pi/2 and pi/2, which are straight down and up respectively.
+---
+---**DEPRECATED AS BROKEN**, use `set_look_horizontal(rad)`.
+---@deprecated
+---@param rad number
+function ObjectRef:set_look_yaw(rad) end
 
 ---**Player Only**
 ---
@@ -398,7 +460,6 @@ function ObjectRef:get_fov() end
 ---Returns a `PlayerMetaRef`
 ---@return PlayerMetaRef
 function ObjectRef:get_meta() end
-
 
 
 
