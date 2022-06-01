@@ -43,7 +43,94 @@ function math.factorial(x) end
 ---@return integer
 function math.round(x) end
 
+---Split a string.
+---
+---e.g. `string.split("a,b", ",")` returns `{"a","b"}`
+---@param str string
+---@param separator? string Default: `","`
+---@param include_empty? boolean Default: `false`
+---@param max_splits? integer If it's negative, splits aren't limited. Default: `-1`
+---@param sep_is_pattern? boolean It specifies whether separator is a plain string or a pattern (regex). Default: `false`
+---@return string[]
+function string.split(str, separator, include_empty, max_splits, sep_is_pattern) end
+
 ---Returns the string without whitespace pre- and suffixes
 ---
 ---e.g. `string.trim("\n \t\tfoo bar\t ")` returns `"foo bar"`
 function string.trim() end
+
+---Adds newlines to the string to keep it within the specified character limit.
+---
+---Note that the returned lines may be longer than the limit since it only splits at word borders.
+---@param str string
+---@param limit integer Maximal amount of characters in one line
+---@param as_table? boolean If set to true, a table of lines instead of a string is returned. Default: `false`
+---@return string|table
+function minetest.wrap_text(str, limit, as_table) end
+
+---Converts the position `pos` to a human-readable, printable string in the form `"(X,Y,Z)"`
+---@param pos Vector
+---@param decimal_places? number If specified, the `x`, `y` and `z` values of the position are rounded to the given decimal place.
+function minetest.pos_to_string(pos, decimal_places) end
+
+---Parse a string in the form `"(X,Y,Z)"`.
+---
+---If the string can't be parsed to a position, nothing is returned.
+---@param str string
+---@return Vector?
+function minetest.string_to_pos(str) end
+
+---Converts a string in the form `"(X1, Y1, Z1) (X2, Y2, Z2)"` representing an area box into two positions
+---@param str string
+---@return Vector?
+---@return Vector?
+function minetest.string_to_area(str) end
+
+---Returns true if passed `'y'`, `'yes'`, `'true'` or a number that isn't zero.
+---@param arg any
+---@return boolean
+function minetest.is_yes(arg) end
+
+---Returns true when the passed number represents `NaN`.
+---@param arg number
+---@return boolean
+function minetest.is_nan(arg) end
+
+---Returns time with microsecond precision. May not return wall time.
+---@return number
+function minetest.get_us_time() end
+
+---Returns a deep copy of `table`.
+---@param table table
+---@return table
+function table.copy(table) end
+
+---Returns the smallest numerical index containing the value `val` in the table `list`.
+---
+---Non-numerical indices are ignored.
+---
+---If `val` could not be found, `-1` is returned. `list` must not have negative indices.
+---@param list any[]
+---@param val any
+---@return integer
+function table.indexof(list, val) end
+
+---Appends all values in `other_table` to `table`, uses `#table + 1` to find new indices.
+---@param table table
+---@param other_table table
+function table.insert_all(table, other_table) end
+
+---Returns a table with keys and values swapped.
+---
+---If multiple keys in `t` map to the same value, it is unspecified which value maps to that key.
+---@param t table
+---@return table
+function table.key_value_swap(t) end
+
+---Shuffles elements `from` to `to` in `table` in place
+---@param table table
+---@param from? integer Defaults to `1`
+---@param to? integer Defaults to `#table`
+---@param random_func? function This function receives two integers as arguments and should return a random integer inclusively between them. Defaults to `math.random`
+function table.shuffle(table, from, to, random_func) end
+
