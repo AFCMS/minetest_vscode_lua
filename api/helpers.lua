@@ -21,12 +21,14 @@ function dump(obj, dumped) end
 ---@return number
 function math.hypot(x, y) end
 
+--FIXME: not supporting negative numbers
+
 ---Get the sign of a number.
 ---
 ---If the absolute value of `x` is within the `tolerance` or `x` is NaN, `0` is returned.
 ---@param x number
 ---@param tolerance number
----@return '-1'|'0'|'1'
+---@return '-1'|0|1
 function math.sign(x, tolerance) end
 
 ---Returns the factorial of `x`
