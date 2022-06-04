@@ -193,3 +193,84 @@ function minetest.register_on_cheat(func) end
 ---Map of registered on_cheat.
 ---@type fun(player: ObjectRef, cheat: {type: '"moved_too_fast"'|'"interacted_too_far"'|'"interacted_with_self"'|'"interacted_while_dead"'|'"finished_unknown_dig"'|'"dug_unbreakable"'|'"dug_too_fast"'})[]
 minetest.registered_on_cheats = {}
+
+---Register a function that will be called when a player send a chat message.
+---
+---Return `true` to mark the message as handled, which means that it will not be sent to other players.
+---@param func fun(name: string, message: string): boolean
+function minetest.register_on_chat_message(func) end
+
+---Map of registered on_chat_message.
+---@type fun(name: string, message: string)[]
+minetest.registered_on_chat_messages = {}
+
+---Register a function that will be called when a player send a chat command.
+---
+---Called always when a chatcommand is triggered, before `minetest.registered_chatcommands` is checked to see if the command exists, but after the input is parsed.
+---
+---Return `true` to mark the command as handled, which means that the default handlers will be prevented.
+---@param func fun(name: string, command: string, params: string)
+function minetest.register_on_chatcommand(func) end
+
+---Map of registered on_chatcommand.
+---@type fun(name: string, command: string, params: string)[]
+minetest.registered_on_chatcommands = {}
+
+---Register a function that will be called when the server received input from player in a formspec.
+---
+---Specifically, this is called on any of the following events:
+---* a button was pressed,
+---* Enter was pressed while the focus was on a text field
+---* a checkbox was toggled,
+---* something was selected in a dropdown list,
+---* a different tab was selected,
+---* selection was changed in a textlist or table,
+---* an entry was double-clicked in a textlist or table,
+---* a scrollbar was moved, or
+---* the form was actively closed by the player.
+---
+---Fields are sent for formspec elements which define a field. `fields` is a table containing each formspecs element value (as string), with the `name` parameter as index for each. The value depends on the formspec element type:
+---* `animated_image`: Returns the index of the current frame.
+---* `button` and variants: If pressed, contains the user-facing button text as value. If not pressed, is `nil`
+---* `field`, `textarea` and variants: Text in the field
+---* `dropdown`: Either the index or value, depending on the `index event` dropdown argument.
+---* `tabheader`: Tab index, starting with `"1"` (only if tab changed)
+---* `checkbox`: `"true"` if checked, `"false"` if unchecked
+---* `textlist`: See `minetest.explode_textlist_event`
+---* `table`: See `minetest.explode_table_event`
+---* `scrollbar`: See `minetest.explode_scrollbar_event`
+---* Special case: `["quit"]="true"` is sent when the user actively closed the form by mouse click, keypress or through a `button_exit[]` element.
+---* Special case: `["key_enter"]="true"` is sent when the user pressed the Enter key and the focus was either nowhere (causing the formspec to be closed) or on a button. If the focus was on a text field, additionally, the index `key_enter_field` contains the name of the text field. See also: `field_close_on_enter`.
+---
+---Newest functions are called first.
+---
+---If function returns `true`, remaining functions are not called.
+---@param func fun(player: ObjectRef, formname: string, fields: table<string, any>): boolean
+function minetest.register_on_player_receive_fields(func) end
+
+---Map of registered on_player_receive_fields.
+---@type fun(player: ObjectRef, formname: string, fields: table<string, any>)[]
+minetest.registered_on_player_receive_fields = {}
+
+---Register a function that will be called when a player craft something.
+---* `itemstack` is the output
+---* `old_craft_grid` contains the recipe (Note: the one in the inventory is cleared).
+---* `craft_inv` is the inventory with the crafting grid
+---* Return either an `ItemStack`, to replace the output, or `nil`, to not modify it.
+---@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?
+function minetest.register_on_craft(func) end
+
+---Map of registered on_craft.
+---@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
+minetest.registered_on_crafts = {}
+
+---Register a function that will be called before a player craft something to make the crafting prediction.
+---
+---Similar to `minetest.register_on_craft`.
+---@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)
+function minetest.register_craft_predict(func) end
+
+---Map of registered craft_predicts.
+---@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
+minetest.registered_craft_predicts = {}
+
