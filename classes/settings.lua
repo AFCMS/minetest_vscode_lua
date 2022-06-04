@@ -67,6 +67,13 @@ function settings:write() end
 ---@return table
 function settings:to_table() end
 
-
+---Settings object containing all of the settings from the main config file (`minetest.conf`).
 ---@type Settings
 minetest.settings = {}
+
+---Loads a setting from the main settings and parses it as a position (in the format `(1,2,3)`).
+---
+---Returns a position or nil.
+---@param name string
+---@return Vector?
+function minetest.setting_get_pos(name) end
