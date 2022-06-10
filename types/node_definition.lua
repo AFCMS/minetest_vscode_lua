@@ -168,11 +168,3 @@ node_definition.climbable = nil
 ---@param name string
 ---@param def node_definition
 function minetest.register_node(name, def) end
-
-minetest.register_node("ddz", {
-	visual_scale = 1.1,
-	drawtype = "normal",
-	tiles = {""},
-	use_texture_alpha = "opaque",
-	sunlight_propagates = false,
-})
