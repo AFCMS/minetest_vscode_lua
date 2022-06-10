@@ -9,6 +9,9 @@ minetest.CONTENT_AIR = 126
 ---Built-in Content ID of ignore node (for use with VoxelManip API)
 minetest.CONTENT_IGNORE = 127
 
+---Size of mapblocks in nodes
+minetest.MAP_BLOCKSIZE = 16
+
 ---Default maximal HP of a player
 minetest.PLAYER_MAX_HP_DEFAULT = 20
 
