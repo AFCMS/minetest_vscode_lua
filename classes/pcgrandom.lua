@@ -27,7 +27,7 @@ function pcg_random:rand_normal_dist(min, max, num_trials) end
 --FIXME: document params
 
 ---Create a PcgRandom generator.
----@param seed integer
----@param sequence any
+---@param seed number
+---@param sequence? any
 ---@return PcgRandom
 function PcgRandom(seed, sequence) end
