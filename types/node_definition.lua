@@ -136,6 +136,64 @@ nodebox.disconnected = nil
 nodebox.disconnected_sides = nil
 
 
+---@class drop_definition_item
+local drop_definition_item = {}
+
+---Specify the chance of dropping the items.
+---
+---`rarity = 1000` => `1` chance over `1000`
+---
+---Default: `1`
+---@type integer
+drop_definition_item.rarity = nil
+
+---The items to drop.
+---@type string[]
+drop_definition_item.items = nil
+
+---Only drop if using an item with one of these names.
+---
+---e.g. `{"default:shovel_mese", "default:shovel_diamond"}`
+---@type string[]
+drop_definition_item.tools = nil
+
+---Whether all items in the dropped item list inherit the hardware coloring palette color from the dug node.
+---
+---Default: `false`
+---@type boolean
+drop_definition_item.inherit_color = nil
+
+---Only drop if using an item with one the specified groups.
+---
+---e.g. Only drop if using an item in the `magicwand` group, or an item that is in both the `pickaxe` and the `lucky` groups.
+---```lua
+---tool_groups = {
+---    "magicwand",
+---    {"pickaxe", "lucky"}
+---}
+---```
+---@type table
+drop_definition_item.tool_groups = nil
+
+
+---@class drop_definition
+local drop_definition = {}
+
+---Maximum number of item lists to drop.
+---
+---The entries in `items` are processed in order. For each:
+---* Item filtering is applied, chance of drop is applied, if both are successful the entire item list is dropped.
+---* Entry processing continues until the number of dropped item lists equals `max_items`.
+---
+---Therefore, entries should progress from low to high drop chance.
+---
+---Default: `0`
+---@type integer
+drop_definition.max_items = nil
+
+---@type drop_definition_item[]
+drop_definition.items = nil
+
 ---@class node_definition: item_definition
 local node_definition = {}
 
@@ -414,7 +472,76 @@ node_definition.waving = nil
 ---@type {footstep: SimpleSoundSpec, dig: SimpleSoundSpec, dug: SimpleSoundSpec, place: SimpleSoundSpec, place_failed: SimpleSoundSpec, fall: SimpleSoundSpec}
 node_definition.sounds = nil
 
+---@type string|drop_definition
+node_definition.drop = nil
 
+---@type fun(pos: Vector)
+node_definition.on_construct = nil
+
+---@type fun(pos: Vector)
+node_definition.on_destruct = nil
+
+---@type fun(pos: Vector, oldnode: node)
+node_definition.after_destruct = nil
+
+---@type fun(pos: Vector, oldnode: node, newnode: node)
+node_definition.on_flood = nil
+
+---@type fun(pos: Vector, oldnode: node, oldmeta: NodeMetaRef, drops: ItemStack[])
+node_definition.preserve_metadata = nil
+
+---@type fun(pos: Vector, placer: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
+node_definition.after_place_node = nil
+
+---@type fun(pos: Vector, oldnode: node, oldmetadata: NodeMetaRef, digger: ObjectRef)
+node_definition.after_dig_node = nil
+
+---@type fun(pos: Vector, player?: ObjectRef)
+node_definition.can_dig = nil
+
+---@type fun(pos: Vector, node: node, puncher: ObjectRef, pointed_thing: pointed_thing)
+node_definition.on_punch = nil
+
+---@type fun(pos: Vector, node: node, clicker: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
+node_definition.on_rightclick = nil
+
+---@type fun(pos: Vector, node: node, digger: ObjectRef)
+node_definition.on_dig = nil
+
+---@type fun(pos: Vector, elapsed: number)
+node_definition.on_timer = nil
+
+---@type fun(pos: Vector, formname: string, fields: table<string, any>, sender: ObjectRef)
+node_definition.on_receive_fields = nil
+
+---@type fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
+node_definition.allow_metadata_inventory_move = nil
+
+---@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+node_definition.allow_metadata_inventory_put = nil
+
+---@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+node_definition.allow_metadata_inventory_take = nil
+
+---@type fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
+node_definition.on_metadata_inventory_move = nil
+
+---@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+node_definition.on_metadata_inventory_put = nil
+
+---@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+node_definition.on_metadata_inventory_take = nil
+
+---@type fun(pos: Vector, intensity: number)
+node_definition.on_blast = nil
+
+---**Automaticaly set by the engine**
+---
+---Contains the mod which registered the node.
+---
+---e.g.: if a node is registered as `:othermodname:nodename`, nodename will show `othermodname`, but `mod_origin` will say `modname`.
+---@type string
+node_definition.mod_origin = nil
 
 
 --TODO: move this somewhere else
