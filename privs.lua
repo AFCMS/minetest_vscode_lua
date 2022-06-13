@@ -23,9 +23,9 @@ privilege_definition.give_to_admin = nil
 ---@type fun(name: string, granter_name?: string): boolean
 privilege_definition.on_grant = nil
 
----Called when taken from player 'name' by 'revoker_name'.
+---Called when taken from player  `name` by `revoker_name`.
 ---
----'revoker_name' will be nil if the priv was revoked by a mod.
+---`revoker_name` will be `nil` if the priv was revoked by a mod.
 ---
 ---Return true to stop `register_on_priv_revoke` from being called.
 ---@type fun(name: string, revoker_name?: string): boolean
