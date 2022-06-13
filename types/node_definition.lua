@@ -43,6 +43,99 @@
 ---|'"colordegrotate"'
 ---|'"none"'
 
+---@alias liquidtype
+---|'"none"'
+---|'"source"'
+---|'"flowing"'
+
+---@class nodebox
+local nodebox = {}
+
+---* `"regular"`: A normal cube; the default in most things
+---* `"fixed"`: A fixed box (or boxes) (facedir param2 is used, if applicable)
+---* `"leveled"`: A variable height box (or boxes) with the top face position defined by the node parameter `leveled = `, or if `paramtype2 == "leveled"` by param2. Other faces are defined by `fixed = {}` as with `type = "fixed"`.
+---* `"wallmounted"`: A box like the selection box for torches (wallmounted param2 is used, if applicable)
+---* `"connected"`: A node that has optional boxes depending on neighbouring nodes' presence and type. See also `node_definition.connects_to`.
+---@type '"regular"'|'"fixed"'|'"leveled"'|'"wallmounted"'|'"connected"'
+nodebox.type = nil
+
+---**`"fixed"`, `"leveled"`, `"connected"` types only**
+---@type number[]|number[][]
+nodebox.fixed = nil
+
+---**`"wallmounted"` type only**
+---@type number[]
+nodebox.wall_top = nil
+
+---**`"wallmounted"` type only**
+---@type number[]
+nodebox.wall_bottom = nil
+
+---**`"wallmounted"` type only**
+---@type number[]
+nodebox.wall_side = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_top = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_bottom = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_front = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_left = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_back = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.connect_right = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_top = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_bottom = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_front = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_left = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_back = nil
+
+---**`"connected"` type only**
+---@type number[]|number[][]
+nodebox.disconnected_right = nil
+
+---**`"connected"` type only**
+---
+---When there is *no* neighbour node.
+---@type number[]|number[][]
+nodebox.disconnected = nil
+
+---**`"connected"` type only**
+---
+---When there are *no* neighbour nodes to the sides.
+---@type number[]|number[][]
+nodebox.disconnected_sides = nil
+
+
 ---@class node_definition: item_definition
 local node_definition = {}
 
@@ -98,7 +191,7 @@ node_definition.color = nil
 ---* `clip`: A given pixel is either fully see-through or opaque depending on the alpha channel being below/above 50% in value
 ---* `blend`: The alpha channel specifies how transparent a given pixel of the rendered node is
 ---
----The default is "opaque" for drawtypes normal, liquid and flowingliquid; `clip` otherwise.
+---The default is `opaque` for drawtypes normal, liquid and flowingliquid; `clip` otherwise.
 ---
 ---If set to a boolean value (deprecated): true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype.
 ---@type '"opaque"'|'"clip"'|'"blend"'
@@ -158,6 +251,168 @@ node_definition.diggable = nil
 ---@type boolean
 node_definition.climbable = nil
 
+---Slows down movement of players through this node (max. 7).
+---
+---If this is `nil`, it will be equal to liquid_viscosity.
+---
+---Note: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings.
+---@type integer
+node_definition.move_resistance = nil
+
+---If true, placed nodes can replace this node.
+---
+---Default: `false`
+---@type boolean
+node_definition.buildable_to = nil
+
+---If true, liquids can flow into and replace this node.
+---
+---Warning: making a liquid node `floodable` will cause problems.
+---
+---Default: `false`
+---@type boolean
+node_definition.floodable = nil
+
+---Specifies flowing liquid physics.
+---* `"none"`:    no liquid flowing physics
+---* `"source"`:  spawns flowing liquid nodes at all 4 sides and below; recommended drawtype: `"liquid"`.
+---* `"flowing"`: spawned from source, spawns more flowing liquid nodes around it until `liquid_range` is reached; will drain out without a source; recommended drawtype: `"flowingliquid"`.
+---
+---If it's `"source"` or `"flowing"` and `liquid_range > 0`, then both `liquid_alternative_*` fields must be specified
+---@type liquidtype
+node_definition.liquidtype = nil
+
+---Flowing version of liquid source.
+---
+---See `node_definition.liquidtype`
+---@type string
+node_definition.liquid_alternative_flowing = nil
+
+---Source version of liquid flowing.
+---
+---See `node_definition.liquidtype`
+---@type string
+node_definition.liquid_alternative_source = nil
+
+---Controls speed at which the liquid spreads/flows (max. 7).
+---
+---`0` is fastest, `7` is slowest.
+---
+---By default, this also slows down movement of players inside the node (can be overridden using `node_definition.move_resistance`).
+---@type integer
+node_definition.liquid_viscosity = nil
+
+---If true, a new liquid source can be created by placing two or more sources nearby.
+---@type boolean
+node_definition.liquid_renewable = nil
+
+---Specifies movement physics if inside node:
+---* `false`: No liquid movement physics apply.
+---* `true`: Enables liquid movement physics. Enables things like ability to "swim" up/down, sinking slowly if not moving, smoother speed change when falling into, etc. The `movement_liquid_*` settings apply.
+---* `nil`: Will be treated as `true` if `liquidype ~= "none"` and as `false` otherwise.
+---
+---Default: `nil`
+---@type boolean
+node_definition.liquid_move_physics = nil
+
+---Only valid for `"nodebox"` drawtype with `type = "leveled"`.
+---
+---Allows defining the nodebox height without using param2.
+---
+---The nodebox height is `leveled / 64` nodes.
+---
+---The maximum value of `leveled` is `leveled_max`.
+---@type integer
+node_definition.leveled = nil
+
+---Maximum value for `leveled` (`0-127`), enforced in `minetest.set_node_level` and `minetest.add_node_level`.
+---
+---Values above `124` might causes collision detection issues.
+---@type integer
+node_definition.leveled_max = nil
+
+---Maximum distance that flowing liquid nodes can spread around source on flat land;
+---
+---Max: `8`; `0` to disable liquid flow.
+node_definition.liquid_range = nil
+
+---Player will take this amount of damage if no bubbles are left.
+---@type integer
+node_definition.drowning = nil
+
+---If player is inside node, this damage is caused every second.
+---@type integer
+node_definition.damage_per_second = nil
+
+---See `nodebox` definition.
+---@type nodebox
+node_definition.node_box = nil
+
+---Used for nodebox nodes with `type = "connected"`.
+---
+---Specifies to what neighboring nodes connections will be drawn.
+---
+---e.g. `{"group:fence", "default:wood"}` or `"default:stone"`
+---@type string|string[]
+node_definition.connects_to = nil
+
+---Tells connected nodebox nodes to connect only to these sides.
+---
+---e.g. `{ "top", "bottom", "front", "left", "back", "right" }`
+---@type string[]
+node_definition.connect_sides = nil
+
+---File name of mesh when using `"mesh"` drawtype.
+---@type string
+node_definition.mesh = nil
+
+---Custom selection box definition.
+---
+---Multiple boxes can be defined.
+---
+---If `"nodebox"` drawtype is used and `selection_box` is `nil`, then `nodebox` definition is used for the selection box by default.
+---@type nodebox
+node_definition.selection_box = nil
+
+---Custom collision box definition.
+---
+---Multiple boxes can be defined.
+---If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `nodebox` definition is used for the collision box by default.
+---@type nodebox
+node_definition.collision_box = nil
+
+---Support maps made in and before January 2012.
+---@type boolean
+node_definition.legacy_facedir_simple = nil
+
+---Support maps made in and before January 2012.
+---@type boolean
+node_definition.legacy_wallmounted = nil
+
+---Valid for drawtypes: `mesh`, `nodebox`, `plantlike`, `allfaces_optional`, `liquid`, `flowingliquid`.
+---* `1`: Wave node like plants (node top moves side-to-side, bottom is fixed)
+---* `2`: Wave node like leaves (whole node moves side-to-side)
+---* `3`: Wave node like liquids (whole node moves up and down)
+---
+---Not all models will properly wave.
+---* `plantlike` drawtype can only wave like plants
+---* `allfaces_optional` drawtype can only wave like leaves
+---* `liquid`, `flowingliquid` drawtypes can only wave like liquids
+---@type 0|1|2|3
+node_definition.waving = nil
+
+---Definition of node sounds to be played at various events.
+---
+---All fields in this table are optional.
+---
+---* `footstep`: If walkable, played when object walks on it. If node is climbable or a liquid, played when object moves through it.
+---* `dig`: Played while digging node. If `"__group"`, then the sound will be `default_dig_<groupname>`, where `<groupname>` is the name of the item's digging group with the fastest digging time. In case of a tie, one of the sounds will be played (but we cannot predict which one) Default value: `"__group"`.
+---* `dug`: Played after node was dug.
+---* `place`: Played after node was placed. Also played after falling
+---* `place_failed`: Played when node placement failed. Note: this happens if the _built-in_ node placement failed. This sound will still be played if the node is placed in the `on_place` callback manually.
+---* `fall`: Played when node starts to fall or is detached.
+---@type {footstep: SimpleSoundSpec, dig: SimpleSoundSpec, dug: SimpleSoundSpec, place: SimpleSoundSpec, place_failed: SimpleSoundSpec, fall: SimpleSoundSpec}
+node_definition.sounds = nil
 
 
 
