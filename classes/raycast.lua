@@ -5,6 +5,7 @@
 ---@param pos2 Vector End of the ray
 ---@param objects boolean If `false`, only nodes will be returned. Default is `true`.
 ---@param liquids boolean If `false`, liquid nodes (`liquidtype ~= "none"`) won't be returned. Default is `false`.
+---@return Raycast
 function Raycast(pos1, pos2, objects, liquids) end
 
 minetest.raycast = Raycast
