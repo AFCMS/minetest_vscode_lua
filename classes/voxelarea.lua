@@ -52,10 +52,12 @@ function VoxelArea:position(i) end
 ---@param x number
 ---@param y number
 ---@param z number
+---@return boolean
 function VoxelArea:contains(x, y, z) end
 
 ---Same functionality as `VoxelArea:contains(x, y, z)` but takes a vector as param.
 ---@param p Vector
+---@return boolean
 function VoxelArea:containsp(p) end
 
 ---Same functionality as `VoxelArea:contains(x, y, z)` but takes an index as param.
