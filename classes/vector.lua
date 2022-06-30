@@ -134,6 +134,7 @@ function vector.check(v) end
 ---If `x` is a number: Adds `x` to each component of `v`.
 ---@param v Vector
 ---@param x Vector | number
+---@return Vector
 function vector.add(v, x) end
 
 ---If `x` is a vector: Returns the difference of `v` subtracted by `x`.
