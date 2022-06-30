@@ -2,4 +2,4 @@
 
 ## Target
 
-- Latest Minetest version.
+- Minetest 7ffc0268dfd78647187554d6248015329e9f5d2d
