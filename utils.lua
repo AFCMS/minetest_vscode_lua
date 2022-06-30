@@ -284,9 +284,10 @@ function minetest.cpdir(source, destination) end
 ---
 ---If the `destination` is a non-empty directory, then the move will fail.
 ---
----Returns true on success, false on failure.
+---Returns `true` on success, `false` on failure.
 ---@param source string
 ---@param destination string
+---@return boolean
 function minetest.mvdir(source, destination) end
 
 ---Returns the list of entry names in `path`.
@@ -297,6 +298,7 @@ function minetest.mvdir(source, destination) end
 ---* `false`: return only file names
 ---@param path string
 ---@param is_dir? boolean
+---@return string[]
 function minetest.get_dir_list(path, is_dir) end
 
 ---Replaces contents of file at path with new contents in a safe (atomic) way.
