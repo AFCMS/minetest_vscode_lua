@@ -8,8 +8,6 @@ vector = {}
 
 --TODO: support metatables
 
---@overload fun(v: Vector): Vector
-
 ---Create a new vector
 ---@param x number
 ---@param y number
