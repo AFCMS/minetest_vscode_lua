@@ -1,12 +1,12 @@
-vector = {}
-
----@class Vector
+---@class Vector: vectorlib
 ---@field x number
 ---@field y number
 ---@field z number
-local vec = {}
 
---TODO: support metatables and class methods
+---@class vectorlib
+vector = {}
+
+--TODO: support metatables
 
 --@overload fun(v: Vector): Vector
 
