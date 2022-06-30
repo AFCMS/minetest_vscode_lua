@@ -6,7 +6,7 @@
 ---
 ---It is recommend to use this for short sounds that happen in response to player actions (e.g. door closing).
 ---@param spec SimpleSoundSpec
----@param parameters table Sound parameter table
+---@param parameters SoundParameterTable Sound parameter table
 ---@param ephemeral? boolean Default: `false`
 ---@return any?
 function minetest.sound_play(spec, parameters, ephemeral) end
