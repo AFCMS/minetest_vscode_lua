@@ -8,18 +8,18 @@ vector = {}
 
 --TODO: support metatables
 
----Create a new vector
+---Create a new vector.
 ---@param x number
 ---@param y number
 ---@param z number
 ---@return Vector
 function vector.new(x, y, z) end
 
----Create a new vector
+---Create a new vector `(0, 0, 0)`.
 ---@return Vector
 function vector.zero() end
 
----Returns a copy of the vector `v`
+---Returns a copy of the vector `v`.
 ---@param v Vector
 ---@return Vector
 function vector.copy(v) end
