@@ -4,9 +4,10 @@
 ---
 ---It is intended to be used in the following way, so that it avoids verbose repetitions of `minetest.translate`:
 ---
+---```lua
 ---local S = minetest.get_translator(textdomain)
----
 ---S(str, ...)
+---```
 ---@param textdomain string
 ---@return fun(str: string, ...: string): string
 function minetest.get_translator(textdomain) end
