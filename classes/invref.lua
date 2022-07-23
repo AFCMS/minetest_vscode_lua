@@ -90,6 +90,7 @@ function InvRef:contains_item(listname, stack, match_meta) end
 ---To do that use `set_stack` with an empty `ItemStack`.
 ---@param listname string
 ---@param stack ItemStack
+---@return ItemStack
 function InvRef:remove_item(listname, stack) end
 
 ---Returns a location compatible with `minetest.get_inventory(location)`.

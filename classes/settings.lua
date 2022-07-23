@@ -17,7 +17,7 @@ function settings:get(key) end
 --- * Returns `nil` if `key` is not found and `default` not specified.
 ---@param key string
 ---@param default? boolean
----@return boolean
+---@return boolean?
 function settings:get_bool(key, default) end
 
 ---Returns a `NoiseParams` table.
