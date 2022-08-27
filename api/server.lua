@@ -1,7 +1,7 @@
 ---Request the server to shutdown.
 ---@param message? string Will display `message` to clients
 ---@param reconnect? boolean Displays a reconnect button to players
----@param delay? any Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown. 
+---@param delay? any Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown.
 function minetest.request_shutdown(message, reconnect, delay) end
 
 ---Cancel current delayed shutdown.
@@ -41,21 +41,20 @@ function minetest.remove_player(name) end
 ---@return boolean
 function minetest.remove_player_auth(name) end
 
-
----@class dynamic_add_media_otions
-local dynamic_add_media_otions = {}
+---@class dynamic_add_media_options
+local dynamic_add_media_options = {}
 
 ---Path to a media file on the filesystem.
 ---@type string
-dynamic_add_media_otions.filepath = nil
+dynamic_add_media_options.filepath = nil
 
 ---Name of the player the media should be sent to instead of all players (optional)
 ---@type string
-dynamic_add_media_otions.to_player = nil
+dynamic_add_media_options.to_player = nil
 
 ---Marks the media as ephemeral, it will not be cached on the client (optional, default: false)
 ---@type boolean
-dynamic_add_media_otions.ephemeral = nil
+dynamic_add_media_options.ephemeral = nil
 
 
 ---Pushes the specified media file to client(s).
@@ -70,7 +69,7 @@ dynamic_add_media_otions.ephemeral = nil
 ---* If `ephemeral`=false the file must not be modified, deleted, moved or renamed after calling this function.
 ---* Regardless of any use of `ephemeral`, adding media files with the same name twice is not possible/guaranteed to work. An exception to this is the use of `to_player` to send the same, already existent file to multiple chosen players.
 ---* Clients will attempt to fetch files added this way via remote media, this can make transfer of bigger files painless (if set up). Nevertheless it is advised not to use dynamic media for big media files.
----@param options dynamic_add_media_otions
+---@param options dynamic_add_media_options
 ---@param callback fun(name: string)
 ---@return boolean
 function minetest.dynamic_add_media(options, callback) end

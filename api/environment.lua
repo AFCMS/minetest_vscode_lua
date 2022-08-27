@@ -1,4 +1,3 @@
-
 ---Set node at position `pos`.
 ---@param pos Vector
 ---@param node node
@@ -130,3 +129,89 @@ function minetest.add_item(pos, item) end
 ---@return ObjectRef?
 function minetest.get_player_by_name(name) end
 
+---Returns a list of ObjectRefs.
+---@param pos Vector
+---@param radius number using an euclidean metric
+---@return ObjectRef[]
+function minetest.get_objects_inside_radius(pos, radius) end
+
+---Returns a list of ObjectRefs.
+---
+---`pos1` and `pos2` are the min and max positions of the area to search.
+---@param pos1 Vector
+---@param pos2 Vector
+---@return ObjectRef[]
+function minetest.get_objects_in_area(pos1, pos2) end
+
+---Set time of day in the minetest world.
+---@param val number between `0` and `1`; `0` for midnight, `0.5` for midday
+function minetest.set_timeofday(val) end
+
+---Get time of day in the minetest world.
+---@return number
+function minetest.get_timeofday() end
+
+---Returns the time, in seconds, since the world was created.
+---@return integer
+function minetest.get_gametime() end
+
+---Returns number days elapsed since world was created.
+---
+---Accounts for time changes.
+---@return integer
+function minetest.get_day_count() end
+
+---Find a node near specified position.
+---@param pos Vector
+---@param radius number using a maximum metric
+---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+---@param search_center? boolean is an optional boolean (default: `false`). if true `pos` is also checked for the nodes
+---@return Vector?
+function minetest.find_node_near(pos, radius, nodenames, search_center) end
+
+---Find nodes in specified area.
+---
+---Area volume is limited to 4,096,000 nodes.
+---
+---* If `grouped` is `true` the return value is a table indexed by node name which contains lists of positions.
+---* If `grouped` is `false` or absent the return values are as follows:
+---  * **first value:** Table with all node positions
+---  * **second value:** Table with the count of each node with the node name as index
+---@param pos1 Vector
+---@param pos2 Vector
+---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+---@param grouped? boolean default `false`
+---@return Vector[]|table<string, Vector[]>
+---@return table<string, integer>?
+function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
+
+---Find nodes under air in specified area.
+---
+---Area volume is limited to 4,096,000 nodes.
+---@param pos1 Vector
+---@param pos2 Vector
+---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+---@return Vector[]
+function minetest.find_nodes_in_area_under_air(pos1, pos2, nodenames) end
+
+---Return world-specific perlin noise.
+---
+---The actual seed used is the noiseparams seed plus the world seed.
+---@param noiseparams noise_params
+function minetest.get_perlin(noiseparams) end
+
+---Return voxel manipulator object.
+---
+---Loads the manipulator from the map if positions are passed.
+---@param pos1? Vector
+---@param pos2? Vector
+---@return VoxelManip
+function minetest.get_voxel_manip(pos1, pos2) end
+
+---Clear all objects in the environment.
+---
+---Takes an optional table as an argument with the field `mode`.
+---* mode = `"full"` : Load and go through every mapblock, clearing objects (default).
+---* mode = `"quick"`: Clear objects immediately in loaded mapblocks, clear objects in unloaded mapblocks only when the mapblocks are next activated.
+---@param options {mode: '"full"'|'"quick"'}
+function minetest.clear_objects(options) end
