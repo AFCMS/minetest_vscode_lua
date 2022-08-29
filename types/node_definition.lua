@@ -550,3 +550,18 @@ node_definition.mod_origin = nil
 ---@param name string
 ---@param def node_definition
 function minetest.register_node(name, def) end
+
+---@param name string
+---@param def item_definition
+function minetest.register_craftitem(name, def) end
+
+---@param name string
+---@param def item_definition
+function minetest.register_tool(name, def) end
+
+---@param name string
+---@param redefinition node_definition
+function minetest.override_item(name, redefinition) end
+
+---@param name string
+function minetest.unregister_item(name) end
