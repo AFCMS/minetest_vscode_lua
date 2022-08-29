@@ -2,11 +2,14 @@
 ---@field x number
 ---@field y number
 ---@field z number
+---@operator unm: Vector
+---@operator sub(Vector): Vector
+---@operator add(Vector): Vector
+---@operator mul(number): Vector
+---@operator div(number): Vector
 
 ---@class vectorlib
 vector = {}
-
---TODO: support metatables
 
 ---Create a new vector.
 ---@param x number
