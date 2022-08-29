@@ -125,8 +125,6 @@ function vector.offset(v, x, y, z) end
 ---@return boolean
 function vector.check(v) end
 
-
-
 ---If `x` is a vector: Returns the sum of `v` and `x`.
 ---
 ---If `x` is a number: Adds `x` to each component of `v`.
@@ -142,7 +140,6 @@ function vector.add(v, x) end
 ---@param x Vector | number
 function vector.subtract(v, x) end
 
-
 ---Returns a scaled vector.
 ---@param v Vector
 ---@param s number
@@ -154,7 +151,6 @@ function vector.multiply(v, s) end
 ---@param s number
 ---@return Vector
 function vector.divide(v, s) end
-
 
 ---Applies the rotation `r` (in radians) to `v` and returns the result.
 ---@param v Vector

@@ -208,7 +208,6 @@ function ObjectRef:get_nametag_attributes() end
 ---@param attributes nametag_attributes
 function ObjectRef:set_nametag_attributes(attributes) end
 
-
 ---------------------
 -- Lua entity only --
 ---------------------
@@ -319,8 +318,6 @@ function ObjectRef:get_entity_name() end
 ---@return table
 function ObjectRef:get_luaentity() end
 
-
-
 -----------------
 -- Player only --
 -----------------
@@ -332,7 +329,6 @@ function ObjectRef:get_luaentity() end
 ---Returns `""` if object isn't a player.
 ---@return string
 function ObjectRef:get_player_name() end
-
 
 ---**Player Only**
 ---
@@ -407,7 +403,6 @@ function ObjectRef:get_look_pitch() end
 ---@deprecated
 ---@param rad number
 function ObjectRef:set_look_pitch(rad) end
-
 
 ---**Player Only**
 ---
@@ -594,7 +589,7 @@ function ObjectRef:get_physics_override() end
 local hud_definition = {}
 
 ---Type of element.
----@type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"compass"'|'"minimap"'
+---@type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"waypoint"'|'"image_waypoint"'|'"compass"'|'"minimap"'
 hud_definition.type = nil
 
 ---Position of the element, starting from the top left corner of the screen.
