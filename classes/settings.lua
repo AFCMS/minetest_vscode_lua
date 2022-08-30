@@ -22,7 +22,7 @@ function settings:get_bool(key, default) end
 
 ---Returns a `NoiseParams` table.
 ---@param key string
----@return table
+---@return noise_params
 function settings:get_np_group(key) end
 
 --- * Returns `{flag = true/false, ...}` according to the set flags.
@@ -45,7 +45,7 @@ function settings:set_bool(key, value) end
 
 ---Set a `NoiseParams` table.
 ---@param key string
----@param value table
+---@param value noise_params
 function settings:set_np_group(key, value) end
 
 ---Returns a boolean (`true` for success).
