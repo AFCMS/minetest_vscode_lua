@@ -1,11 +1,9 @@
-
 ---Returns a string which makes `obj` human-readable, handles reference loops.
 ---@param obj any arbitrary variable
 ---@param name string default: "_"
 ---@param dumped table default: {}
 ---@return string
 function dump2(obj, name, dumped) end
-
 
 ---Returns a string which makes `obj` human-readable.
 ---@param obj any
@@ -16,6 +14,8 @@ function dump(obj, dumped) end
 ---Get the hypotenuse of a triangle with legs x and y.
 ---
 ---Useful for distance calculation.
+---
+---**MINETEST API**
 ---@param x number
 ---@param y number
 ---@return number
@@ -26,12 +26,16 @@ function math.hypot(x, y) end
 ---Get the sign of a number.
 ---
 ---If the absolute value of `x` is within the `tolerance` or `x` is NaN, `0` is returned.
+---
+---**MINETEST API**
 ---@param x number
 ---@param tolerance number
 ---@return '-1'|0|1
 function math.sign(x, tolerance) end
 
 ---Returns the factorial of `x`
+---
+---**MINETEST API**
 ---@param x number
 ---@return number
 function math.factorial(x) end
@@ -39,6 +43,8 @@ function math.factorial(x) end
 ---Returns `x` rounded to the nearest integer.
 ---
 ---At a multiple of 0.5, rounds away from zero.
+---
+---**MINETEST API**
 ---@param x number
 ---@return integer
 function math.round(x) end
@@ -46,6 +52,8 @@ function math.round(x) end
 ---Split a string.
 ---
 ---e.g. `string.split("a,b", ",")` returns `{"a","b"}`
+---
+---**MINETEST API**
 ---@param str string
 ---@param separator? string Default: `","`
 ---@param include_empty? boolean Default: `false`
@@ -57,7 +65,10 @@ function string.split(str, separator, include_empty, max_splits, sep_is_pattern)
 ---Returns the string without whitespace pre- and suffixes
 ---
 ---e.g. `string.trim("\n \t\tfoo bar\t ")` returns `"foo bar"`
-function string.trim() end
+---
+---**MINETEST API**
+---@param str string
+function string.trim(str) end
 
 ---Adds newlines to the string to keep it within the specified character limit.
 ---
@@ -101,6 +112,8 @@ function minetest.is_nan(arg) end
 function minetest.get_us_time() end
 
 ---Returns a deep copy of `table`.
+---
+---**MINETEST API**
 ---@param table table
 ---@return table
 function table.copy(table) end
@@ -110,12 +123,16 @@ function table.copy(table) end
 ---Non-numerical indices are ignored.
 ---
 ---If `val` could not be found, `-1` is returned. `list` must not have negative indices.
+---
+---**MINETEST API**
 ---@param list any[]
 ---@param val any
 ---@return integer
 function table.indexof(list, val) end
 
 ---Appends all values in `other_table` to `table`, uses `#table + 1` to find new indices.
+---
+---**MINETEST API**
 ---@param table table
 ---@param other_table table
 function table.insert_all(table, other_table) end
@@ -123,14 +140,17 @@ function table.insert_all(table, other_table) end
 ---Returns a table with keys and values swapped.
 ---
 ---If multiple keys in `t` map to the same value, it is unspecified which value maps to that key.
+---
+---**MINETEST API**
 ---@param t table
 ---@return table
 function table.key_value_swap(t) end
 
 ---Shuffles elements `from` to `to` in `table` in place
+---
+---**MINETEST API**
 ---@param table table
 ---@param from? integer Defaults to `1`
 ---@param to? integer Defaults to `#table`
 ---@param random_func? function This function receives two integers as arguments and should return a random integer inclusively between them. Defaults to `math.random`
 function table.shuffle(table, from, to, random_func) end
-
