@@ -25,19 +25,19 @@ minetest.LIGHT_MAX = 14
 
 
 
----Block emerge status constants (for use with minetest.emerge_area)
+---Block emerge status constants (for use with `minetest.emerge_area`)
 minetest.EMERGE_CANCELLED = 0
 
----Block emerge status constants (for use with minetest.emerge_area)
+---Block emerge status constants (for use with `minetest.emerge_area`)
 minetest.EMERGE_ERRORED = 1
 
----Block emerge status constants (for use with minetest.emerge_area)
+---Block emerge status constants (for use with `minetest.emerge_area`)
 minetest.EMERGE_FROM_MEMORY = 2
 
----Block emerge status constants (for use with minetest.emerge_area)
+---Block emerge status constants (for use with `minetest.emerge_area`)
 minetest.EMERGE_FROM_DISK = 3
 
----Block emerge status constants (for use with minetest.emerge_area)
+---Block emerge status constants (for use with `minetest.emerge_area`)
 minetest.EMERGE_GENERATED = 4
 
 
@@ -45,6 +45,6 @@ minetest.EMERGE_GENERATED = 4
 ---@type '"/"'|'"\\\\"'
 DIR_DELIM = nil
 
----Platform Minetest was build for
+---Platform Minetest was build for.
 ---@type '"Android"'|'"Linux"'|'"Windows"'|'"BSD"'|'"OSX"'|'"iOS"'|'"Apple"'|'"AIX"'|'"HP-UX"'|'"Solaris"'|'"SunOS"'|'"Haiku"'|'"Cygwin"'|'"Posix"'|'"Unix"'|'"?"'
 PLATFORM = nil
