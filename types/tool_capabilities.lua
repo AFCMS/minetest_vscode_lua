@@ -1,3 +1,4 @@
+---@meta
 
 ---Tool capabilities is a property of items that defines two things:
 --1) Which nodes it can dig and how fast

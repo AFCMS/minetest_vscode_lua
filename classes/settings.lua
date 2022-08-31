@@ -1,3 +1,5 @@
+---@meta
+
 ---Returns a `Settings` object
 ---@param filename string
 ---@return Settings

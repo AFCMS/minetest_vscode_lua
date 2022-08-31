@@ -1,3 +1,5 @@
+---@meta
+
 -----------------
 -- MetaDataRef --
 -----------------
@@ -50,7 +52,6 @@ function MetaDataRef:get_float(key) end
 ---@return {fields: {[string]: any}}?
 function MetaDataRef:to_table() end
 
-
 ---Any non-table value will clear the metadata.
 ---
 ---Returns `true` on success.
@@ -63,8 +64,6 @@ function MetaDataRef:from_table(table) end
 ---@param other MetaDataRef
 ---@return boolean
 function MetaDataRef:equals(other) end
-
-
 
 -----------------
 -- NodeMetaRef --
@@ -100,7 +99,6 @@ function NodeMetaRef:get_inventory() end
 ---@param name string|string[]
 function NodeMetaRef:mark_as_private(name) end
 
-
 ----------------------
 -- ItemStackMetaRef --
 ----------------------
@@ -114,7 +112,6 @@ local ItemStackMetaRef = {}
 ---@param tool_capabilities tool_capabilities
 function ItemStackMetaRef:set_tool_capabilities(tool_capabilities) end
 
-
 ----------------
 -- StorageRef --
 ----------------
@@ -127,7 +124,6 @@ local StorageRef = {}
 ---Must be called during mod load time.
 ---@return StorageRef
 function minetest.get_mod_storage() end
-
 
 -------------------
 -- PlayerMetaRef --

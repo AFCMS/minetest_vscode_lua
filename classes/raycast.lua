@@ -1,3 +1,5 @@
+---@meta
+
 --FIXME: return value (iterator)
 
 ---Create a Raycast

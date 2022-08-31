@@ -1,3 +1,5 @@
+---@meta
+
 ---@class Vector: vectorlib
 ---@field x number
 ---@field y number

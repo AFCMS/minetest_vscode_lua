@@ -1,3 +1,5 @@
+---@meta
+
 ---`VoxelManip` is a scripting interface to the internal `Map Voxel Manipulator` facility.
 ---
 ---The purpose of this object is for fast, low-level, bulk access to reading and writing Map content.

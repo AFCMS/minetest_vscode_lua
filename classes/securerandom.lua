@@ -1,3 +1,5 @@
+---@meta
+
 ---Interface for the operating system's crypto-secure PRNG.
 ---@class SecureRandom
 local secure_random = {}

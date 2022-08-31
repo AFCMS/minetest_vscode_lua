@@ -1,3 +1,5 @@
+---@meta
+
 ---@class HTTPRequest
 local http_request = {}
 

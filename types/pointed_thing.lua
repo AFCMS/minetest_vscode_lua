@@ -1,3 +1,4 @@
+---@meta
 
 ---* `{type="nothing"}`
 ---* `{type="node", under=pos, above=pos}`

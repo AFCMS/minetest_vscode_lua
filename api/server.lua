@@ -1,3 +1,5 @@
+---@meta
+
 ---Request the server to shutdown.
 ---@param message? string Will display `message` to clients
 ---@param reconnect? boolean Displays a reconnect button to players

@@ -1,3 +1,4 @@
+---@meta
 
 ---This adds an alias `alias` for the item called `original_name`
 ---@param alias string

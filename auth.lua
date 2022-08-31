@@ -1,3 +1,5 @@
+---@meta
+
 ---@class authentication_handler_definition
 ---@field get_auth fun(name: string): {password: string, privileges: table<string, boolean>, last_login: integer|nil}
 ---@field create_auth fun(name: string, password: string)

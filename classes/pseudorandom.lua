@@ -1,3 +1,5 @@
+---@meta
+
 ---A 16-bit pseudorandom number generator.
 ---
 ---Uses a well-known LCG algorithm introduced by K&R.

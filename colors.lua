@@ -1,3 +1,5 @@
+---@meta
+
 ---@alias ColorString string
 
 ---A ColorSpec specifies a 32-bit color.

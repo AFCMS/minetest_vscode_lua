@@ -1,3 +1,5 @@
+---@meta
+
 ---@class noise_params
 local noise_params = {}
 

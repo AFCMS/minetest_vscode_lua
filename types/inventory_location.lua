@@ -1,3 +1,5 @@
+---@meta
+
 ---@class inventory_location
 local inventory_location = {}
 

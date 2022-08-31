@@ -1,3 +1,4 @@
+---@meta
 
 ---Returns the currently loading mod's name, when loading a mod.
 ---@return string
@@ -27,7 +28,6 @@ function minetest.get_worldpath() end
 ---Returns `true` if the game is launched as singleplayer.
 ---@return boolean
 function minetest.is_singleplayer() end
-
 
 ---Table containing API feature flags.
 minetest.features = {}
@@ -142,7 +142,6 @@ minetest.features.get_sky_as_table = true
 ---@return boolean
 ---@return table<string, boolean>
 function minetest.has_feature(arg) end
-
 
 ---@class player_informations
 local player_informations = {}
@@ -310,7 +309,6 @@ function minetest.get_dir_list(path, is_dir) end
 ---@param path string
 ---@param content string
 function minetest.safe_file_write(path, content) end
-
 
 ---Use this for informational purposes only.
 ---

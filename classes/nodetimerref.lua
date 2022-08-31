@@ -1,3 +1,5 @@
+---@meta
+
 ---A high resolution persistent per-node timer.
 ---@class NodeTimerRef
 local node_timer_ref = {}

@@ -1,3 +1,5 @@
+---@meta
+
 -- Builtin constants
 
 ---Built-in Content ID of uknown node (for use with VoxelManip API)

@@ -1,3 +1,4 @@
+---@meta
 
 ---Returns a list of all bans formatted as string.
 ---@return string

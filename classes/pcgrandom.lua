@@ -1,3 +1,4 @@
+---@meta
 
 ---A 32-bit pseudorandom number generator.
 ---Uses PCG32, an algorithm of the permuted congruential generator family, offering very strong randomness.

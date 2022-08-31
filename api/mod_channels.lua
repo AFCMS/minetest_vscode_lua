@@ -1,3 +1,5 @@
+---@meta
+
 ---Server joins channel `channel_name`, and creates it if necessary.
 ---
 --You should listen for incoming messages with `minetest.register_on_modchannel_message`.

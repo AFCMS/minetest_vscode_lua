@@ -1,3 +1,5 @@
+---@meta
+
 ---@class item_definition
 local item_definition = {}
 

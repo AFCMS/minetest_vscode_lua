@@ -1,3 +1,5 @@
+---@meta
+
 ---Returns list of `ObjectRefs`.
 ---@return ObjectRef[]
 function minetest.get_connected_players() end
@@ -16,7 +18,6 @@ function minetest.player_exists(name) end
 ---@param name '"breath"'|'"health"'
 ---@param hud_definition hud_definition
 function minetest.hud_replace_builtin(name, hud_definition) end
-
 
 ---This function can be overridden by mods to change the join message.
 ---@param player_name string
@@ -84,7 +85,6 @@ function minetest.get_name_from_content_id(content_id) end
 ---@param nullvalue? any Returned in place of the JSON null; defaults to `nil`
 ---@return table|string|number|boolean|nil
 function minetest.parse_json(string, nullvalue) end
-
 
 ---Convert a Lua table into a JSON string.
 ---
@@ -277,7 +277,6 @@ function minetest.forceload_block(pos, transient) end
 ---@param transient? boolean
 function minetest.forceload_free_block(pos, transient) end
 
-
 ---Checks whether the mapblock at positition `pos` is in the wanted condition.
 ---
 ---`condition` may be one of the following values:
@@ -308,5 +307,3 @@ function minetest.request_insecure_environment() end
 ---@param name string
 ---@return boolean
 function minetest.global_exists(name) end
-
-

@@ -1,3 +1,5 @@
+---@meta
+
 ---`minetest.get_translator(textdomain)` is a simple wrapper around `minetest.translate`.
 ---
 ---`minetest.get_translator(textdomain)(str, ...)` is equivalent to `minetest.translate(textdomain, str, ...)`.
@@ -17,7 +19,6 @@ function minetest.get_translator(textdomain) end
 ---@param str string
 ---@param ... string
 function minetest.translate(textdomain, str, ...) end
-
 
 ---@alias lang_code
 ---| '"be"'

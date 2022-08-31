@@ -1,3 +1,5 @@
+---@meta
+
 ---AreaStore is a data structure to calculate intersections of 3D cuboid volumes and points.
 ---
 ---The `data` field (string) may be used to store and retrieve any mod-relevant information to the specified area.

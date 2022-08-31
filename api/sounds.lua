@@ -1,3 +1,5 @@
+---@meta
+
 ---Play a sound.
 ---
 ---A handle is returned by default for use with `minetest.sound_stop` and `minetest.sound_fade`.

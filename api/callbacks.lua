@@ -1,3 +1,5 @@
+---@meta
+
 ---Register a function that will be called every server step, usually interval of 0.1s
 ---@param func fun(dtime: number)
 function minetest.register_globalstep(func) end

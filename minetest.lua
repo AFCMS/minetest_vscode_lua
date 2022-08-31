@@ -1,4 +1,4 @@
----@diagnostic disable: lowercase-global
+---@meta
 
 ---Minetest 7ffc0268 API
 ---

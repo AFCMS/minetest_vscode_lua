@@ -1,3 +1,4 @@
+---@meta
 
 ---Returns an `ItemStack`
 ---@param x ItemStack|string|table|nil
@@ -29,7 +30,6 @@ function stack:get_count() end
 ---@param count integer
 ---@return boolean
 function stack:set_count(count) end
-
 
 ---Returns tool wear (`0`-`65535`), `0` for non-tools.
 ---@return integer

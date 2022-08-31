@@ -1,3 +1,4 @@
+---@meta
 
 ---Examples of sound parameter tables:
 ---

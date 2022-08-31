@@ -1,3 +1,5 @@
+---@meta
+
 ---@class node
 local node = {}
 

@@ -1,3 +1,5 @@
+---@meta
+
 ---@alias log_level '"none"'|'"error"'|'"warning"'|'"action"'|'"info"'|'"verbose"'
 
 ---Log a message.

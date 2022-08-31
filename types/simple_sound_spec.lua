@@ -1,3 +1,4 @@
+---@meta
 
 ---Specifies a sound name, gain (=volume) and pitch.
 ---

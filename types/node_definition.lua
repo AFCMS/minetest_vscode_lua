@@ -1,3 +1,5 @@
+---@meta
+
 ---*_optional` drawtypes need less rendering time if deactivated (always client-side).
 ---@alias node_drawtype
 ---|> '"normal"' # A node-sized cube.

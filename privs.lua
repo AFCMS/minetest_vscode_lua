@@ -1,3 +1,5 @@
+---@meta
+
 ---@class privilege_definition
 local privilege_definition = {}
 

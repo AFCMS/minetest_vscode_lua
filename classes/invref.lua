@@ -1,3 +1,5 @@
+---@meta
+
 ---A reference to an inventory.
 ---@class InvRef
 local InvRef = {}
@@ -19,7 +21,6 @@ function InvRef:get_size(listname) end
 ---@param size integer
 ---@return boolean
 function InvRef:set_size(listname, size) end
-
 
 ---Get the width of a list.
 ---@param listname string

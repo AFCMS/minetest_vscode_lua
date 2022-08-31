@@ -1,3 +1,5 @@
+---@meta
+
 ---@class PlayerHPChangeReason
 local player_hp_change = {}
 

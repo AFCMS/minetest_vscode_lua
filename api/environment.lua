@@ -1,3 +1,5 @@
+---@meta
+
 ---Set node at position `pos`.
 ---@param pos Vector
 ---@param node node

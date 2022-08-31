@@ -1,3 +1,4 @@
+---@meta
 
 ---Send a chat message to all players
 ---@param text string

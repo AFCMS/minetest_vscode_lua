@@ -1,9 +1,10 @@
+---@meta
+
 ---Show a formspec to a player.
 ---@param playername string Name of player to show formspec
 ---@param formname string Passed to `on_player_receive_fields` callbacks, should follow the `"modname:<whatever>"` naming convention
 ---@param formspec string Formspec to display
 function minetest.show_formspec(playername, formname, formspec) end
-
 
 ---Close a formspec.    * `playername`: name of player to close formspec
 ---
@@ -30,7 +31,6 @@ function minetest.formspec_escape(string) end
 ---@param string string
 ---@return {type: '"INV"'|'"CHG"'|'"DCL"', row: integer, column: integer}
 function minetest.explode_table_event(string) end
-
 
 ---Returns e.g. `{type="CHG", index=1}`
 ---

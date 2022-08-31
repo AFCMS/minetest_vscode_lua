@@ -1,3 +1,5 @@
+---@meta
+
 ---Queue the function `func` to be ran in an async environment.
 ---
 ---Note that there are multiple persistent workers and any of them may end up running a given job.
