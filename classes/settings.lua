@@ -73,7 +73,7 @@ minetest.settings = {}
 
 ---Loads a setting from the main settings and parses it as a position (in the format `(1,2,3)`).
 ---
----Returns a position or nil.
+---Returns a position or `nil`.
 ---@param name string
 ---@return Vector?
 function minetest.setting_get_pos(name) end

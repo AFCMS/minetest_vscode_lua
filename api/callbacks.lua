@@ -115,7 +115,7 @@ function minetest.register_on_player_hpchange(func, modifier) end
 
 ---Map of registered on_player_hpchange.
 ---@type {modifiers: fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason)[], loggers: fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason)[]}
-minetest.registered_on_player_hpchanges = { modifiers = { }, loggers = { } }
+minetest.registered_on_player_hpchanges = { modifiers = {}, loggers = {} }
 
 ---Register a function that will be called when a player dies.
 ---@param func fun(player: ObjectRef, reason: PlayerHPChangeReason)
@@ -274,3 +274,107 @@ function minetest.register_craft_predict(func) end
 ---@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
 minetest.registered_craft_predicts = {}
 
+---Determines how much of a stack may be taken, put or moved to a player inventory.
+---
+---`player` (type `ObjectRef`) is the player who modified the inventory `inventory` (type `InvRef`).
+---
+---List of possible `action` (string) values and their `inventory_info` (table) contents:
+---* `move`: `{from_list=string, to_list=string, from_index=number, to_index=number, count=number}`
+---* `put`:  `{listname=string, index=number, stack=ItemStack}`
+---* `take`: Same as `put`
+---
+---Return a numeric value to limit the amount of items to be taken, put or moved.
+---
+---A value of `-1` for `take` will make the source stack infinite.
+---@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer
+function minetest.register_allow_player_inventory_action(func) end
+
+---Map of registered allow_player_inventory_action.
+---@type fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack})[]
+minetest.registered_allow_player_inventory_action = {}
+
+---Called after a take, put or move event from/to/in a player inventory.
+---
+---Function arguments: see `minetest.register_allow_player_inventory_action`
+---
+---Does not accept or handle any return value.
+---@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack})
+function minetest.register_on_player_inventory_action(func) end
+
+---Map of registered on_player_inventory_action.
+---@type fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack})[]
+minetest.registered_on_player_inventory_action = {}
+
+---Called by `builtin` and mods when a player violates protection at a position (eg, digs a node or punches a protected entity).
+---
+---The registered functions can be called using `minetest.record_protection_violation`.
+---
+---The provided function should check that the position is protected by the mod calling this function before it prints a message, if it does, to allow for multiple protection mods.
+---@param func fun(pos: Vector, name: string)
+function minetest.register_on_protection_violation(func) end
+
+---Map of registered on_protection_violation.
+---@type fun(pos: Vector, name: string)[]
+minetest.registered_on_protection_violation = {}
+
+---Called when an item is eaten, by `minetest.item_eat`.
+---
+---Return `itemstack` to cancel the default item eat response (i.e.: hp increase).
+---@param func fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing): ItemStack
+function minetest.register_on_item_eat(func) end
+
+---Map of registered on_item_eat.
+---@type fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing)[]
+minetest.registered_on_item_eat = {}
+
+---Called when `granter` grants the priv `priv` to `name`.
+---
+---Note that the callback will be called twice if it's done by a player, once with `granter` being the player name, and again with `granter` being `nil`.
+---@param func fun(name: string, granter?: string, priv: string)
+function minetest.register_on_priv_grant(func) end
+
+---Map of registered on_priv_grant.
+---@type fun(name: string, granter?: string, priv: string)[]
+minetest.registered_on_priv_grant = {}
+
+---Called when `revoker` revokes the priv `priv` from `name`.
+---
+---Note that the callback will be called twice if it's done by a player, once with `revoker` being the player name, and again with `revoker` being `nil`.
+---@param func fun(name: string, revoker?: string, priv: string)
+function minetest.register_on_priv_revoke(func) end
+
+---Map of registered on_priv_revoke.
+---@type fun(name: string, revoker?: string, priv: string)[]
+minetest.registered_on_priv_revoke = {}
+
+---Called when `name` user connects with `ip`.
+---
+---Return `true` to by pass the player limit
+---@param func fun(name: string, ip: string): boolean
+function minetest.register_can_bypass_userlimit(func) end
+
+---Map of registered can_bypass_userlimit.
+---@type fun(name: string, ip: string)[]
+minetest.registered_can_bypass_userlimit = {}
+
+---Called when an incoming mod channel message is received
+---
+---You should have joined some channels to receive events.
+---
+---If message comes from a server mod, `sender` field is an empty string.
+---@param func fun(channel_name: string, sender: string, message: string)
+function minetest.register_on_modchannel_message(func) end
+
+---Map of registered on_modchannel_message.
+---@type fun(channel_name: string, sender: string, message: string)[]
+minetest.registered_on_modchannel_message = {}
+
+---Called after liquid nodes (`liquidtype ~= "none"`) are modified by the engine's liquid transformation process.
+---* `pos_list` is an array of all modified positions.
+---* `node_list` is an array of the old node that was previously at the position with the corresponding index in `pos_list`.
+---@param func fun(pos_list: Vector[], node_list: node[])
+function minetest.register_on_liquid_transformed(func) end
+
+---Map of registered on_liquid_transformed.
+---@type fun(pos_list: Vector[], node_list: node[])[]
+minetest.registered_on_liquid_transformed = {}
