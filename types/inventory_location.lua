@@ -12,5 +12,5 @@ inventory_location.type = nil
 inventory_location.name = nil
 
 ---If inventory location is node, refers to the node position.
----@type Vector
+---@type Vector?
 inventory_location.pos = nil
