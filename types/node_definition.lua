@@ -197,7 +197,12 @@ drop_definition.max_items = nil
 drop_definition.items = nil
 
 ---@class node_definition: item_definition
+---@field test '"A"'|'"B"' Test thing
 local node_definition = {}
+
+minetest.register_node("ss", {
+	test = "A"
+})
 
 ---Node rendering type.
 ---@type node_drawtype

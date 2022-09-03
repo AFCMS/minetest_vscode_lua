@@ -1,0 +1,81 @@
+---@meta
+
+---**Shaped**
+---```lua
+---{
+---	output = "default:pick_stone",
+---	recipe = {
+---		{"default:cobble", "default:cobble", "default:cobble"},
+---		{"", "default:stick", ""},
+---		{"", "default:stick", ""},  -- Also groups; e.g. "group:crumbly"
+---	},
+---	replacements = <list of item pairs>, -- Replace one input item with another item on crafting (optional).
+---}
+---```
+---
+---**Shapeless**
+---```lua
+---{
+---	type = "shapeless",
+---	output = "mushrooms:mushroom_stew",
+---	recipe = {
+---		"mushrooms:bowl",
+---		"mushrooms:mushroom_brown",
+---		"mushrooms:mushroom_red",
+---	},
+---	replacements = <list of item pairs>,
+---}
+---```
+---
+---**Tool repair**
+---```lua
+---{
+---	type = "toolrepair",
+---	additional_wear = -0.02, -- Multiplier of 65536
+---}
+---```
+---Adds a shapeless recipe for *every* tool that doesn't have the `disable_repair=1` group.
+---
+---Player can put 2 equal tools in the craft grid to get one "repaired" tool back.
+---
+---The wear of the output is determined by the wear of both tools, plus a 'repair bonus' given by `additional_wear`.
+---
+---To reduce the wear (i.e. 'repair'), you want `additional_wear` to be negative.
+---
+---The formula used to calculate the resulting wear is:
+---
+---	65536 - ( (65536 - tool_1_wear) + (65536 - tool_2_wear) + 65536 * additional_wear )
+---
+---The result is rounded and can't be lower than 0. If the result is 65536 or higher, no crafting is possible.
+---
+---**Cooking**
+---```lua
+---{
+---	type = "cooking",
+---	output = "default:glass",
+---	recipe = "default:sand",
+---	cooktime = 3,
+---}
+---```
+---
+---**Furnace fuel**
+---```lua
+---{
+---	type = "fuel",
+---	recipe = "bucket:bucket_lava",
+---	burntime = 60,
+---	replacements = {{"bucket:bucket_lava", "bucket:bucket_empty"}},
+---}
+---```
+---@class craft_recipe
+---@field type '"shaped"'|'"shapeless"'|'"toolrepair"'|'"cooking"'|'"fuel"'
+---@field output string
+---@field recipe string|string[]|string[][]
+---@field replacements string[][]
+---@field additional_wear number
+---@field cooktime number
+---@field burntime number
+
+---Register a craft recipe
+---@param recipe craft_recipe
+function minetest.register_craft(recipe) end

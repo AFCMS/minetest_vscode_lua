@@ -222,7 +222,7 @@ function minetest.get_voxel_manip(pos1, pos2) end
 ---* decoration
 ---
 ---The second parameter is a list of IDs of decorations which notification is requested for.
----@param flags string
+---@param flags flag_specifier
 ---@param deco_ids unknown[]
 function minetest.set_gen_notify(flags, deco_ids) end
 
