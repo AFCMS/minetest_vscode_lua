@@ -157,8 +157,8 @@ function ObjectRef:get_bone_position(bone) end
 ---@field eye_height number
 ---@field physical boolean
 ---@field collide_with_objects boolean
----@field collisionbox number[6]
----@field selectionbox number[6]
+---@field collisionbox number[]
+---@field selectionbox number[]
 ---@field pointable boolean
 ---@field visual '"cube"'|'"sprite"'|'"upright_sprite"'|'"mesh"'|'"wielditem"'|'"item"'
 ---@field visual_size Vector

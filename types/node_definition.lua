@@ -51,120 +51,71 @@
 ---|'"flowing"'
 
 ---@class nodebox
-local nodebox = {}
-
 ---* `"regular"`: A normal cube; the default in most things
 ---* `"fixed"`: A fixed box (or boxes) (facedir param2 is used, if applicable)
 ---* `"leveled"`: A variable height box (or boxes) with the top face position defined by the node parameter `leveled = `, or if `paramtype2 == "leveled"` by param2. Other faces are defined by `fixed = {}` as with `type = "fixed"`.
 ---* `"wallmounted"`: A box like the selection box for torches (wallmounted param2 is used, if applicable)
 ---* `"connected"`: A node that has optional boxes depending on neighbouring nodes' presence and type. See also `node_definition.connects_to`.
----@type '"regular"'|'"fixed"'|'"leveled"'|'"wallmounted"'|'"connected"'
-nodebox.type = nil
-
+---@field type '"regular"'|'"fixed"'|'"leveled"'|'"wallmounted"'|'"connected"'
 ---**`"fixed"`, `"leveled"`, `"connected"` types only**
----@type number[]|number[][]
-nodebox.fixed = nil
-
+---@field fixed number[]|number[][]
 ---**`"wallmounted"` type only**
----@type number[]
-nodebox.wall_top = nil
-
+---@field wall_top number[]
 ---**`"wallmounted"` type only**
----@type number[]
-nodebox.wall_bottom = nil
-
+---@field wall_bottom number[]
 ---**`"wallmounted"` type only**
----@type number[]
-nodebox.wall_side = nil
-
+---@field wall_side number[]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_top = nil
-
+---@field connect_top number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_bottom = nil
-
+---@field connect_bottom number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_front = nil
-
+---@field connect_front number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_left = nil
-
+---@field connect_left number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_back = nil
-
+---@field connect_back number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.connect_right = nil
-
+---@field connect_right number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_top = nil
-
+---@field disconnected_top number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_bottom = nil
-
+---@field disconnected_bottom number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_front = nil
-
+---@field disconnected_front number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_left = nil
-
+---@field disconnected_left number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_back = nil
-
+---@field disconnected_back number[]|number[][]
 ---**`"connected"` type only**
----@type number[]|number[][]
-nodebox.disconnected_right = nil
-
+---@field disconnected_right number[]|number[][]
 ---**`"connected"` type only**
 ---
 ---When there is *no* neighbour node.
----@type number[]|number[][]
-nodebox.disconnected = nil
-
+---@field disconnected number[]|number[][]
 ---**`"connected"` type only**
 ---
 ---When there are *no* neighbour nodes to the sides.
----@type number[]|number[][]
-nodebox.disconnected_sides = nil
+---@field disconnected_sides number[]|number[][]
 
 
 ---@class drop_definition_item
-local drop_definition_item = {}
-
 ---Specify the chance of dropping the items.
 ---
 ---`rarity = 1000` => `1` chance over `1000`
 ---
 ---Default: `1`
----@type integer
-drop_definition_item.rarity = nil
-
+---@field rarity integer
 ---The items to drop.
----@type string[]
-drop_definition_item.items = nil
-
+---@field items string[]
 ---Only drop if using an item with one of these names.
 ---
 ---e.g. `{"default:shovel_mese", "default:shovel_diamond"}`
----@type string[]
-drop_definition_item.tools = nil
-
+---@field tools string[]
 ---Whether all items in the dropped item list inherit the hardware coloring palette color from the dug node.
 ---
 ---Default: `false`
----@type boolean
-drop_definition_item.inherit_color = nil
-
+---@field inherit_color boolean
 ---Only drop if using an item with one the specified groups.
 ---
 ---e.g. Only drop if using an item in the `magicwand` group, or an item that is in both the `pickaxe` and the `lucky` groups.
@@ -174,13 +125,10 @@ drop_definition_item.inherit_color = nil
 ---    {"pickaxe", "lucky"}
 ---}
 ---```
----@type table
-drop_definition_item.tool_groups = nil
+---@field tool_groups (string|string[])[]
 
 
 ---@class drop_definition
-local drop_definition = {}
-
 ---Maximum number of item lists to drop.
 ---
 ---The entries in `items` are processed in order. For each:
@@ -190,24 +138,13 @@ local drop_definition = {}
 ---Therefore, entries should progress from low to high drop chance.
 ---
 ---Default: `0`
----@type integer
-drop_definition.max_items = nil
+---@field max_items integer
+---@field items drop_definition_item[]
 
----@type drop_definition_item[]
-drop_definition.items = nil
 
 ---@class node_definition: item_definition
----@field test '"A"'|'"B"' Test thing
-local node_definition = {}
-
-minetest.register_node("ss", {
-	test = "A"
-})
-
 ---Node rendering type.
----@type node_drawtype
-node_definition.drawtype = nil
-
+---@field drawtype node_drawtype
 ---Supported for drawtypes "plantlike", "signlike", "torchlike", "firelike", "mesh", "nodebox", "allfaces".
 ---
 ---For plantlike and firelike, the image will start at the bottom of the node.
@@ -215,17 +152,13 @@ node_definition.drawtype = nil
 ---For torchlike, the image will start at the surface to which the node "attaches".
 ---
 ---For the other drawtypes the image will be centered on the node.
----@type number
-node_definition.visual_scale = nil
-
----Textures of node; +Y, -Y, +X, -X, +Z, -Z.
+---@field visual_scale number
+---Textures of node; `+Y`, `-Y`, `+X`, `-X`, `+Z`, `-Z`.
 ---
 ---Old field name was `tile_images`.
 ---
 ---List can be shortened to needed length.
----@type tile_definition[]
-node_definition.tiles = nil
-
+---@field tiles tile_definition[]
 ---Same as `tiles`, but these textures are drawn on top of the base tiles.
 ---
 ---You can use this to colorize only specific parts of your texture.
@@ -233,23 +166,17 @@ node_definition.tiles = nil
 ---If the texture name is an empty string, that overlay is not drawn.
 ---
 ---Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes.
----@type tile_definition[]
-node_definition.overlay_tiles = nil
-
+---@field overlay_tiles tile_definition[]
 ---Special textures of node; used rarely.
 ---
 ---Old field name was `special_materials`.
 ---
 ---List can be shortened to needed length.
----@type tile_definition[]
-node_definition.special_tiles = nil
-
+---@field special_tiles tile_definition[]
 ---The node's original color will be multiplied with this color.
 ---
 ---If the node has a palette, then this setting only has an effect in the inventory and on the wield item.
----@type ColorSpec
-node_definition.color = nil
-
+---@field color ColorSpec
 ---Specifies how the texture's alpha channel will be used for rendering.
 ---
 ---* `opaque`: Node is rendered opaque regardless of alpha channel
@@ -259,9 +186,7 @@ node_definition.color = nil
 ---The default is `opaque` for drawtypes normal, liquid and flowingliquid; `clip` otherwise.
 ---
 ---If set to a boolean value (deprecated): true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype.
----@type '"opaque"'|'"clip"'|'"blend"'
-node_definition.use_texture_alpha = nil
-
+---@field use_texture_alpha '"opaque"'|'"clip"'|'"blend"'
 ---The node's `param2` is used to select a pixel from the image.
 ---
 ---Pixels are arranged from left to right and from top to bottom.
@@ -271,115 +196,75 @@ node_definition.use_texture_alpha = nil
 ---Tiles can override this behavior.
 ---
 ---Only when `paramtype2` supports palettes.
----@type string
-node_definition.palette = nil
-
+---@field palette string
 ---Screen tint if player is inside node.
----@type ColorSpec
-node_definition.post_effect_color = nil
-
+---@field post_effect_color ColorSpec
 ---Define how to use the internal `param1` value.
----@type paramtype
-node_definition.paramtype = nil
-
+---@field paramtype paramtype
 ---Define how to use the internal `param2` value.
----@type paramtype2
-node_definition.paramtype2 = nil
-
----Force value for param2 when player places node.
----@type integer
-node_definition.place_param2 = nil
-
----If false, the cave generator and dungeon generator will not carve through this node.
+---@field paramtype2 paramtype2
+---Force value for `param2` when player places node.
+---@field place_param2 integer
+---If `false`, the cave generator and dungeon generator will not carve through this node.
 ---
 ---Specifically, this stops mod-added nodes being removed by caves and dungeons when those generate in a neighbor mapchunk and extend out beyond the edge of that mapchunk.
----@type boolean
-node_definition.is_ground_content = nil
-
----If true, sunlight will go infinitely through this node.
----@type boolean
-node_definition.sunlight_propagates = nil
-
----If true, objects collide with node
----@type boolean
-node_definition.walkable = nil
-
----If true, can be pointed at
----@type boolean
-node_definition.pointable = nil
-
----If false, can never be dug
----@type boolean
-node_definition.diggable = nil
-
----If true, can be climbed on (ladder)
----@type boolean
-node_definition.climbable = nil
-
+---@field is_ground_content boolean
+---If `true`, sunlight will go infinitely through this node.
+---@field sunlight_propagates boolean
+---If `true`, objects collide with node.
+---@field walkable boolean
+---If `true`, can be pointed at.
+---@field pointable boolean
+---If `false`, can never be dug.
+---@field diggable boolean
+---If `true`, can be climbed on (ladder)
+---@field climbable boolean
 ---Slows down movement of players through this node (max. 7).
 ---
 ---If this is `nil`, it will be equal to liquid_viscosity.
 ---
 ---Note: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings.
----@type integer
-node_definition.move_resistance = nil
-
----If true, placed nodes can replace this node.
+---@field move_resistance integer
+---If `true`, placed nodes can replace this node.
 ---
 ---Default: `false`
----@type boolean
-node_definition.buildable_to = nil
-
----If true, liquids can flow into and replace this node.
+---@field buildable_to boolean
+---If `true`, liquids can flow into and replace this node.
 ---
----Warning: making a liquid node `floodable` will cause problems.
+---**Warning:** making a liquid node `floodable` will cause problems.
 ---
 ---Default: `false`
----@type boolean
-node_definition.floodable = nil
-
+---@field floodable boolean
 ---Specifies flowing liquid physics.
 ---* `"none"`:    no liquid flowing physics
 ---* `"source"`:  spawns flowing liquid nodes at all 4 sides and below; recommended drawtype: `"liquid"`.
 ---* `"flowing"`: spawned from source, spawns more flowing liquid nodes around it until `liquid_range` is reached; will drain out without a source; recommended drawtype: `"flowingliquid"`.
 ---
----If it's `"source"` or `"flowing"` and `liquid_range > 0`, then both `liquid_alternative_*` fields must be specified
----@type liquidtype
-node_definition.liquidtype = nil
-
+---If it's `"source"` or `"flowing"` and `liquid_range > 0`, then both `liquid_alternative_*` fields must be specified.
+---@field liquidtype liquidtype
 ---Flowing version of liquid source.
 ---
 ---See `node_definition.liquidtype`
----@type string
-node_definition.liquid_alternative_flowing = nil
-
+---@field liquid_alternative_flowing string
 ---Source version of liquid flowing.
 ---
 ---See `node_definition.liquidtype`
----@type string
-node_definition.liquid_alternative_source = nil
-
+---@field liquid_alternative_source string
 ---Controls speed at which the liquid spreads/flows (max. 7).
 ---
 ---`0` is fastest, `7` is slowest.
 ---
 ---By default, this also slows down movement of players inside the node (can be overridden using `node_definition.move_resistance`).
----@type integer
-node_definition.liquid_viscosity = nil
-
----If true, a new liquid source can be created by placing two or more sources nearby.
----@type boolean
-node_definition.liquid_renewable = nil
-
+---@field liquid_viscosity integer
+---If `true`, a new liquid source can be created by placing two or more sources nearby.
+---@field liquid_renewable boolean
 ---Specifies movement physics if inside node:
 ---* `false`: No liquid movement physics apply.
 ---* `true`: Enables liquid movement physics. Enables things like ability to "swim" up/down, sinking slowly if not moving, smoother speed change when falling into, etc. The `movement_liquid_*` settings apply.
 ---* `nil`: Will be treated as `true` if `liquidype ~= "none"` and as `false` otherwise.
 ---
 ---Default: `nil`
----@type boolean
-node_definition.liquid_move_physics = nil
-
+---@field liquid_move_physics boolean?
 ---Only valid for `"nodebox"` drawtype with `type = "leveled"`.
 ---
 ---Allows defining the nodebox height without using param2.
@@ -387,73 +272,48 @@ node_definition.liquid_move_physics = nil
 ---The nodebox height is `leveled / 64` nodes.
 ---
 ---The maximum value of `leveled` is `leveled_max`.
----@type integer
-node_definition.leveled = nil
-
+---@field leveled integer
 ---Maximum value for `leveled` (`0-127`), enforced in `minetest.set_node_level` and `minetest.add_node_level`.
 ---
 ---Values above `124` might causes collision detection issues.
----@type integer
-node_definition.leveled_max = nil
-
+---@field leveled_max integer
 ---Maximum distance that flowing liquid nodes can spread around source on flat land;
 ---
 ---Max: `8`; `0` to disable liquid flow.
-node_definition.liquid_range = nil
-
+---@field liquid_range integer
 ---Player will take this amount of damage if no bubbles are left.
----@type integer
-node_definition.drowning = nil
-
+---@field drowning integer
 ---If player is inside node, this damage is caused every second.
----@type integer
-node_definition.damage_per_second = nil
-
+---@field damage_per_second integer
 ---See `nodebox` definition.
----@type nodebox
-node_definition.node_box = nil
-
+---@field node_box nodebox
 ---Used for nodebox nodes with `type = "connected"`.
 ---
 ---Specifies to what neighboring nodes connections will be drawn.
 ---
 ---e.g. `{"group:fence", "default:wood"}` or `"default:stone"`
----@type string|string[]
-node_definition.connects_to = nil
-
+---@field connects_to string|string[]
 ---Tells connected nodebox nodes to connect only to these sides.
 ---
 ---e.g. `{ "top", "bottom", "front", "left", "back", "right" }`
----@type string[]
-node_definition.connect_sides = nil
-
+---@field connect_sides ('"top"'|'"bottom"'|'"front"'|'"left"'|'"back"'|'"right"')[]
 ---File name of mesh when using `"mesh"` drawtype.
----@type string
-node_definition.mesh = nil
-
+---@field mesh string
 ---Custom selection box definition.
 ---
 ---Multiple boxes can be defined.
 ---
 ---If `"nodebox"` drawtype is used and `selection_box` is `nil`, then `nodebox` definition is used for the selection box by default.
----@type nodebox
-node_definition.selection_box = nil
-
+---@field selection_box nodebox
 ---Custom collision box definition.
 ---
 ---Multiple boxes can be defined.
 ---If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `nodebox` definition is used for the collision box by default.
----@type nodebox
-node_definition.collision_box = nil
-
+---@field collision_box nodebox
 ---Support maps made in and before January 2012.
----@type boolean
-node_definition.legacy_facedir_simple = nil
-
+---@field legacy_facedir_simple boolean
 ---Support maps made in and before January 2012.
----@type boolean
-node_definition.legacy_wallmounted = nil
-
+---@field legacy_wallmounted boolean
 ---Valid for drawtypes: `mesh`, `nodebox`, `plantlike`, `allfaces_optional`, `liquid`, `flowingliquid`.
 ---* `1`: Wave node like plants (node top moves side-to-side, bottom is fixed)
 ---* `2`: Wave node like leaves (whole node moves side-to-side)
@@ -463,9 +323,7 @@ node_definition.legacy_wallmounted = nil
 ---* `plantlike` drawtype can only wave like plants
 ---* `allfaces_optional` drawtype can only wave like leaves
 ---* `liquid`, `flowingliquid` drawtypes can only wave like liquids
----@type 0|1|2|3
-node_definition.waving = nil
-
+---@field waving 0|1|2|3
 ---Definition of node sounds to be played at various events.
 ---
 ---All fields in this table are optional.
@@ -476,79 +334,45 @@ node_definition.waving = nil
 ---* `place`: Played after node was placed. Also played after falling
 ---* `place_failed`: Played when node placement failed. Note: this happens if the _built-in_ node placement failed. This sound will still be played if the node is placed in the `on_place` callback manually.
 ---* `fall`: Played when node starts to fall or is detached.
----@type {footstep: SimpleSoundSpec, dig: SimpleSoundSpec, dug: SimpleSoundSpec, place: SimpleSoundSpec, place_failed: SimpleSoundSpec, fall: SimpleSoundSpec}
-node_definition.sounds = nil
-
----@type string|drop_definition
-node_definition.drop = nil
-
----@type fun(pos: Vector)
-node_definition.on_construct = nil
-
----@type fun(pos: Vector)
-node_definition.on_destruct = nil
-
----@type fun(pos: Vector, oldnode: node)
-node_definition.after_destruct = nil
-
----@type fun(pos: Vector, oldnode: node, newnode: node)
-node_definition.on_flood = nil
-
----@type fun(pos: Vector, oldnode: node, oldmeta: NodeMetaRef, drops: ItemStack[])
-node_definition.preserve_metadata = nil
-
----@type fun(pos: Vector, placer: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
-node_definition.after_place_node = nil
-
----@type fun(pos: Vector, oldnode: node, oldmetadata: NodeMetaRef, digger: ObjectRef)
-node_definition.after_dig_node = nil
-
----@type fun(pos: Vector, player?: ObjectRef)
-node_definition.can_dig = nil
-
----@type fun(pos: Vector, node: node, puncher: ObjectRef, pointed_thing: pointed_thing)
-node_definition.on_punch = nil
-
----@type fun(pos: Vector, node: node, clicker: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
-node_definition.on_rightclick = nil
-
----@type fun(pos: Vector, node: node, digger: ObjectRef)
-node_definition.on_dig = nil
-
----@type fun(pos: Vector, elapsed: number)
-node_definition.on_timer = nil
-
----@type fun(pos: Vector, formname: string, fields: table<string, any>, sender: ObjectRef)
-node_definition.on_receive_fields = nil
-
----@type fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
-node_definition.allow_metadata_inventory_move = nil
-
----@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
-node_definition.allow_metadata_inventory_put = nil
-
----@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
-node_definition.allow_metadata_inventory_take = nil
-
----@type fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
-node_definition.on_metadata_inventory_move = nil
-
----@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
-node_definition.on_metadata_inventory_put = nil
-
----@type fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
-node_definition.on_metadata_inventory_take = nil
-
----@type fun(pos: Vector, intensity: number)
-node_definition.on_blast = nil
-
+---@field sounds {footstep: SimpleSoundSpec, dig: SimpleSoundSpec, dug: SimpleSoundSpec, place: SimpleSoundSpec, place_failed: SimpleSoundSpec, fall: SimpleSoundSpec}
+---@field drop string|drop_definition
+---@field on_construct fun(pos: Vector)
+---@field on_destruct fun(pos: Vector)
+---@field after_destruct fun(pos: Vector, oldnode: node)
+---@field on_flood fun(pos: Vector, oldnode: node, newnode: node)
+---@field preserve_metadata fun(pos: Vector, oldnode: node, oldmeta: NodeMetaRef, drops: ItemStack[])
+---@field after_place_node fun(pos: Vector, placer: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
+---@field after_dig_node fun(pos: Vector, oldnode: node, oldmetadata: NodeMetaRef, digger: ObjectRef)
+---@field can_dig fun(pos: Vector, player?: ObjectRef)
+---@field on_punch fun(pos: Vector, node: node, puncher: ObjectRef, pointed_thing: pointed_thing)
+---@field on_rightclick fun(pos: Vector, node: node, clicker: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
+---@field on_dig fun(pos: Vector, node: node, digger: ObjectRef)
+---@field on_timer fun(pos: Vector, elapsed: number)
+---@field on_receive_fields fun(pos: Vector, formname: string, fields: table<string, any>, sender: ObjectRef)
+---@field allow_metadata_inventory_move fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
+---@field allow_metadata_inventory_put fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---@field allow_metadata_inventory_take fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---@field on_metadata_inventory_move fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
+---@field on_metadata_inventory_put fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---@field on_metadata_inventory_take fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---@field on_blast fun(pos: Vector, intensity: number)
 ---**Automaticaly set by the engine**
 ---
 ---Contains the mod which registered the node.
 ---
 ---e.g.: if a node is registered as `:othermodname:nodename`, nodename will show `othermodname`, but `mod_origin` will say `modname`.
----@type string
-node_definition.mod_origin = nil
+---@field mod_origin string
+
+
+minetest.register_node("ss", {
+	test = "A",
+	connect_sides = { "top", "bottom", "back" },
+	waving = 0,
+	on_blast = function(pos, intensity) end,
+	drop = { items = {
+		{ rarity = 1 }
+	} },
+})
 
 
 --TODO: move this somewhere else
