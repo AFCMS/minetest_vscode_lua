@@ -336,25 +336,128 @@
 ---* `fall`: Played when node starts to fall or is detached.
 ---@field sounds {footstep: SimpleSoundSpec, dig: SimpleSoundSpec, dug: SimpleSoundSpec, place: SimpleSoundSpec, place_failed: SimpleSoundSpec, fall: SimpleSoundSpec}
 ---@field drop string|drop_definition
+---Node constructor; called after adding node.
+---
+---Can set up metadata and stuff like that.
+---
+---Not called for bulk node placement (i.e. schematics and VoxelManip).
+---
+---default: `nil`
 ---@field on_construct fun(pos: Vector)
+---Node destructor; called before removing node.
+---
+---Not called for bulk node placement.
+---
+---default: `nil`
 ---@field on_destruct fun(pos: Vector)
+---Node destructor; called after removing node.
+---
+---Not called for bulk node placement.
+---
+---default: `nil`
 ---@field after_destruct fun(pos: Vector, oldnode: node)
----@field on_flood fun(pos: Vector, oldnode: node, newnode: node)
+---Called when a liquid (newnode) is about to flood oldnode, if it has `floodable = true` in the nodedef.
+---
+---Not called for bulk node placement (i.e. schematics and VoxelManip) or air nodes.
+---
+---If return true the node is not flooded, but on_flood callback will most likely be called over and over again every liquid update interval.
+---
+---default: `nil`
+---
+---**Warning:** making a liquid node 'floodable' will cause problems.
+---@field on_flood fun(pos: Vector, oldnode: node, newnode: node): boolean
+---Called when oldnode is about be converted to an item, but before the node is deleted from the world or the drops are added.
+---
+---This is generally the result of either the node being dug or an attached node becoming detached.
+---
+---`oldmeta` is the `NodeMetaRef` of the oldnode before deletion.
+---
+---`drops` is a table of ItemStacks, so any metadata to be preserved can be added directly to one or more of the dropped items.
+---
+---See "ItemStackMetaRef".
+---
+---default: `nil`
 ---@field preserve_metadata fun(pos: Vector, oldnode: node, oldmeta: NodeMetaRef, drops: ItemStack[])
+---Called after constructing node when node was placed using `minetest.item_place_node` / `minetest.place_node`.
+---
+---If return true no item is taken from itemstack.
+---
+---`placer` may be any valid ObjectRef or nil.
+---
+---default: `nil`
 ---@field after_place_node fun(pos: Vector, placer: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
----@field after_dig_node fun(pos: Vector, oldnode: node, oldmetadata: NodeMetaRef, digger: ObjectRef)
----@field can_dig fun(pos: Vector, player?: ObjectRef)
+---Called after destructing node when node was dug using `minetest.node_dig` / `minetest.dig_node`.
+---
+---default: `nil`
+---@field after_dig_node fun(pos: Vector, oldnode: node, oldmetadata: table, digger: ObjectRef)
+---Returns `true` if node can be dug, or `false` if not.
+---
+---default: `nil`
+---@field can_dig fun(pos: Vector, player?: ObjectRef): boolean
+---Called when puncher (an `ObjectRef`) punches the node at `pos`.
+---
+---By default calls `minetest.register_on_punchnode` callbacks.
+---
+---default: `minetest.node_punch`
 ---@field on_punch fun(pos: Vector, node: node, puncher: ObjectRef, pointed_thing: pointed_thing)
----@field on_rightclick fun(pos: Vector, node: node, clicker: ObjectRef, itemstack: ItemStack, pointed_thing: pointed_thing)
----@field on_dig fun(pos: Vector, node: node, digger: ObjectRef)
----@field on_timer fun(pos: Vector, elapsed: number)
+---Called when clicker (an `ObjectRef`) used the 'place/build' key (not neccessarily an actual rightclick) while pointing at the node at pos with 'node' being the node table.
+---
+---`itemstack` will hold clicker's wielded item.
+---
+---Shall return the leftover itemstack.
+---
+---**Note:** pointed_thing can be nil, if a mod calls this function.
+---
+---This function does not get triggered by clients <=0.4.16 if the "formspec" node metadata field is set.
+---
+---default: nil
+---@field on_rightclick fun(pos: Vector, node: node, clicker: ObjectRef, itemstack: ItemStack, pointed_thing?: pointed_thing): ItemStack
+---By default checks privileges, wears out item (if tool) and removes node.
+---
+---Return true if the node was dug successfully, false otherwise.
+---
+---**Deprecated:** returning `nil` is the same as returning true.
+---
+---default: minetest.node_dig
+---@field on_dig fun(pos: Vector, node: node, digger: ObjectRef): boolean
+---Called by NodeTimers, see minetest.get_node_timer and NodeTimerRef.
+---
+---`elapsed` is the total time passed since the timer was started.
+---
+---Return `true` to run the timer for another cycle with the same timeout value.
+---
+---default: nil
+---@field on_timer fun(pos: Vector, elapsed: number): boolean
+---Called when an UI form (e.g. sign text input) returns data.
+---
+---See `minetest.register_on_player_receive_fields` for more info.
+---
+---`fields = {name1 = value1, name2 = value2, ...}`
+---
+---default: nil
 ---@field on_receive_fields fun(pos: Vector, formname: string, fields: table<string, any>, sender: ObjectRef)
----@field allow_metadata_inventory_move fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
----@field allow_metadata_inventory_put fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
----@field allow_metadata_inventory_take fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---Called when a player wants to move items inside the inventory.
+---
+---Return value: number of items allowed to move.
+---@field allow_metadata_inventory_move fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef): integer
+---Called when a player wants to put something into the inventory.
+---
+---Return value: number of items allowed to put.
+---
+---Return value -1: Allow and don't modify item count in inventory.
+---@field allow_metadata_inventory_put fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef): integer
+---Called when a player wants to take something out of the inventory.
+---
+---Return value: number of items allowed to take.
+---
+---Return value -1: Allow and don't modify item count in inventory.
+---@field allow_metadata_inventory_take fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef): integer
 ---@field on_metadata_inventory_move fun(pos: Vector, from_list: string, from_index: integer, to_list: string, to_index: integer, count: integer, player: ObjectRef)
 ---@field on_metadata_inventory_put fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
 ---@field on_metadata_inventory_take fun(pos: Vector, listname: string, index: integer, stack: ItemStack, player: ObjectRef)
+---If defined, called when an explosion touches the node, instead of removing the node.
+---
+---`intensity: 1.0`: mid range of regular TNT.
 ---@field on_blast fun(pos: Vector, intensity: number)
 ---**Automaticaly set by the engine**
 ---
@@ -369,9 +472,11 @@ minetest.register_node("ss", {
 	connect_sides = { "top", "bottom", "back" },
 	waving = 0,
 	on_blast = function(pos, intensity) end,
-	drop = { items = {
-		{ rarity = 1 }
-	} },
+	drop = {
+		items = {
+			{ rarity = 1 },
+		}
+	},
 })
 
 
