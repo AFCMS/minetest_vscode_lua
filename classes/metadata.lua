@@ -27,6 +27,7 @@ function MetaDataRef:set_string(key, value) end
 
 ---Returns `""` if key not present.
 ---@param key string
+---@return string
 function MetaDataRef:get_string(key) end
 
 ---@param key string

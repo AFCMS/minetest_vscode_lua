@@ -14,6 +14,8 @@
 vector = {}
 
 ---Create a new vector.
+---
+---Deprecated: `vector.new()` does the same as `vector.zero()` and `vector.new(v)` does the same as `vector.copy(v)`
 ---@param x number
 ---@param y number
 ---@param z number
@@ -143,6 +145,7 @@ function vector.add(v, x) end
 ---If `x` is a number: Subtracts `x` from each component of `v`.
 ---@param v Vector
 ---@param x Vector | number
+---@return Vector
 function vector.subtract(v, x) end
 
 ---Returns a scaled vector.

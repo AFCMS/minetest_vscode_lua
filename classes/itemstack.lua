@@ -44,6 +44,17 @@ function stack:set_wear(wear) end
 ---@return ItemStackMetaRef
 function stack:get_meta() end
 
+---**DEPRECATED:** Returns metadata (a string attached to an itemstack).
+---@deprecated
+---@return string
+function stack:get_metadata() end
+
+---**DEPRECATED:** Returns true.
+---@deprecated
+---@param metadata string
+---@return true
+function stack:set_metadata(metadata) end
+
 ---Returns the description shown in inventory list tooltips.
 ---
 ---The engine uses this when showing item descriptions in tooltips.
