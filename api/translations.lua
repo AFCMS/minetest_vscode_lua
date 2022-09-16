@@ -11,7 +11,7 @@
 ---S(str, ...)
 ---```
 ---@param textdomain string
----@return fun(str: string, ...: string): string
+---@return fun(str: string, ...: any): string
 function minetest.get_translator(textdomain) end
 
 ---Translates the string `str` with the given `textdomain` for disambiguation.
