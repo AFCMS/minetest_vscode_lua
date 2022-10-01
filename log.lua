@@ -9,5 +9,5 @@
 function minetest.log(level, message) end
 
 ---Equivalent to `minetest.log(table.concat({...}, "\t"))`
----@vararg string
+---@param ... string
 function minetest.debug(...) end
