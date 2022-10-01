@@ -9,7 +9,7 @@ function dump2(obj, name, dumped) end
 
 ---Returns a string which makes `obj` human-readable.
 ---@param obj any
----@param dumped table default: {}
+---@param dumped? table default: {}
 ---@return string
 function dump(obj, dumped) end
 
