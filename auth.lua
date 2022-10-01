@@ -20,6 +20,7 @@ function minetest.register_authentication_handler(authentication_handler) end
 ---
 ---Use this to e.g. get the authentication data for a player: `local auth_data = minetest.get_auth_handler().get_auth(playername)`
 ---@return authentication_handler_definition
+---@nodiscard
 function minetest.get_auth_handler() end
 
 ---Must be called by the authentication handler for privilege changes.
@@ -45,6 +46,7 @@ function minetest.auth_reload() end
 ---The player needs to be online for this to be successful.
 ---@param name string
 ---@return string
+---@nodiscard
 function minetest.get_player_ip(name) end
 
 ---Convert a name-password pair to a password hash that Minetest can use.
@@ -54,6 +56,7 @@ function minetest.get_player_ip(name) end
 ---For this purpose, use `minetest.check_password_entry` instead.
 ---@param name string
 ---@param raw_password string
+---@nodiscard
 function minetest.get_password_hash(name, raw_password) end
 
 ---Returns true if the "password entry" for a player with name matches given password, false otherwise.
@@ -64,23 +67,28 @@ function minetest.get_password_hash(name, raw_password) end
 ---@param name string
 ---@param entry string
 ---@param password string
+---@return boolean
+---@nodiscard
 function minetest.check_password_entry(name, entry, password) end
 
 ---Converts string representation of privs into table form.
 ---@param str string
 ---@param delim? string String separating the privs. Defaults to `","`.
 ---@return table<string, boolean>
+---@nodiscard
 function minetest.string_to_privs(str, delim) end
 
 ---Returns the string representation of `privs`
 ---@param privs table<string, boolean>
 ---@param delim? string String separating the privs. Defaults to `","`.
 ---@return string
+---@nodiscard
 function minetest.privs_to_string(privs, delim) end
 
 ---Returns player privs.
 ---@param name string
 ---@return table<string, boolean>
+---@nodiscard
 function minetest.get_player_privs(name) end
 
 ---Check if player have given privileges.
@@ -88,4 +96,5 @@ function minetest.get_player_privs(name) end
 ---@param ... any Is either a list of strings, e.g. `"priva", "privb"` or a table, e.g. `{ priva = true, privb = true }`.
 ---@return boolean
 ---@return table<string, boolean> missing_privs
+---@nodiscard
 function minetest.check_player_privs(player_or_name, ...) end
