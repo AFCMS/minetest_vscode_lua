@@ -20,4 +20,6 @@ function minetest.chat_send_player(name, text) end
 ---**Only** the first occurrence of each placeholder will be replaced.
 ---@param name string
 ---@param message string
+---@return string
+---@nodiscard
 function minetest.format_chat_message(name, message) end
