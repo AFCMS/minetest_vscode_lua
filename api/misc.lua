@@ -2,16 +2,19 @@
 
 ---Returns list of `ObjectRefs`.
 ---@return ObjectRef[]
+---@nodiscard
 function minetest.get_connected_players() end
 
 ---Returns whether `obj` is a player
 ---@param obj ObjectRef
 ---@return boolean
+---@nodiscard
 function minetest.is_player(obj) end
 
 ---Returns whether player exists (regardless of online status).
 ---@param name string
 ---@return boolean
+---@nodiscard
 function minetest.player_exists(name) end
 
 ---Replaces definition of a builtin hud element.
@@ -21,13 +24,11 @@ function minetest.hud_replace_builtin(name, hud_definition) end
 
 ---This function can be overridden by mods to change the join message.
 ---@param player_name string
----@return string
 function minetest.send_join_message(player_name) end
 
 ---This function can be overridden by mods to change the leave message.
 ---@param player_name string
 ---@param timed_out boolean
----@return string
 function minetest.send_leave_message(player_name, timed_out) end
 
 ---Returns an 48-bit integer.
@@ -35,17 +36,20 @@ function minetest.send_leave_message(player_name, timed_out) end
 ---Gives a unique hash number for a node position (16+16+16=48bit).
 ---@param pos Vector
 ---@return integer
+---@nodiscard
 function minetest.hash_node_position(pos) end
 
 ---Inverse transform of `minetest.hash_node_position`.
 ---@param hash integer
 ---@return Vector
+---@nodiscard
 function minetest.get_position_from_hash(hash) end
 
 ---Get rating of a group of an item. (`0` means: not in group)
 ---@param name string
 ---@param group string
 ---@return integer
+---@nodiscard
 function minetest.get_item_group(name, group) end
 
 ---Get rating of a group of an item. (`0` means: not in group)
@@ -55,6 +59,7 @@ function minetest.get_item_group(name, group) end
 ---@param name string
 ---@param group string
 ---@return integer
+---@nodiscard
 function minetest.get_node_group(name, group) end
 
 ---Returns rating of the `connect_to_raillike` group corresponding to name
@@ -62,16 +67,19 @@ function minetest.get_node_group(name, group) end
 ---If name is not yet the name of a `connect_to_raillike` group, a new group id is created, with that name.
 ---@param name string
 ---@return integer
+---@nodiscard
 function minetest.raillike_group(name) end
 
 ---Gets the internal content ID of the node `name`.
 ---@param name string
 ---@return integer
+---@nodiscard
 function minetest.get_content_id(name) end
 
 ---Gets the name of the node with that content ID.
 ---@param content_id integer
 ---@return string
+---@nodiscard
 function minetest.get_name_from_content_id(content_id) end
 
 ---Convert a string containing JSON data into the Lua equivalent.
@@ -84,6 +92,7 @@ function minetest.get_name_from_content_id(content_id) end
 ---@param string string
 ---@param nullvalue? any Returned in place of the JSON null; defaults to `nil`
 ---@return table|string|number|boolean|nil
+---@nodiscard
 function minetest.parse_json(string, nullvalue) end
 
 ---Convert a Lua table into a JSON string.
@@ -97,6 +106,7 @@ function minetest.parse_json(string, nullvalue) end
 ---@param styled boolean Human-readable format, default: false
 ---@return string? output
 ---@return string? error
+---@nodiscard
 function minetest.write_json(data, styled) end
 
 ---Convert a table containing tables, strings, numbers, booleans and `nil`s into string form readable by `minetest.deserialize`.
@@ -104,6 +114,7 @@ function minetest.write_json(data, styled) end
 ---Example: `serialize({foo="bar"})`, returns `'return { ["foo"] = "bar" }'`.
 ---@param table table
 ---@return string
+---@nodiscard
 function minetest.serialize(table) end
 
 ---Convert a string returned by `minetest.serialize` into a table.
@@ -115,6 +126,8 @@ function minetest.serialize(table) end
 ---This function should not be used on untrusted data, regardless of the value of `safe`. It is fine to serialize then deserialize user-provided data, but directly providing user input to deserialize is always unsafe.
 ---@param string string
 ---@param safe? boolean
+---@return table?
+---@nodiscard
 function minetest.deserialize(string, safe) end
 
 ---Compress a string of data.
@@ -122,12 +135,14 @@ function minetest.deserialize(string, safe) end
 ---@param method '"deflate"' Compression method
 ---@param ... integer Compression level (0-9)
 ---@return string
+---@nodiscard
 function minetest.compress(data, method, ...) end
 
 ---See documentation of `minetest.compress()`.
 ---@param compressed_data string
 ---@param method '"deflate"' Compression method
 ---@param ... unknown
+---@nodiscard
 function minetest.decompress(compressed_data, method, ...) end
 
 ---Returns a `ColorString` from rgb or rgba values.
@@ -140,11 +155,13 @@ function minetest.decompress(compressed_data, method, ...) end
 ---@param blue integer
 ---@param alpha? integer
 ---@return ColorString
+---@nodiscard
 function minetest.rgba(red, green, blue, alpha) end
 
 ---Encodes a string in base64.
 ---@param string string
 ---@return string
+---@nodiscard
 function minetest.encode_base64(string) end
 
 ---Decodes a string encoded in base64.
@@ -152,6 +169,7 @@ function minetest.encode_base64(string) end
 ---Padding characters are only supported starting at version `5.4.0`, where `5.5.0` and newer perform proper checks.
 ---@param string string
 ---@return string
+---@nodiscard
 function minetest.decode_base64(string) end
 
 ---Returns boolean
@@ -178,6 +196,7 @@ function minetest.decode_base64(string) end
 ---@param pos Vector
 ---@param name string
 ---@return boolean
+---@nodiscard
 function minetest.is_protected(pos, name) end
 
 ---This function calls functions registered with `minetest.register_on_protection_violation`.
@@ -195,6 +214,7 @@ function minetest.record_protection_violation(pos, name) end
 ---By default, this function returns `true` if the setting `creative_mode` is `true` and `false` otherwise.
 ---@param name string
 ---@return boolean
+---@nodiscard
 function minetest.is_creative_enabled(name) end
 
 ---Returns the position of the first node that `player_name` may not modify in the specified cuboid between `pos1` and `pos2`.
@@ -213,6 +233,7 @@ function minetest.is_creative_enabled(name) end
 ---@param player_name string
 ---@param interval integer Should be carefully chosen and maximised to avoid an excessive number of points being checked, default: 4
 ---@return Vector|false
+---@nodiscard
 function minetest.is_area_protected(pos1, pos2, player_name, interval) end
 
 ---Attempt to predict the desired orientation of the facedir-capable node defined by `itemstack`, and place it accordingly (on-wall, on the floor, or hanging from the ceiling).
@@ -235,6 +256,7 @@ function minetest.is_area_protected(pos1, pos2, player_name, interval) end
 ---@param orient_flags {invert_wall: boolean, force_wall: boolean, force_ceiling: boolean, force_floor: boolean, force_facedir: boolean}
 ---@param prevent_after_place boolean
 ---@return ItemStack
+---@nodiscard
 function minetest.rotate_and_place(itemstack, placer, pointed_thing, infinitestacks, orient_flags, prevent_after_place) end
 
 ---Calls `rotate_and_place()` with `infinitestacks` set according to the state of the creative mode setting, checks for "sneak" to set the `invert_wall` parameter and `prevent_after_place` set to `true`.
@@ -257,6 +279,8 @@ function minetest.rotate_node(itemstack, placer, pointed_thing) end
 ---@param dir Vector
 ---@param distance number
 ---@param damage number
+---@return number
+---@nodiscard
 function minetest.calculate_knockback(player, hitter, time_from_last_punch, tool_capabilities, dir, distance, damage) end
 
 ---Forceloads the position `pos`.
@@ -293,6 +317,7 @@ function minetest.forceload_free_block(pos, transient) end
 ---@param pos Vector
 ---@param condition '"unknown"'|'"emerging"'|'"loaded"'|'"active"'
 ---@return boolean|nil
+---@nodiscard
 function minetest.compare_block_status(pos, condition) end
 
 ---Returns an environment containing insecure functions if the calling mod has been listed as trusted in the `secure.trusted_mods` setting or security is disabled, otherwise returns `nil`.
@@ -301,9 +326,11 @@ function minetest.compare_block_status(pos, condition) end
 ---
 ---**DO NOT ALLOW ANY OTHER MODS TO ACCESS THE RETURNED ENVIRONMENT, STORE IT IN A LOCAL VARIABLE!**
 ---@return table?
+---@nodiscard
 function minetest.request_insecure_environment() end
 
 ---Checks if a global variable has been set, without triggering a warning.
 ---@param name string
 ---@return boolean
+---@nodiscard
 function minetest.global_exists(name) end
