@@ -501,3 +501,15 @@ function minetest.override_item(name, redefinition) end
 
 ---@param name string
 function minetest.unregister_item(name) end
+
+---@type table<string, node_definition>
+minetest.registered_nodes = {}
+
+---@type table<string, node_definition>
+minetest.registered_items = {}
+
+---@type table<string, item_definition>
+minetest.registered_tools = {}
+
+---@type table<string, item_definition>
+minetest.registered_craftitems = {}
