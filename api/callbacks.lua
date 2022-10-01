@@ -40,7 +40,7 @@ minetest.registered_on_shutdown = {}
 function minetest.register_on_placenode(func) end
 
 ---Map of registered on_placenode.
----@type fun(pos: Vector, newnode: node, placer?: ObjectRef, oldnode: node, itemstack: ItemStack, pointed_thing: pointed_thing)[]
+---@type (fun(pos: Vector, newnode: node, placer?: ObjectRef, oldnode: node, itemstack: ItemStack, pointed_thing: pointed_thing): boolean)[]
 minetest.registered_on_placenodes = {}
 
 
@@ -93,7 +93,7 @@ minetest.registered_on_newplayers = {}
 function minetest.register_on_punchplayer(func) end
 
 ---Map of registered on_punchplayer.
----@type fun(player: ObjectRef, hitter: ObjectRef, time_from_last_punch: number, tool_capabilities: tool_capabilities, dir: Vector, damage: number)[]
+---@type (fun(player: ObjectRef, hitter: ObjectRef, time_from_last_punch: number, tool_capabilities: tool_capabilities, dir: Vector, damage: number): boolean)[]
 minetest.registered_on_punchplayers = {}
 
 
@@ -116,7 +116,7 @@ minetest.registered_on_rightclickplayers = {}
 function minetest.register_on_player_hpchange(func, modifier) end
 
 ---Map of registered on_player_hpchange.
----@type {modifiers: fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason)[], loggers: fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason)[]}
+---@type {modifiers: (fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason): integer?, boolean?)[], loggers: (fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason): integer?, boolean?)[]}
 minetest.registered_on_player_hpchanges = { modifiers = {}, loggers = {} }
 
 ---Register a function that will be called when a player dies.
@@ -136,7 +136,7 @@ minetest.registered_on_dieplayers = {}
 function minetest.register_on_respawnplayer(func) end
 
 ---Map of registered on_respawnplayer.
----@type fun(player: ObjectRef)[]
+---@type (fun(player: ObjectRef): boolean)[]
 minetest.registered_on_respawnplayers = {}
 
 ---Register a function that will be called when a client connects to the server, prior to authentication.
@@ -146,7 +146,7 @@ minetest.registered_on_respawnplayers = {}
 function minetest.register_on_prejoinplayer(func) end
 
 ---Map of registered on_prejoinplayer.
----@type fun(name: string, ip: string)[]
+---@type (fun(name: string, ip: string): string)[]
 minetest.registered_on_prejoinplayers = {}
 
 ---Register a function that will be called when a player joined.
@@ -189,7 +189,7 @@ minetest.registered_on_authplayers = {}
 function minetest.register_on_auth_fail(func) end
 
 ---Register a function that will be called when a player is detected by builtin anticheat.
----@param func fun(player: ObjectRef, cheat: {type: '"moved_too_fast"'|'"interacted_too_far"'|'"interacted_with_self"'|'"interacted_while_dead"'|'"finished_unknown_dig"'|'"dug_unbreakable"'|'"dug_too_fast"'}))
+---@param func fun(player: ObjectRef, cheat: {type: '"moved_too_fast"'|'"interacted_too_far"'|'"interacted_with_self"'|'"interacted_while_dead"'|'"finished_unknown_dig"'|'"dug_unbreakable"'|'"dug_too_fast"'})
 function minetest.register_on_cheat(func) end
 
 ---Map of registered on_cheat.
@@ -203,7 +203,7 @@ minetest.registered_on_cheats = {}
 function minetest.register_on_chat_message(func) end
 
 ---Map of registered on_chat_message.
----@type fun(name: string, message: string)[]
+---@type (fun(name: string, message: string): boolean)[]
 minetest.registered_on_chat_messages = {}
 
 ---Register a function that will be called when a player send a chat command.
@@ -251,7 +251,7 @@ minetest.registered_on_chatcommands = {}
 function minetest.register_on_player_receive_fields(func) end
 
 ---Map of registered on_player_receive_fields.
----@type fun(player: ObjectRef, formname: string, fields: table<string, any>)[]
+---@type (fun(player: ObjectRef, formname: string, fields: table<string, any>): boolean)[]
 minetest.registered_on_player_receive_fields = {}
 
 ---Register a function that will be called when a player craft something.
@@ -263,7 +263,7 @@ minetest.registered_on_player_receive_fields = {}
 function minetest.register_on_craft(func) end
 
 ---Map of registered on_craft.
----@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
+---@type (fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?)[]
 minetest.registered_on_crafts = {}
 
 ---Register a function that will be called before a player craft something to make the crafting prediction.
@@ -292,7 +292,7 @@ minetest.registered_craft_predicts = {}
 function minetest.register_allow_player_inventory_action(func) end
 
 ---Map of registered allow_player_inventory_action.
----@type fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack})[]
+---@type (fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer)[]
 minetest.registered_allow_player_inventory_action = {}
 
 ---Called after a take, put or move event from/to/in a player inventory.
@@ -322,11 +322,11 @@ minetest.registered_on_protection_violation = {}
 ---Called when an item is eaten, by `minetest.item_eat`.
 ---
 ---Return `itemstack` to cancel the default item eat response (i.e.: hp increase).
----@param func fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing): ItemStack
+---@param func fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing): ItemStack?
 function minetest.register_on_item_eat(func) end
 
 ---Map of registered on_item_eat.
----@type fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing)[]
+---@type (fun(hp_change: integer, replace_with_item, itemstack: ItemStack, user: ObjectRef, pointed_thing: pointed_thing): ItemStack?)[]
 minetest.registered_on_item_eat = {}
 
 ---Called when `granter` grants the priv `priv` to `name`.
