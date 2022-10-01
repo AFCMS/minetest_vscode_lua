@@ -39,17 +39,20 @@ function minetest.remove_node(pos) end
 ---Returns `{name="ignore", param1=0, param2=0}` for unloaded areas.
 ---@param pos Vector
 ---@return node
+---@nodiscard
 function minetest.get_node(pos) end
 
 ---Same as `minetest.get_node` but returns `nil` for unloaded areas.
 ---@param pos Vector
 ---@return node?
+---@nodiscard
 function minetest.get_node_or_nil(pos) end
 
 ---Gets the light value at the given position. Note that the light value "inside" the node at the given position is returned, so you usually want to get the light value of a neighbor.
 ---@param pos Vector
 ---@param timeofday? number `nil` for current time, `0` for night, `0.5` for day
 ---@return integer? light Between `0` and `15`, `nil` if the area isn't loaded.
+---@nodiscard
 function minetest.get_node_light(pos, timeofday) end
 
 ---Get the sunlight (or moonlight) value at pos at the given time of day.
@@ -58,6 +61,7 @@ function minetest.get_node_light(pos, timeofday) end
 ---@param pos Vector
 ---@param timeofday? number `nil` for current time, `0` for night, `0.5` for day
 ---@return integer? light Between `0` and `15`, `nil` if the area isn't loaded.
+---@nodiscard
 function minetest.get_natural_light(pos, timeofday) end
 
 ---Calculates the artificial light (light from e.g. torches) value from the `param1` value.
@@ -65,6 +69,7 @@ function minetest.get_natural_light(pos, timeofday) end
 ---Currently it's the same as `math.floor(param1 / 16)`, except that it ensures compatibility.
 ---@param param1 integer The param1 value of a `paramtype = "light"` node.
 ---@return integer light Between `0` and `15`.
+---@nodiscard
 function minetest.get_artificial_light(param1) end
 
 ---Place node with the same effects that a player would cause. (like calling `on_place` callbacks)
@@ -95,16 +100,19 @@ function minetest.spawn_falling_node(pos) end
 ---@param pos1 Vector
 ---@param pos2 Vector
 ---@return Vector[]
+---@nodiscard
 function minetest.find_nodes_with_meta(pos1, pos2) end
 
 ---Get a `NodeMetaRef` at that position.
 ---@param pos Vector
 ---@return NodeMetaRef
+---@nodiscard
 function minetest.get_meta(pos) end
 
 ---Get a `NodeTimerRef` at that position.
 ---@param pos Vector
 ---@return NodeTimerRef
+---@nodiscard
 function minetest.get_node_timer(pos) end
 
 --FIXME: staticdata
@@ -129,12 +137,14 @@ function minetest.add_item(pos, item) end
 ---Get `ObjectRef` of player with name `name` or `nil` if player is not connected.
 ---@param name string
 ---@return ObjectRef?
+---@nodiscard
 function minetest.get_player_by_name(name) end
 
 ---Returns a list of ObjectRefs.
 ---@param pos Vector
 ---@param radius number using an euclidean metric
 ---@return ObjectRef[]
+---@nodiscard
 function minetest.get_objects_inside_radius(pos, radius) end
 
 ---Returns a list of ObjectRefs.
@@ -143,6 +153,7 @@ function minetest.get_objects_inside_radius(pos, radius) end
 ---@param pos1 Vector
 ---@param pos2 Vector
 ---@return ObjectRef[]
+---@nodiscard
 function minetest.get_objects_in_area(pos1, pos2) end
 
 ---Set time of day in the minetest world.
@@ -151,16 +162,19 @@ function minetest.set_timeofday(val) end
 
 ---Get time of day in the minetest world.
 ---@return number
+---@nodiscard
 function minetest.get_timeofday() end
 
 ---Returns the time, in seconds, since the world was created.
 ---@return integer
+---@nodiscard
 function minetest.get_gametime() end
 
 ---Returns number days elapsed since world was created.
 ---
 ---Accounts for time changes.
 ---@return integer
+---@nodiscard
 function minetest.get_day_count() end
 
 ---Find a node near specified position.
@@ -169,6 +183,7 @@ function minetest.get_day_count() end
 ---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
 ---@param search_center? boolean is an optional boolean (default: `false`). if true `pos` is also checked for the nodes
 ---@return Vector?
+---@nodiscard
 function minetest.find_node_near(pos, radius, nodenames, search_center) end
 
 ---Find nodes in specified area.
@@ -185,6 +200,7 @@ function minetest.find_node_near(pos, radius, nodenames, search_center) end
 ---@param grouped? boolean default `false`
 ---@return Vector[]|table<string, Vector[]>
 ---@return table<string, integer>?
+---@nodiscard
 function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
 
 ---Find nodes under air in specified area.
@@ -194,12 +210,14 @@ function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
 ---@param pos2 Vector
 ---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
 ---@return Vector[]
+---@nodiscard
 function minetest.find_nodes_in_area_under_air(pos1, pos2, nodenames) end
 
 ---Return world-specific perlin noise.
 ---
 ---The actual seed used is the noiseparams seed plus the world seed.
 ---@param noiseparams noise_params
+---@nodiscard
 function minetest.get_perlin(noiseparams) end
 
 ---Return voxel manipulator object.
@@ -208,6 +226,7 @@ function minetest.get_perlin(noiseparams) end
 ---@param pos1? Vector
 ---@param pos2? Vector
 ---@return VoxelManip
+---@nodiscard
 function minetest.get_voxel_manip(pos1, pos2) end
 
 ---Set the types of on-generate notifications that should be collected.
@@ -229,11 +248,13 @@ function minetest.set_gen_notify(flags, deco_ids) end
 ---Returns a flagstring and a table with the `deco_id`s.
 ---@return string
 ---@return unknown[]
+---@nodiscard
 function minetest.get_gen_notify() end
 
 ---Returns the decoration ID number for the provided decoration name string, or `nil` on failure.
 ---@param decoration_name string
----@return unknown?
+---@return number?
+---@nodiscard
 function minetest.get_decoration_id(decoration_name) end
 
 ---@alias mapgen_object_name
@@ -252,16 +273,22 @@ function minetest.get_decoration_id(decoration_name) end
 ---
 ---If the requested Mapgen object is unavailable, or `get_mapgen_object()` was called outside of an `on_generate()` callback, `nil` is returned.
 ---@param objectname mapgen_object_name
+---@return VoxelManip|integer[]
+---@return Vector?
+---@return Vector?
+---@nodiscard
 function minetest.get_mapgen_object(objectname) end
 
 ---Returns the heat at the position, or `nil` on failure.
 ---@param pos Vector
 ---@return number?
+---@nodiscard
 function minetest.get_heat(pos) end
 
 ---Returns the humidity at the position, or `nil` on failure.
 ---@param pos Vector
 ---@return number?
+---@nodiscard
 function minetest.get_humidity(pos) end
 
 ---Returns a table containing:
