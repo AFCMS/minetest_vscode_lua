@@ -496,6 +496,89 @@ function minetest.line_of_sight(pos1, pos2) end
 ---@nodiscard
 function minetest.find_path(pos1, pos2, searchdistance, max_jump, max_drop, algorithm) end
 
+---@class tree_definition
+---Initial tree axiom
+---@field axiom string
+---Rules set A
+---@field rules_a string
+---Rules set B
+---@field rules_b string
+---Rules set C
+---@field rules_c string
+---Rules set D
+---@field rules_d string
+---Trunk node name
+---@field trunk string
+---Leaves node name
+---@field leaves string
+---Secondary leaves node name
+---@field leaves2 string
+---Chance (0-100) to replace leaves with leaves2
+---@field leaves2_chance integer
+---Angle in degrees
+---@field angle integer
+---Max amount of iterations, usually 2-5
+---@field iterations integer
+---Factor to lower nr of iterations, usually 0-3
+---@field random_level number
+---Type of trunk: 1 node, 2x2 nodes or 3x3 in cross shape
+---@field trunk_type "'single'"|"'double'"|"'crossed'"
+---true -> use thin (1 node) branches
+---@field thin_branches boolean
+---Fruit node name
+---@field fruit string
+---Chance (0-100) to replace leaves with fruit node
+---@field fruit_chance integer
+---Random seed, if no seed is provided, the engine will create one
+---@field seed integer
+
+---Spawns L-system tree at given `pos` with definition in `treedef` table.
+---
+---```lua
+---pos = {x = 230, y = 20, z = 4}
+---apple_tree = {
+---	axiom         = "FFFFFAFFBF",
+---	rules_a       = "[&&&FFFFF&&FFFF][&&&++++FFFFF&&FFFF][&&&----FFFFF&&FFFF]",
+--	rules_b       = "[&&&++FFFFF&&FFFF][&&&--FFFFF&&FFFF][&&&------FFFFF&&FFFF]",
+---	trunk         = "default:tree",
+---	leaves        = "default:leaves",
+---	angle         = 30,
+---	iterations    = 2,
+---	random_level  = 0,
+---	trunk_type    = "single",
+---	thin_branches = true,
+---	fruit_chance  = 10,
+---	fruit         = "default:apple"
+---}
+---minetest.spawn_tree(pos, apple_tree)
+---```
+---
+---**Key for special L-System symbols used in axioms:**
+---
+---* `G`: move forward one unit with the pen up
+---* `F`: move forward one unit with the pen down drawing trunks and branches
+---* `f`: move forward one unit with the pen down drawing leaves (100% chance)
+---* `T`: move forward one unit with the pen down drawing trunks only
+---* `R`: move forward one unit with the pen down placing fruit
+---* `A`: replace with rules set A
+---* `B`: replace with rules set B
+---* `C`: replace with rules set C
+---* `D`: replace with rules set D
+---* `a`: replace with rules set A, chance 90%
+---* `b`: replace with rules set B, chance 80%
+---* `c`: replace with rules set C, chance 70%
+---* `d`: replace with rules set D, chance 60%
+---* `+`: yaw the turtle right by `angle` parameter
+---* `-`: yaw the turtle left by `angle` parameter
+---* `&`: pitch the turtle down by `angle` parameter
+---* `^`: pitch the turtle up by `angle` parameter
+---* `/`: roll the turtle to the right by `angle` parameter
+---* `*`: roll the turtle to the left by `angle` parameter
+---* `[`: save in stack current state info
+---* `]`: recover from stack state info
+---
+---@param pos Vector
+---@param treedef tree_definition
 function minetest.spawn_tree(pos, treedef) end
 
 ---Add node to liquid flow update queue.
