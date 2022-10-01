@@ -1,14 +1,6 @@
 ---@meta
 
 ---@class node
-local node = {}
-
----The node name
----@type string
-node.name = nil
-
----@type integer
-node.param1 = nil
-
----@type integer
-node.param2 = nil
+---@field name string
+---@field param1 integer
+---@field param2 integer
