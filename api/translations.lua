@@ -12,12 +12,15 @@
 ---```
 ---@param textdomain string
 ---@return fun(str: string, ...: any): string
+---@nodiscard
 function minetest.get_translator(textdomain) end
 
 ---Translates the string `str` with the given `textdomain` for disambiguation.
 ---@param textdomain string
 ---@param str string
 ---@param ... string
+---@return string
+---@nodiscard
 function minetest.translate(textdomain, str, ...) end
 
 ---@alias lang_code
@@ -74,4 +77,5 @@ function minetest.translate(textdomain, str, ...) end
 ---@param lang_code lang_code
 ---@param string string
 ---@return string
+---@nodiscard
 function minetest.get_translated_string(lang_code, string) end
