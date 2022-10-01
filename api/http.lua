@@ -1,66 +1,41 @@
 ---@meta
 
 ---@class HTTPRequest
-local http_request = {}
-
----@type string
-http_request.url = nil
-
+---The URL
+---@field url string
 ---Timeout for request to be completed in seconds. Default depends on engine settings.
----@type number
-http_request.timeout = nil
-
+---@field timeout number
 ---The http method to use. Defaults to `"GET"`.
----@type '"GET"'|'"POST"'|'"PUT"'|'"DELETE"'
-http_request.method = nil
-
+---@field method '"GET"'|'"POST"'|'"PUT"'|'"DELETE"'
 ---Data for the POST, PUT or DELETE request.
 ---
 ---Accepts both a string and a table. If a table is specified, encodes table as `x-www-form-urlencoded` key-value pairs.
----@type string|table
-http_request.data = nil
-
+---@field data string|table
 ---Optional, if specified replaces the default minetest user agent with given string.
----@type string
-http_request.user_agent = nil
-
+---@field user_agent string
 ---Optional, if specified adds additional headers to the HTTP request.
 ---
 ---You must make sure that the header strings follow HTTP specification ("Key: Value").
----@type string[]
-http_request.extra_headers = nil
-
+---@field extra_headers string[]
 ---Optional, if true performs a multipart HTTP request.
 ---
 ---Default is false.
 ---
 ---POST only, data must be array.
----@type boolean
-http_request.multipart = nil
+---@field multipart boolean
 
 
 ---@class HTTPRequestResult
-local http_request_result = {}
-
 ---If true, the request has finished (either succeeded, failed or timed out).
----@type boolean
-http_request_result.completed = nil
-
+---@field completed boolean
 ---If true, the request was successful.
----@type boolean
-http_request_result.succeeded = nil
-
+---@field succeeded boolean
 ---If true, the request timed out.
----@type boolean
-http_request_result.timeout = nil
-
+---@field timeout boolean
 ---HTTP status code
----@type integer
-http_request_result.code = nil
-
+---@field code integer
 ---Responce data.
----@type string
-http_request_result.data = nil
+---@field data string
 
 
 ---@class HTTPApiTable
