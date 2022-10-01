@@ -272,11 +272,13 @@ function minetest.get_humidity(pos) end
 ---Returns `nil` on failure.
 ---@param pos Vector
 ---@return {biome: unknown, heat: number, humidity: number}?
+---@nodiscard
 function minetest.get_biome_data(pos) end
 
 ---Returns the biome id, as used in the biomemap Mapgen object and returned by `minetest.get_biome_data(pos)`, for a given biome_name string.
 ---@param biome_name string
 ---@return unknown
+---@nodiscard
 function minetest.get_biome_id(biome_name) end
 
 ---Returns the biome name string for the provided biome id, or `nil` on failure.
@@ -284,6 +286,7 @@ function minetest.get_biome_id(biome_name) end
 ---If no biomes have been registered, such as in mgv6, returns `default`.
 ---@param biome_id unknown
 ---@return string|'"default"'|nil
+---@nodiscard
 function minetest.get_biome_name(biome_id) end
 
 ---**DEPRECATED:** use `minetest.get_mapgen_setting(name)` instead.
@@ -296,6 +299,7 @@ function minetest.get_biome_name(biome_id) end
 ---* `flags`
 ---@deprecated
 ---@return {mgname: string, seed: integer, chunksize: integer, water_level: integer, flags: string}
+---@nodiscard
 function minetest.get_mapgen_params() end
 
 ---**DEPRECATED:** use `minetest.set_mapgen_setting(name, value, override)` instead.
@@ -359,10 +363,12 @@ function minetest.set_mapgen_params(mapgen_params) end
 ---4) Settings set as the user config default
 ---@param name mapgen_settings|string
 ---@return string?
+---@nodiscard
 function minetest.get_mapgen_setting(name) end
 
 ---Same as `minetest.get_mapgen_setting(name)`, but returns the value as a `NoiseParams` table if the setting `name` exists and is a valid `NoiseParams`.
 ---@return noise_params?
+---@nodiscard
 function minetest.get_mapgen_setting_noiseparams(name) end
 
 ---Sets a mapgen param to `value`, and will take effect if the corresponding mapgen setting is not already present in map_meta.txt.
@@ -392,6 +398,7 @@ function minetest.set_noiseparams(name, noiseparams, set_default) end
 ---Returns a table of the noiseparams for `name`.
 ---@param name string
 ---@return noise_params
+---@nodiscard
 function minetest.get_noiseparams(name) end
 
 ---Generate all registered ores within the VoxelManip `vm` and in the area from `pos1` to `pos2`.
@@ -463,6 +470,7 @@ function minetest.delete_area(pos1, pos2) end
 ---@param pos2 Vector
 ---@return boolean
 ---@return Vector?
+---@nodiscard
 function minetest.line_of_sight(pos1, pos2) end
 
 ---Returns table containing path that can be walked on
@@ -484,6 +492,8 @@ function minetest.line_of_sight(pos1, pos2) end
 ---@param max_jump number maximum height difference to consider walkable
 ---@param max_drop number maximum height difference to consider droppable
 ---@param algorithm '"A*_noprefetch"'|'"A*"'|'"Dijkstra"' difference between `"A*"` and `"A*_noprefetch"` is that `"A*"` will pre-calculate the cost-data, the other will calculate it on-the-fly
+---@return Vector[]?
+---@nodiscard
 function minetest.find_path(pos1, pos2, searchdistance, max_jump, max_drop, algorithm) end
 
 function minetest.spawn_tree(pos, treedef) end
@@ -495,11 +505,13 @@ function minetest.transforming_liquid_add(pos) end
 ---Get max available level for leveled node.
 ---@param pos Vector
 ---@return integer
+---@nodiscard
 function minetest.get_node_max_level(pos) end
 
 ---Get level of leveled node (water, snow).
 ---@param pos Vector
 ---@return integer
+---@nodiscard
 function minetest.get_node_level(pos) end
 
 ---Set level of leveled node, default `level` equals `1`
@@ -561,4 +573,5 @@ function minetest.check_for_falling(pos) end
 ---@param x integer
 ---@param z integer
 ---@return integer
+---@nodiscard
 function minetest.get_spawn_level(x, z) end
