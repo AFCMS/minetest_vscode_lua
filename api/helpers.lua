@@ -5,12 +5,14 @@
 ---@param name string default: "_"
 ---@param dumped table default: {}
 ---@return string
+---@nodiscard
 function dump2(obj, name, dumped) end
 
 ---Returns a string which makes `obj` human-readable.
 ---@param obj any
 ---@param dumped? table default: {}
 ---@return string
+---@nodiscard
 function dump(obj, dumped) end
 
 ---Get the hypotenuse of a triangle with legs x and y.
@@ -21,6 +23,7 @@ function dump(obj, dumped) end
 ---@param x number
 ---@param y number
 ---@return number
+---@nodiscard
 function math.hypot(x, y) end
 
 ---Get the sign of a number.
@@ -31,6 +34,7 @@ function math.hypot(x, y) end
 ---@param x number
 ---@param tolerance number
 ---@return -1|0|1
+---@nodiscard
 function math.sign(x, tolerance) end
 
 ---Returns the factorial of `x`
@@ -38,6 +42,7 @@ function math.sign(x, tolerance) end
 ---**MINETEST API**
 ---@param x number
 ---@return number
+---@nodiscard
 function math.factorial(x) end
 
 ---Returns `x` rounded to the nearest integer.
@@ -47,6 +52,7 @@ function math.factorial(x) end
 ---**MINETEST API**
 ---@param x number
 ---@return integer
+---@nodiscard
 function math.round(x) end
 
 ---Split a string.
@@ -60,6 +66,7 @@ function math.round(x) end
 ---@param max_splits? integer If it's negative, splits aren't limited. Default: `-1`
 ---@param sep_is_pattern? boolean It specifies whether separator is a plain string or a pattern (regex). Default: `false`
 ---@return string[]
+---@nodiscard
 function string.split(str, separator, include_empty, max_splits, sep_is_pattern) end
 
 ---Returns the string without whitespace pre- and suffixes
@@ -68,6 +75,8 @@ function string.split(str, separator, include_empty, max_splits, sep_is_pattern)
 ---
 ---**MINETEST API**
 ---@param str string
+---@return string
+---@nodiscard
 function string.trim(str) end
 
 ---Adds newlines to the string to keep it within the specified character limit.
@@ -77,11 +86,14 @@ function string.trim(str) end
 ---@param limit integer Maximal amount of characters in one line
 ---@param as_table? boolean If set to true, a table of lines instead of a string is returned. Default: `false`
 ---@return string|table
+---@nodiscard
 function minetest.wrap_text(str, limit, as_table) end
 
 ---Converts the position `pos` to a human-readable, printable string in the form `"(X,Y,Z)"`
 ---@param pos Vector
 ---@param decimal_places? number If specified, the `x`, `y` and `z` values of the position are rounded to the given decimal place.
+---@return string
+---@nodiscard
 function minetest.pos_to_string(pos, decimal_places) end
 
 ---Parse a string in the form `"(X,Y,Z)"`.
@@ -89,26 +101,31 @@ function minetest.pos_to_string(pos, decimal_places) end
 ---If the string can't be parsed to a position, nothing is returned.
 ---@param str string
 ---@return Vector?
+---@nodiscard
 function minetest.string_to_pos(str) end
 
 ---Converts a string in the form `"(X1, Y1, Z1) (X2, Y2, Z2)"` representing an area box into two positions
 ---@param str string
 ---@return Vector?
 ---@return Vector?
+---@nodiscard
 function minetest.string_to_area(str) end
 
 ---Returns true if passed `'y'`, `'yes'`, `'true'` or a number that isn't zero.
 ---@param arg any
 ---@return boolean
+---@nodiscard
 function minetest.is_yes(arg) end
 
 ---Returns true when the passed number represents `NaN`.
 ---@param arg number
 ---@return boolean
+---@nodiscard
 function minetest.is_nan(arg) end
 
 ---Returns time with microsecond precision. May not return wall time.
 ---@return number
+---@nodiscard
 function minetest.get_us_time() end
 
 ---Returns a deep copy of `table`.
@@ -116,6 +133,7 @@ function minetest.get_us_time() end
 ---**MINETEST API**
 ---@param table table
 ---@return table
+---@nodiscard
 function table.copy(table) end
 
 ---Returns the smallest numerical index containing the value `val` in the table `list`.
@@ -128,6 +146,7 @@ function table.copy(table) end
 ---@param list any[]
 ---@param val any
 ---@return integer
+---@nodiscard
 function table.indexof(list, val) end
 
 ---Appends all values in `other_table` to `table`, uses `#table + 1` to find new indices.
@@ -144,6 +163,7 @@ function table.insert_all(table, other_table) end
 ---**MINETEST API**
 ---@param t table
 ---@return table
+---@nodiscard
 function table.key_value_swap(t) end
 
 ---Shuffles elements `from` to `to` in `table` in place
