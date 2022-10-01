@@ -20,6 +20,7 @@ function minetest.close_formspec(playername, formname) end
 ---Escapes the characters `"["`, `"]"`, `"\"`, `","` and `";"`, which can not be used in formspecs.
 ---@param string string
 ---@return string
+---@nodiscard
 function minetest.formspec_escape(string) end
 
 ---Returns e.g. `{type="CHG", row=1, column=2}`
@@ -30,6 +31,7 @@ function minetest.formspec_escape(string) end
 ---* `"DCL"`: double-click
 ---@param string string
 ---@return {type: '"INV"'|'"CHG"'|'"DCL"', row: integer, column: integer}
+---@nodiscard
 function minetest.explode_table_event(string) end
 
 ---Returns e.g. `{type="CHG", index=1}`
@@ -40,6 +42,7 @@ function minetest.explode_table_event(string) end
 ---* `"DCL"`: double-click
 ---@param string string
 ---@return {type: '"INV"'|'"CHG"'|'"DCL"', index: integer}
+---@nodiscard
 function minetest.explode_textlist_event(string) end
 
 ---Returns e.g. `{type="CHG", value=500}`
@@ -50,4 +53,5 @@ function minetest.explode_textlist_event(string) end
 ---* `"VAL"`: not changed
 ---@param string string
 ---@return {type: '"INV"'|'"CHG"'|'"DCL"', value: integer}
+---@nodiscard
 function minetest.explode_scrollbar_event(string) end
