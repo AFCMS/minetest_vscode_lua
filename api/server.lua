@@ -17,14 +17,17 @@ function minetest.cancel_shutdown_requests() end
 ---@param name string
 ---@param joined any Indicates whether the function was called when a player joined.
 ---@return string
+---@nodiscard
 function minetest.get_server_status(name, joined) end
 
 ---Returns the server uptime in seconds.
 ---@return integer
+---@nodiscard
 function minetest.get_server_uptime() end
 
 ---Returns the current maximum lag.
 ---@return number
+---@nodiscard
 function minetest.get_server_max_lag() end
 
 ---Remove player from database if he is not connected.

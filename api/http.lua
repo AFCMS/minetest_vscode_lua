@@ -81,6 +81,7 @@ function httpapitable.fetch_async(req) end
 ---Return response data for given asynchronous HTTP request.
 ---@param handle any
 ---@return HTTPRequestResult
+---@nodiscard
 function httpapitable.fetch_async_get(handle) end
 
 ---Returns `HTTPApiTable` containing http functions if the calling mod has been granted access by being listed in the `secure.http_mods` or `secure.trusted_mods` setting, otherwise returns `nil`.
@@ -91,4 +92,5 @@ function httpapitable.fetch_async_get(handle) end
 ---
 ---**DO NOT ALLOW ANY OTHER MODS TO ACCESS THE RETURNED TABLE, STORE IT IN A LOCAL VARIABLE!**
 ---@return HTTPApiTable
+---@nodiscard
 function minetest.request_http_api() end
