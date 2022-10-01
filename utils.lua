@@ -2,6 +2,7 @@
 
 ---Returns the currently loading mod's name, when loading a mod.
 ---@return string
+---@nodiscard
 function minetest.get_current_modname() end
 
 ---Returns the directory path for a mod,
@@ -11,22 +12,26 @@ function minetest.get_current_modname() end
 ---* Useful for loading additional `.lua` modules or static data from a mod,
 ---@param modname string
 ---@return string
+---@nodiscard
 function minetest.get_modpath(modname) end
 
 ---Returns a list of enabled mods, sorted alphabetically.
 ---
 ---Does not include disabled mods, even if they are installed.
 ---@return string[]
+---@nodiscard
 function minetest.get_modnames() end
 
 ---Returns e.g. `"/home/user/.minetest/world"`
 ---
 ---Useful for storing custom data in the world directory.
 ---@return string
+---@nodiscard
 function minetest.get_worldpath() end
 
 ---Returns `true` if the game is launched as singleplayer.
 ---@return boolean
+---@nodiscard
 function minetest.is_singleplayer() end
 
 ---Table containing API feature flags.
@@ -141,6 +146,7 @@ minetest.features.get_sky_as_table = true
 ---@param arg string|table<string, boolean>
 ---@return boolean
 ---@return table<string, boolean>
+---@nodiscard
 function minetest.has_feature(arg) end
 
 ---@class player_informations
@@ -248,6 +254,7 @@ player_informations.state = nil
 ---Returns a table containing informations about a player.
 ---@param player_name string
 ---@return player_informations
+---@nodiscard
 function minetest.get_player_information(player_name) end
 
 ---Creates a directory specified by `path`, creating parent directories if they don't exist.
@@ -298,6 +305,7 @@ function minetest.mvdir(source, destination) end
 ---@param path string
 ---@param is_dir? boolean
 ---@return string[]
+---@nodiscard
 function minetest.get_dir_list(path, is_dir) end
 
 ---Replaces contents of file at path with new contents in a safe (atomic) way.
@@ -332,12 +340,14 @@ engine_version.hash = nil
 
 ---Returns a table containing components of the engine version.
 ---@return engine_version
+---@nodiscard
 function minetest.get_version() end
 
 ---Returns the `sha1` hash of `data`.
 ---@param data string
 ---@param raw? boolean Default: `false`
 ---@return string
+---@nodiscard
 function minetest.sha1(data, raw) end
 
 ---Encode a PNG image and return it in string form.
@@ -356,4 +366,5 @@ function minetest.sha1(data, raw) end
 ---* string with raw RGBA pixels, length must be `width*height*4`
 ---@param compression 0|1|2|3|4|5|6|7|8|9
 ---@return string
+---@nodiscard
 function minetest.encode_png(width, height, data, compression) end
