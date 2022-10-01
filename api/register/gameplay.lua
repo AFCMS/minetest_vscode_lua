@@ -79,3 +79,18 @@
 ---Register a craft recipe
 ---@param recipe craft_recipe
 function minetest.register_craft(recipe) end
+
+---Will erase existing craft based either on output item or on input recipe.
+---
+---Specify either output or input only.
+---
+---If you specify both, input will be ignored.
+---
+---For input use the same recipe table syntax as for `minetest.register_craft(recipe)`. For output specify only the item, without a quantity.
+---
+---Returns `false` if no erase candidate could be found, otherwise returns `true`.
+---
+---**Warning**! The type field ("shaped", "cooking" or any other) will be ignored if the recipe contains output. Erasing is then done independently from the crafting method.
+---@param recipe craft_recipe
+---@return boolean
+function minetest.clear_craft(recipe) end
