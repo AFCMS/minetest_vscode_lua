@@ -147,8 +147,6 @@ function ObjectRef:set_bone_position(bone, position, rotation) end
 ---@return Vector rotation
 function ObjectRef:get_bone_position(bone) end
 
---FIXME: document object_properties
-
 ---Object Properties
 ---@class object_properties
 ---**Player Only**
