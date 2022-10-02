@@ -285,19 +285,12 @@ function minetest.safe_file_write(path, content) end
 ---
 ---Compatible forks will have an entirely different name and version.
 ---@class engine_version
-local engine_version = {}
-
 ---Name of the project, eg, `"Minetest"`.
----@type string
-engine_version.project = nil
-
+---@field project string
 ---Simple version, eg, `"1.2.3-dev"`.
----@type string
-engine_version.string = nil
-
+---@field string string
 ---Full git version (only set if available), eg, `"1.2.3-dev-01234567-dirty"`.
----@type string
-engine_version.hash = nil
+---@field hash string
 
 ---Returns a table containing components of the engine version.
 ---@return engine_version
