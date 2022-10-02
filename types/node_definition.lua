@@ -28,21 +28,152 @@
 ---@alias tile_definition string|{name: string, animation: tile_animation_definition}|{name: string, backface_culling: boolean, align_style: '"node"'|'"world"'|'"user"', scale: integer}|{name: string, color: ColorSpec}
 
 ---@alias paramtype
----|'"light"' # The value stores light with and without sun in its lower and upper 4 bits respectively. Required by a light source node to enable spreading its light.
----|'"node"' # `param1` will not be used by the engine and can be used to store an arbitrary value
+---The value stores light with and without sun in its lower and upper 4 bits respectively.
+---
+---Required by a light source node to enable spreading its light.
+---
+---Required by the following drawtypes as they determine their visual brightness from their internal light value:
+---
+---* torchlike
+---* signlike
+---* firelike
+---* fencelike
+---* raillike
+---* nodebox
+---* mesh
+---* plantlike
+---* plantlike_rooted
+---|'"light"'
+---`param1` will not be used by the engine and can be used to store an arbitrary value
+---|'"node"'
 
 ---@alias paramtype2
+---Used by `drawtype = "flowingliquid"` and `liquidtype = "flowing"`.
+---
+---The liquid level and a flag of the liquid are stored in `param2`.
+---
+---Bits 0-2: Liquid level (0-7). The higher, the more liquid is in this node; see `minetest.get_node_level`, `minetest.set_node_level` and `minetest.add_node_level` to access/manipulate the content of this field.
+---
+---Bit 3: If set, liquid is flowing downwards (no graphical effect)
 ---|'"flowingliquid"'
+---Supported drawtypes: `"torchlike"`, `"signlike"`, `"plantlike"`, `"plantlike_rooted"`, `"normal"`, `"nodebox"`, `"mesh"`
+---
+---The rotation of the node is stored in `param2`
+---
+---You can make this value by using `minetest.dir_to_wallmounted()`
+---
+---Values range 0 - 5
+---
+---The value denotes at which direction the node is "mounted":
+---
+---* 0 = y+
+---* 1 = y-
+---* 2 = x+
+---* 3 = x-
+---* 4 = z+
+---* 5 = z-
 ---|'"wallmounted"'
+---Supported drawtypes: `"normal"`, `"nodebox"`, `"mesh"`
+---
+---The rotation of the node is stored in `param2`.
+---
+---Furnaces and chests are rotated this way. Can be made by using `minetest.dir_to_facedir()`.
+---
+---Values range 0 - 23
+---
+---facedir / 4 = axis direction:
+---* 0 = y+
+---* 1 = z+
+---* 2 = z-
+---* 3 = x+
+---* 4 = x-
+---* 5 = y-
+---
+---facedir modulo 4 = rotation around that axis
 ---|'"facedir"'
+---Only valid for `"nodebox"` with `type = "leveled"`, and `"plantlike_rooted"`.
+---
+---Leveled nodebox:
+---* The level of the top face of the nodebox is stored in `param2`.
+---* The other faces are defined by 'fixed = {}' like 'type = "fixed"' nodeboxes.
+---* The nodebox height is (`param2` / 64) nodes.
+---* The maximum accepted value of `param2` is 127.
+---
+---Rooted plantlike:
+---* The height of the 'plantlike' section is stored in `param2`.
+---* The height is (`param2` / 16) nodes.
 ---|'"leveled"'
+---Valid for `"plantlike"` and `"mesh"` drawtypes.
+---
+---The rotation of the node is stored in `param2`.
+---
+---Values range 0–239.
+---
+---The value stored in `param2` is multiplied by 1.5 to get the actual rotation in degrees of the node.
 ---|'"degrotate"'
+---Only valid for `"plantlike"` drawtype.
+---
+---`param2` encodes the shape and optional modifiers of the "plant". `param2` is a bitfield.
+---
+---Bits 0 to 2 select the shape.
+---Use only one of the values below:
+---* 0 = a "x" shaped plant (ordinary plant)
+---* 1 = a "+" shaped plant (just rotated 45 degrees)
+---* 2 = a "*" shaped plant with 3 faces instead of 2
+---* 3 = a "#" shaped plant with 4 faces instead of 2
+---* 4 = a "#" shaped plant with 4 faces that lean outwards
+---* 5-7 are unused and reserved for future meshes.
+---
+---Bits 3 to 7 are used to enable any number of optional modifiers.
+---Just add the corresponding value(s) below to `param2`:
+---* 8  - Makes the plant slightly vary placement horizontally
+---* 16 - Makes the plant mesh 1.4x larger
+---* 32 - Moves each face randomly a small bit down (1/8 max)
+---* values 64 and 128 (bits 6-7) are reserved for future use.
+---
+---Example: `param2 = 0` selects a normal "x" shaped plant
+---
+---Example: `param2 = 17` selects a "+" shaped plant, 1.4x larger (1+16)
 ---|'"meshoptions"'
+---`param2` tells which color is picked from the palette.
+---
+---The palette should have 256 pixels.
 ---|'"color"'
+---Same as `"facedir"`, but with colors.
+---
+---The first three bits of `param2` tells which color is picked from the palette.
+---
+---The palette should have 8 pixels.
 ---|'"colorfacedir"'
+---Same as `"wallmounted"`, but with colors.
+---
+---The first five bits of `param2` tells which color is picked from the palette.
+---
+---The palette should have 32 pixels.
 ---|'"colorwallmounted"'
+---Only valid for `"glasslike_framed"` or `"glasslike_framed_optional"` drawtypes.
+---
+---"glasslike_framed_optional" nodes are only affected if the "Connected Glass" setting is enabled.
+---
+---Bits 0-5 define 64 levels of internal liquid, 0 being empty and 63 being full.
+---
+---Bits 6 and 7 modify the appearance of the frame and node faces.
+---
+---One or both of these values may be added to `param2`:
+---* 64  - Makes the node not connect with neighbors above or below it.
+---* 128 - Makes the node not connect with neighbors to its sides.
+---
+---Liquid texture is defined using `special_tiles = {"modname_tilename.png"}`
 ---|'"glasslikeliquidlevel"'
+---Same as `"degrotate"`, but with colors.
+---
+---The first (most-significant) three bits of `param2` tells which color is picked from the palette.
+---
+---The palette should have 8 pixels.
+---
+---Remaining 5 bits store rotation in range 0–23 (i.e. in 15° steps)
 ---|'"colordegrotate"'
+---`param2` will not be used by the engine and can be used to store an arbitrary value
 ---|'"none"'
 
 ---@alias liquidtype
