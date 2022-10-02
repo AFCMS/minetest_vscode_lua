@@ -150,105 +150,66 @@ minetest.features.get_sky_as_table = true
 function minetest.has_feature(arg) end
 
 ---@class player_informations
-local player_informations = {}
-
 ---IP address of the client.
----@type string
-player_informations.address = nil
-
+---@field address string
 ---IPv4 / IPv6
----@type 4|6
-player_informations.ip_version = nil
-
+---@field ip_version 4|6
 ---Seconds since the client connected.
----@type integer
-player_informations.connection_uptime = nil
-
+---@field connection_uptime integer
 ---Protocol version used by the client.
----@type integer
-player_informations.protocol_version = nil
-
+---@field protocol_version integer
 ---Formspec version supported by the client.
----@type integer
-player_informations.formspec_version = nil
-
+---@field formspec_version integer
 ---Language code used by the client for translation.
----@type lang_code
-player_informations.lang_code = nil
-
+---@field lang_code lang_code
 ---Minimum round trip time.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.min_rtt = nil
-
+---@field min_rtt number?
 ---Maximum round trip time.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.max_rtt = nil
-
+---@field max_rtt number?
 ---Average round trip time.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.avg_rtt = nil
-
+---@field avg_rtt number?
 ---Minimum packet time jitter.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.min_jitter = nil
-
+---@field min_jitter number?
 ---Maximum packet time jitter.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.max_jitter = nil
-
+---@field max_jitter number?
 ---Average packet time jitter.
 ---
 ---**Can be missing if no stats have been collected yet.**
----@type number
-player_informations.avg_jitter = nil
-
+---@field avg_jitter number?
 ---Serialization version used by client.
 ---
 ---**DEBUG BUILD ONLY**
----@type integer
-player_informations.ser_vers = nil
-
+---@field ser_vers integer?
 ---Major version number.
 ---
 ---**DEBUG BUILD ONLY**
----@type integer
-player_informations.major = nil
-
+---@field major integer?
 ---Minor version number.
 ---
 ---**DEBUG BUILD ONLY**
----@type integer
-player_informations.minor = nil
-
+---@field minor integer?
 ---Patch version number.
 ---
 ---**DEBUG BUILD ONLY**
----@type integer
-player_informations.patch = nil
-
+---@field patch integer?
 ---Full version string.
 ---
 ---**DEBUG BUILD ONLY**
----@type string
-player_informations.vers_string = nil
-
---FIXME: all possible states
-
+---@field vers_string string?
 ---Current client state.
 ---
 ---**DEBUG BUILD ONLY**
----@type string
-player_informations.state = nil
+---@field state '"Invalid"'|'"Disconnecting"'|'"Denied"'|'"Created"'|'"AwaitingInit2"'|'"HelloSent"'|'"InitDone"'|'"DefinitionsSent"'|'"Active"'|'"SudoMode"'|nil
 
 
 ---Returns a table containing informations about a player.
