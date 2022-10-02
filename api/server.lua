@@ -47,20 +47,12 @@ function minetest.remove_player(name) end
 function minetest.remove_player_auth(name) end
 
 ---@class dynamic_add_media_options
-local dynamic_add_media_options = {}
-
 ---Path to a media file on the filesystem.
----@type string
-dynamic_add_media_options.filepath = nil
-
+---@field filepath string
 ---Name of the player the media should be sent to instead of all players (optional)
----@type string
-dynamic_add_media_options.to_player = nil
-
+---@field to_player string
 ---Marks the media as ephemeral, it will not be cached on the client (optional, default: false)
----@type boolean
-dynamic_add_media_options.ephemeral = nil
-
+---@field ephemeral boolean
 
 ---Pushes the specified media file to client(s).
 ---
