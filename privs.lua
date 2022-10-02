@@ -1,37 +1,26 @@
 ---@meta
 
 ---@class privilege_definition
-local privilege_definition = {}
-
 ---Privilege description.
----@type string
-privilege_definition.description = nil
-
+---@field description string
 ---Whether to grant the privilege to singleplayer.
----@type boolean
-privilege_definition.give_to_singleplayer = nil
-
+---@field give_to_singleplayer boolean
 ---Whether to grant the privilege to the server admin.
 ---
 ---Uses value of 'give_to_singleplayer' by default.
----@type boolean
-privilege_definition.give_to_admin = nil
-
+---@field give_to_admin boolean
 ---Called when given to player 'name' by 'granter_name'.
 ---
 ---'granter_name' will be nil if the priv was granted by a mod.
 ---
 ---Return true to stop `register_on_priv_grant` from being called.
----@type fun(name: string, granter_name?: string): boolean
-privilege_definition.on_grant = nil
-
+---@field on_grant fun(name: string, granter_name?: string): boolean
 ---Called when taken from player  `name` by `revoker_name`.
 ---
 ---`revoker_name` will be `nil` if the priv was revoked by a mod.
 ---
 ---Return true to stop `register_on_priv_revoke` from being called.
----@type fun(name: string, revoker_name?: string): boolean
-privilege_definition.on_revoke = nil
+---@field on_revoke fun(name: string, revoker_name?: string): boolean
 
 
 ---Register a new privilege.
