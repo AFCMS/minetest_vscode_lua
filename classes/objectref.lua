@@ -770,7 +770,7 @@ function ObjectRef:hud_remove(id) end
 ---
 ---Change a value of a previously added HUD element.
 ---@param id integer
----@param stat '"position"'|'"name"'|'"scale"'|'"text"'|'"number"'|'"item"'
+---@param stat '"position"'|'"name"'|'"scale"'|'"text"'|'"text2"'|'"number"'|'"item"'|'"direction"'|'"alignment"'|'"offset"'|'"world_pos"'|'"size"'|'"z_index"'|'"style"'
 ---@param value any
 function ObjectRef:hud_change(id, stat, value) end
 

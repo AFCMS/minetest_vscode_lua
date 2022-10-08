@@ -103,7 +103,7 @@ function minetest.parse_json(string, nullvalue) end
 ---1. You can only use strings and positive integers of at least one as keys.
 ---2. You can not mix string and integer keys. This is due to the fact that JSON has two distinct array and object values.
 ---@param data table
----@param styled boolean Human-readable format, default: false
+---@param styled? boolean Human-readable format, default: false
 ---@return string? output
 ---@return string? error
 ---@nodiscard
