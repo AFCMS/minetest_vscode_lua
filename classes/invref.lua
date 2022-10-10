@@ -7,11 +7,13 @@ local InvRef = {}
 ---Return `true` if list is empty.
 ---@param listname string
 ---@return boolean
+---@nodiscard
 function InvRef:is_empty(listname) end
 
 ---Get the size of a list.
 ---@param listname string
 ---@return integer
+---@nodiscard
 function InvRef:get_size(listname) end
 
 ---Set the size of a list.
@@ -25,6 +27,7 @@ function InvRef:set_size(listname, size) end
 ---Get the width of a list.
 ---@param listname string
 ---@return integer
+---@nodiscard
 function InvRef:get_width(listname) end
 
 ---Set width of the list; currently used for crafting.
@@ -36,6 +39,7 @@ function InvRef:set_width(listname, width) end
 ---@param listname string
 ---@param i integer
 ---@return ItemStack
+---@nodiscard
 function InvRef:get_stack(listname, i) end
 
 ---Copy `stack` to index `i` in the list.
@@ -47,6 +51,7 @@ function InvRef:set_stack(listname, i, stack) end
 ---Returns a full list of `ItemStack`.
 ---@param listname string
 ---@return ItemStack[]
+---@nodiscard
 function InvRef:get_list(listname) end
 
 ---Set a full list of `ItemStack`.
@@ -58,6 +63,7 @@ function InvRef:set_list(listname, list) end
 
 ---Returns table mapping listnames to inventory lists.
 ---@return table<string, ItemStack[]>
+---@nodiscard
 function InvRef:get_lists() end
 
 ---Sets inventory lists (size will not change).
@@ -74,6 +80,7 @@ function InvRef:add_item(listname, stack) end
 ---@param listname string
 ---@param stack ItemStack
 ---@return boolean
+---@nodiscard
 function InvRef:room_for_item(listname, stack) end
 
 ---Returns `true` if the stack of items can be fully taken from the list.
@@ -82,6 +89,7 @@ function InvRef:room_for_item(listname, stack) end
 ---@param listname string
 ---@param stack ItemStack
 ---@param match_meta? boolean
+---@nodiscard
 function InvRef:contains_item(listname, stack, match_meta) end
 
 ---Take as many items as specified from the list, returns the items that were actually removed (as an `ItemStack`).
@@ -96,11 +104,13 @@ function InvRef:remove_item(listname, stack) end
 
 ---Returns a location compatible with `minetest.get_inventory(location)`.
 ---@return inventory_location
+---@nodiscard
 function InvRef:get_location() end
 
 ---Get an inventory.
----@param location {type: '"player"', name: string}|{type: '""', node: Vector}|{type: '"detached"', name: string}
+---@param location {type: '"player"', name: string}|{type: '"node"', node: Vector}|{type: '"detached"', name: string}
 ---@return InvRef?
+---@nodiscard
 function minetest.get_inventory(location) end
 
 ---@class detached_inventory_callbacks
