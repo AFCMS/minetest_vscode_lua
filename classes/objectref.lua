@@ -12,6 +12,7 @@ local ObjectRef = {}
 
 ---Return position of the object
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_pos() end
 
 ---Set position of the object
@@ -20,6 +21,7 @@ function ObjectRef:set_pos(pos) end
 
 ---Returns the velocity of the object as a vector.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_velocity() end
 
 ---In comparison to using `get_velocity`, adding the velocity and then using `set_velocity`, `add_velocity` is supposed to avoid synchronization problems.
@@ -55,6 +57,7 @@ function ObjectRef:right_click(clicker) end
 
 ---Returns number of health points of the object.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_hp() end
 
 --FIXME: reason table
@@ -65,18 +68,22 @@ function ObjectRef:set_hp(hp, reason) end
 
 ---Returns an `InvRef` for players, otherwise returns `nil`
 ---@return InvRef?
+---@nodiscard
 function ObjectRef:get_inventory() end
 
 ---Returns the inventory list the wielded item is in.
 ---@return string
+---@nodiscard
 function ObjectRef:get_wield_list() end
 
 ---Returns the index of the wielded item.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_wield_index() end
 
 ---Returns the wielded `ItemStack`
 ---@return ItemStack
+---@nodiscard
 function ObjectRef:get_wielded_item() end
 
 ---Replaces the wielded item, returns `true` if successful.
@@ -86,6 +93,7 @@ function ObjectRef:set_wielded_item(item) end
 
 ---Returns a table with the armor group ratings.
 ---@return { [string]: integer }
+---@nodiscard
 function ObjectRef:get_armor_groups() end
 
 ---Set armor group ratings.
@@ -97,6 +105,7 @@ function ObjectRef:set_armor_groups(groups) end
 ---@return number frame_speed
 ---@return number frame_blend
 ---@return boolean frame_loop
+---@nodiscard
 function ObjectRef:get_animation() end
 
 ---Set object animation.
@@ -126,10 +135,12 @@ function ObjectRef:set_attach(parent, bone, position, rotation, forced_visible) 
 ---@return Vector? position
 ---@return Vector? rotation
 ---@return boolean? forced_visible
+---@nodiscard
 function ObjectRef:get_attach() end
 
 ---Returns a list of `ObjectRefs` that are attached to the object.
 ---@return ObjectRef[]
+---@nodiscard
 function ObjectRef:get_children() end
 
 ---Detach object.
@@ -145,6 +156,7 @@ function ObjectRef:set_bone_position(bone, position, rotation) end
 ---@param bone string
 ---@return Vector position
 ---@return Vector rotation
+---@nodiscard
 function ObjectRef:get_bone_position(bone) end
 
 ---Object Properties
@@ -296,6 +308,7 @@ function ObjectRef:get_bone_position(bone) end
 
 ---Returns object properties.
 ---@return object_properties
+---@nodiscard
 function ObjectRef:get_properties() end
 
 ---Set objects properties.
@@ -304,15 +317,17 @@ function ObjectRef:set_properties(object_properties) end
 
 ---Returns `true` for players, `false` otherwise.
 ---@return boolean
+---@nodiscard
 function ObjectRef:is_player() end
 
 ---@class nametag_attributes
 ---@field text string
 ---@field color ColorSpec
----@field bgcolor ColorSpec|'false'
+---@field bgcolor ColorSpec|'"false"'
 
 ---Returns a table with the attributes of the nametag of an object.
 ---@return nametag_attributes
+---@nodiscard
 function ObjectRef:get_nametag_attributes() end
 
 ---Sets the attributes of the nametag of the object.
@@ -346,6 +361,7 @@ function ObjectRef:set_acceleration(acc) end
 ---
 ---Returns the acceleration of the object.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_acceleration() end
 
 ---**Luaentity Only**
@@ -366,6 +382,7 @@ function ObjectRef:set_rotation(rot) end
 ---
 ---`X` is pitch (elevation), `Y` is yaw (heading) and `Z` is roll (bank).
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_rotation() end
 
 ---**Luaentity Only**
@@ -378,6 +395,7 @@ function ObjectRef:set_yaw(yaw) end
 ---
 ---Returns the yaw (heading) of the object in radians.
 ---@return number
+---@nodiscard
 function ObjectRef:get_yaw() end
 
 ---**Luaentity Only**
@@ -392,6 +410,7 @@ function ObjectRef:set_texture_mod(mod) end
 ---
 ---Returns the current texture modifier of the object.
 ---@return string
+---@nodiscard
 function ObjectRef:get_texture_mod() end
 
 ---**Luaentity Only**
@@ -419,6 +438,7 @@ function ObjectRef:set_sprite(start_frame, num_frames, framelenght, select_x_by_
 ---**DEPRECATED**, will be removed in a future version.
 ---@deprecated
 ---@return string
+---@nodiscard
 function ObjectRef:get_entity_name() end
 
 --FIXME
@@ -427,6 +447,7 @@ function ObjectRef:get_entity_name() end
 ---
 ---Returns object luaentity.
 ---@return table
+---@nodiscard
 function ObjectRef:get_luaentity() end
 
 -----------------
@@ -439,6 +460,7 @@ function ObjectRef:get_luaentity() end
 ---
 ---Returns `""` if object isn't a player.
 ---@return string
+---@nodiscard
 function ObjectRef:get_player_name() end
 
 ---**Player Only**
@@ -446,6 +468,7 @@ function ObjectRef:get_player_name() end
 ---**DEPRECATED**, use `get_velocity()` instead.
 ---@deprecated
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_player_velocity() end
 
 ---**Player Only**
@@ -459,6 +482,7 @@ function ObjectRef:add_player_velocity(vel) end
 ---
 ---Get camera direction as a unit vector.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_look_dir() end
 
 ---**Player Only**
@@ -467,6 +491,7 @@ function ObjectRef:get_look_dir() end
 ---
 ---Angle ranges between `-pi/2` and `pi/2`, which are straight up and down respectively.
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_vertical() end
 
 ---**Player Only**
@@ -483,6 +508,7 @@ function ObjectRef:set_look_vertical(radians) end
 ---
 ---Angle is counter-clockwise from the +z direction.
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_horizontal() end
 
 ---**Player Only**
@@ -502,6 +528,7 @@ function ObjectRef:set_look_horizontal(radians) end
 ---**DEPRECATED AS BROKEN**, use `get_look_vertical()`.
 ---@deprecated
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_pitch() end
 
 ---**Player Only**
@@ -524,6 +551,7 @@ function ObjectRef:set_look_pitch(rad) end
 ---**DEPRECATED AS BROKEN**, use `get_look_horizontal()`.
 ---@deprecated
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_yaw() end
 
 ---**Player Only**
@@ -544,6 +572,7 @@ function ObjectRef:set_look_yaw(rad) end
 --- * max: bubbles bar is not shown
 --- * see [object_properties] for more information
 ---@return integer
+---@nodiscard
 function ObjectRef:get_breath() end
 
 ---**Player Only**
@@ -569,6 +598,7 @@ function ObjectRef:set_fov(fov, is_multiplier, transition_time) end
 ---@return number fov FOV value. Returns `0` if an FOV override doesn't exist.
 ---@return boolean is_multiplier Set to `true` if the FOV value is a multiplier.
 ---@return number transition_time Time (in seconds) to reach target FOV.
+---@nodiscard
 function ObjectRef:get_fov() end
 
 ---**Player Only**
@@ -595,12 +625,14 @@ function ObjectRef:set_attribute(attribute, value) end
 ---@deprecated
 ---@param attribute string
 ---@return string?
+---@nodiscard
 function ObjectRef:get_attribute(attribute) end
 
 ---**Player Only**
 ---
 ---Returns a `PlayerMetaRef`
 ---@return PlayerMetaRef
+---@nodiscard
 function ObjectRef:get_meta() end
 
 ---**Player Only**
@@ -633,6 +665,7 @@ function ObjectRef:set_formspec_prepend(formspec) end
 ---
 ---Returns `{}` if object isn't a player.
 ---@return {up: boolean, down: boolean, left: boolean, right: boolean, jump: boolean, aux1: boolean, sneak: boolean, dig: boolean, place: boolean, LMB: boolean, RMB: boolean, zoom: boolean}
+---@nodiscard
 function ObjectRef:get_player_control() end
 
 ---**Player Only**
@@ -653,6 +686,7 @@ function ObjectRef:get_player_control() end
 ---
 ---Returns `0` (no bits set) if the object is not a player.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_player_control_bits() end
 
 ---@class physics_override
@@ -679,6 +713,7 @@ function ObjectRef:set_physics_override(override_table) end
 ---
 ---Returns the table given to `set_physics_override`.
 ---@return physics_override
+---@nodiscard
 function ObjectRef:get_physics_override() end
 
 --TODO: improve self documentation of hud definition using minetest modding book
@@ -747,6 +782,7 @@ function ObjectRef:hud_change(id, stat, value) end
 ---Returns the HUD element definition structure of the specified ID
 ---@param id integer
 ---@return hud_definition?
+---@nodiscard
 function ObjectRef:hud_get(id) end
 
 ---@class hud_flags
@@ -769,6 +805,7 @@ function ObjectRef:hud_set_flags(flags) end
 ---
 ---Returns player HUD flags.
 ---@return hud_flags
+---@nodiscard
 function ObjectRef:hud_get_flags() end
 
 ---**Player Only**
@@ -781,6 +818,7 @@ function ObjectRef:hud_set_hotbar_itemcount(count) end
 ---
 ---Returns number of slots shown in builtin hotbar.
 ---@return integer
+---@nodiscard
 function ObjectRef:hud_get_hotbar_itemcount() end
 
 ---**Player Only**
@@ -793,6 +831,7 @@ function ObjectRef:hud_set_hotbar_image(texturename) end
 ---
 ---Returns hotbar background image.
 ---@return string
+---@nodiscard
 function ObjectRef:hud_get_hotbar_image() end
 
 ---**Player Only**
@@ -805,6 +844,7 @@ function ObjectRef:hud_set_hotbar_selected_image(texturename) end
 ---
 ---Returns selected hotbar background image.
 ---@return string
+---@nodiscard
 function ObjectRef:hud_get_hotbar_selected_image() end
 
 --FIXME: unclear lua_api doc
@@ -886,6 +926,7 @@ function ObjectRef:set_sky(sky_parameters) end
 ---Returns sky settings.
 ---@param as_table? boolean Determines whether the deprecated version of this function is being used. (see lua_api.txt for more infos)
 ---@return sky_parameters
+---@nodiscard
 function ObjectRef:get_sky(as_table) end
 
 ---**Player Only**
@@ -895,6 +936,7 @@ function ObjectRef:get_sky(as_table) end
 ---**DEPRECATED:** Use `get_sky(as_table)` instead.
 ---@deprecated
 ---@return sky_color
+---@nodiscard
 function ObjectRef:get_sky_color() end
 
 ---@class sun_parameters
@@ -927,6 +969,7 @@ function ObjectRef:set_sun(parameters) end
 ---
 ---Returns the current sun settings.
 ---@return sun_parameters
+---@nodiscard
 function ObjectRef:get_sun() end
 
 ---@class moon_parameters
@@ -966,6 +1009,7 @@ function ObjectRef:set_moon(parameters) end
 ---
 ---Returns the current moon settings.
 ---@return moon_parameters
+---@nodiscard
 function ObjectRef:get_moon() end
 
 ---@class star_parameters
@@ -992,6 +1036,7 @@ function ObjectRef:set_stars(parameters) end
 ---
 ---Returns the current star settings.
 ---@return star_parameters
+---@nodiscard
 function ObjectRef:get_stars() end
 
 ---@class cloud_parameters
@@ -1022,6 +1067,7 @@ function ObjectRef:set_clouds(parameters) end
 ---
 ---Returns the current cloud settings.
 ---@return cloud_parameters
+---@nodiscard
 function ObjectRef:get_clouds() end
 
 ---**Player Only**
@@ -1036,6 +1082,7 @@ function ObjectRef:override_day_night_ratio(ratio) end
 ---
 ---Returns the current day-night ratio or `nil` if no override is active.
 ---@return number?
+---@nodiscard
 function ObjectRef:get_day_night_ratio() end
 
 ---**Player Only**
@@ -1058,6 +1105,7 @@ function ObjectRef:set_local_animation(idle, walk, dig, walk_while_dig, frame_sp
 ---@return {x: integer, y: integer} dig
 ---@return {x: integer, y: integer} walk_while_dig
 ---@return integer frame_speed
+---@nodiscard
 function ObjectRef:get_local_animation() end
 
 ---**Player Only**
@@ -1074,6 +1122,7 @@ function ObjectRef:set_eye_offset(firstperson, thirdperson) end
 ---Returns first and third person offsets.
 ---@return Vector firstperson
 ---@return Vector thirdperson
+---@nodiscard
 function ObjectRef:get_eye_offset() end
 
 ---**Player Only**
@@ -1104,4 +1153,5 @@ function ObjectRef:set_lighting(definition) end
 ---
 ---Returns the current lighting of the player.
 ---@return light_definition
+---@nodiscard
 function ObjectRef:get_lighting() end
