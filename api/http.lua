@@ -51,6 +51,7 @@ function httpapitable.fetch(req, callback) end
 ---Performs given request asynchronously and returns handle for `HTTPApiTable.fetch_async_get`.
 ---@param req HTTPRequest
 ---@return any
+---@nodiscard
 function httpapitable.fetch_async(req) end
 
 ---Return response data for given asynchronous HTTP request.
