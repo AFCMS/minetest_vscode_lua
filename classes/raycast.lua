@@ -8,6 +8,7 @@
 ---@param objects boolean If `false`, only nodes will be returned. Default is `true`.
 ---@param liquids boolean If `false`, liquid nodes (`liquidtype ~= "none"`) won't be returned. Default is `false`.
 ---@return Raycast
+---@nodiscard
 function Raycast(pos1, pos2, objects, liquids) end
 
 minetest.raycast = Raycast
@@ -33,4 +34,5 @@ local raycast = {}
 ---
 ---Returns the next thing pointed by the ray or nil.
 ---@return pointed_thing_raycast?
+---@nodiscard
 function raycast:next() end
