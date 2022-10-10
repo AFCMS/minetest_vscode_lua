@@ -656,31 +656,18 @@ function ObjectRef:get_player_control() end
 function ObjectRef:get_player_control_bits() end
 
 ---@class physics_override
-local physics_override = {}
-
 ---Multiplier to default walking speed value (default: `1`)
----@type number
-physics_override.speed = nil
-
+---@field speed number
 ---Multiplier to default jump value (default: `1`)
----@type number
-physics_override.jump = nil
-
+---@field jump number
 ---Multiplier to default gravity value (default: `1`)
----@type number
-physics_override.gravity = nil
-
+---@field gravity number
 ---Whether player can sneak (default: `true`)
----@type boolean
-physics_override.sneak = nil
-
+---@field sneak boolean
 ---Whether player can use the new move code replications of the old sneak side-effects: sneak ladders and 2 node sneak jump (default: `false`)
----@type boolean
-physics_override.sneak_glitch = nil
-
+---@field sneak_glitch boolean
 ---Use new move/sneak code. When `false` the exact old code is used for the specific old sneak behaviour (default: `true`)
----@type boolean
-physics_override.new_move = nil
+---@field new_move boolean
 
 ---**Player Only**
 ---
@@ -830,93 +817,61 @@ function ObjectRef:hud_get_hotbar_selected_image() end
 function ObjectRef:set_minimap_modes(modes, selected_mode) end
 
 ---@class sky_parameters
-local sky_parameters = {}
-
 ---Fog color in "skybox" and "plain" modes.
----@type ColorSpec
-sky_parameters.base_color = nil
-
+---@field base_color ColorSpec
 --- Available types:
 ---* `"regular"`: Uses 0 textures, `base_color` ignored
 ---* `"skybox"`: Uses 6 textures, `base_color` used as fog.
 ---* `"plain"`: Uses 0 textures, `base_color` used as both fog and sky.
----@type '"regular"'|'"skybox"'|'"plain"'
-sky_parameters.type = nil
-
+---@field type '"regular"'|'"skybox"'|'"plain"'
 ---A table containing up to six textures in the following order:
 ---
 ---Y+ (top), Y- (bottom), X- (west), X+ (east), Z+ (north), Z- (south)
----@type string[]
-sky_parameters.textures = nil
-
+---@field textures string[]
 ---Whether clouds appear. (default: `true`)
----@type boolean
-sky_parameters.clouds = nil
-
+---@field clouds boolean
 ---A table used in `"regular"` type only, containing sky color values (alpha is ignored):
----@type sky_color
-sky_parameters.sky_color = {}
+---@field sky_color sky_color
 
 ---@class sky_color
-local sky_color = {}
-
 ---For the top half of the sky during the day. (default: `#61b5f5`)
----@type ColorSpec
-sky_color.day_sky = nil
-
+---@field day_sky ColorSpec
 ---For the bottom half of the sky during the day. (default: `#90d3f6`)
----@type ColorSpec
-sky_color.day_horizon = nil
-
+---@field day_horizon ColorSpec
 ---For the top half of the sky during dawn/sunset. (default: `#b4bafa`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.dawn_sky = nil
-
+---@field dawn_sky ColorSpec
 ---For the bottom half of the sky during dawn/sunset. (default: `#bac1f0`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.dawn_horizon = nil
-
+---@field dawn_horizon ColorSpec
 ---For the top half of the sky during the night. (default: `#006bff`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.night_sky = nil
-
+---@field night_sky ColorSpec
 ---For the bottom half of the sky during the night. (default: `#4090ff`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.night_horizon = nil
-
+---@field night_horizon ColorSpec
 ---For when you're either indoors or underground. (default: `#646464`)
----@type ColorSpec
-sky_color.indoors = nil
-
+---@field indoors ColorSpec
 ---Changes the fog tinting for the sun at sunrise and sunset. (default: `#f47d1d`)
----@type ColorSpec
-sky_color.fog_sun_tint = nil
-
+---@field fog_sun_tint ColorSpec
 ---Changes the fog tinting for the moon at sunrise and sunset. (default: `#7f99cc`)
----@type ColorSpec
-sky_color.fog_moon_tint = nil
-
+---@field fog_moon_tint ColorSpec
 ---Changes which mode the directional fog abides by, `"custom"` uses `sun_tint` and `moon_tint`, while `"default"` uses the classic Minetest sun and moon tinting.
 ---
 ---Will use tonemaps, if set to `"default"`. (default: `"default"`)
----@type '"default"'|'"custom"'
-sky_color.fog_tint_type = nil
+---@field fog_tint_type '"default"'|'"custom"'
 
 ---**Player Only**
 ---
@@ -943,35 +898,22 @@ function ObjectRef:get_sky(as_table) end
 function ObjectRef:get_sky_color() end
 
 ---@class sun_parameters
-local sun_parameters = {}
-
 ---Whether the sun is visible. (default: `true`)
----@type boolean
-sun_parameters.visible = nil
-
+---@field visible boolean
 ---A regular texture for the sun.
 ---
 ---Setting to `""` will re-enable the mesh sun.
 ---
 ---Default: `"sun.png"`, if it exists.
----@type string
-sun_parameters.texture = nil
-
+---@field texture string
 ---A 512x1 texture containing the tonemap for the sun (default: `"sun_tonemap.png"`)
----@type string
-sun_parameters.tonemap = nil
-
+---@field tonemap string
 ---A regular texture for the sunrise texture. (default: `"sunrisebg.png"`)
----@type string
-sun_parameters.sunrise = nil
-
+---@field sunrise string
 ---Whether the sunrise texture is visible. (default: `true`)
----@type boolean
-sun_parameters.sunrise_visible = nil
-
+---@field sunrise_visible boolean
 ---Float controlling the overall size of the sun. (default: `1`)
----@type number
-sun_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
@@ -1027,25 +969,16 @@ function ObjectRef:set_moon(parameters) end
 function ObjectRef:get_moon() end
 
 ---@class star_parameters
-local star_parameters = {}
-
 ---Whether the stars are visible. (default: `true`)
----@type boolean
-star_parameters.visible = nil
-
+---@field visible boolean
 ---The number of stars in the skybox.
 ---
 ---Only applies to `"skybox"` and `"regular"` sky types. (default: `1000`)
----@type integer
-star_parameters.count = nil
-
+---@field count integer
 ---The color of the stars, alpha channel is used to set overall star brightness. (default: `#ebebff69`)
----@type ColorSpec
-star_parameters.star_color = nil
-
+---@field star_color ColorSpec
 ---Float controlling the overall size of the stars. (default: `1`)
----@type number
-star_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
@@ -1062,33 +995,20 @@ function ObjectRef:set_stars(parameters) end
 function ObjectRef:get_stars() end
 
 ---@class cloud_parameters
-local cloud_parameters = {}
-
 ---Cloud density.
 ---
 ---From `0` (no clouds) to `1` (full clouds) (default `0.4`)
----@type number
-cloud_parameters.density = nil
-
+---@field density number
 ---Cloud color with alpha channel (default `#fff0f0e5`).
----@type ColorSpec
-cloud_parameters.color = nil
-
+---@field color ColorSpec
 ---Cloud color lower bound, use for a "glow at night" effect (alpha ignored, default `#000000`).
----@type ColorSpec
-cloud_parameters.ambient = nil
-
+---@field ambient ColorSpec
 ---Cloud height (default per conf, usually `120`).
----@type integer
-cloud_parameters.height = nil
-
+---@field height integer
 ---Cloud thickness in nodes (default `16`).
----@type integer
-cloud_parameters.thickness = nil
-
+---@field thickness integer
 ---2D cloud speed + direction in nodes per second (default `{x=0, z=-2}`).
----@type {x: number, y: number}
-cloud_parameters.speed = nil
+---@field speed {x: number, y: number}
 
 ---**Player Only**
 ---
@@ -1170,12 +1090,9 @@ function ObjectRef:get_eye_offset() end
 function ObjectRef:send_mapblock(blockpos) end
 
 ---@class light_definition
-local light_definition = {}
-
 ---Controls ambient shadows.
 ---* `intensity` sets the intensity of the shadows from 0 (no shadows, default) to 1 (blackness)
----@type {intensity: number}
-light_definition.shadows = nil
+---@field shadows {intensity: number}
 
 ---**Player Only**
 ---
