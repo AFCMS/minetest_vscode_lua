@@ -2,11 +2,13 @@
 
 ---Returns a list of all bans formatted as string.
 ---@return string
+---@nodiscard
 function minetest.get_ban_list() end
 
 ---Returns list of bans matching IP address or name formatted as string.
 ---@param ip_or_name string
 ---@return string
+---@nodiscard
 function minetest.get_ban_description(ip_or_name) end
 
 ---Ban the IP of a currently connected player
