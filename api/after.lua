@@ -1,10 +1,9 @@
 ---@meta
 
 ---@class job
-local job = {}
-
 ---Cancels the job function from being called.
-function job:cancel() end
+---@field cancel fun(self: job)
+
 
 ---Call the function `func` after `time` seconds, may be fractional
 ---@param time number
