@@ -696,62 +696,43 @@ function ObjectRef:get_physics_override() end
 
 --TODO: improve self documentation of hud definition using minetest modding book
 
+
 ---@class hud_definition
-local hud_definition = {}
-
 ---Type of element.
----@type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"waypoint"'|'"image_waypoint"'|'"compass"'|'"minimap"'
-hud_definition.type = nil
-
+---@field type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"waypoint"'|'"image_waypoint"'|'"compass"'|'"minimap"'
 ---Position of the element, starting from the top left corner of the screen.
 ---
 ---`{x=0.5, y=0.5}` would place the element at the center of the screen while `{x=0, y=0}` would keep it in the top left corner.
----@type {x: number, y: number}
-hud_definition.position = nil
-
----Name of the element
----@type string
-hud_definition.name = nil
-
----@type {x: number, y: number}
-hud_definition.scale = nil
-
----@type string
-hud_definition.text = nil
-
----@type string
-hud_definition.text2 = nil
-
----@type number
-hud_definition.number = nil
-
+---@field position {x: number, y: number}
+---Name of the element.
+---@field name string
+---@field scale {x: number, y: number}
+---@field text string
+---@field text2 string
+---@field number number
 ---**TYPE: inventory**
 ---
 ---Selected item in inventory. 0 for no item selected.
----@type integer
-hud_definition.item = nil
-
+---@field item integer
 ---Direction: `0`: left-right, `1`: right-left, `2`: top-bottom, `3`: bottom-top
----@type 0|1|2|3
-hud_definition.direction = nil
-
----@type {x: number, y: number}
-hud_definition.alignment = nil
-
----@type {x: number, y: number}
-hud_definition.offset = nil
-
----Size of the element in pixels.
----@type {x: number, y: number}
-hud_definition.size = nil
-
+---@field direction 0|1|2|3
+---@field alignment {x: number, y: number}
+---@field offset {x: number, y: number}
+---@field size {x: number, y: number}
 ---Lower z-index HUDs are displayed behind higher z-index HUDs.
----@type integer
-hud_definition.z_index = nil
-
+---
+---* `-400`: Graphical effects, such as vignette
+---* `-300`: Name tags, waypoints
+---* `-200`: Wieldhand
+---* `-100`: Things that block the player's view, e.g. masks
+---* `0`: Default. For standard in-game HUD elements like crosshair, hotbar, minimap, builtin statbars, etc
+---* `100`: Temporary text messages or notification icons
+---* `1000`: Full-screen effects such as full-black screen or credits. This includes effects that cover the entire screen
+---* `Other`: If your HUD element doesn't fit into any category, pick a number between the suggested values
+---@field z_index integer
 ---Defint font style for "text" elements: bitfield with `1` = bold, `2` = italic, `4` = monospace
----@type integer
-hud_definition.style = nil
+---@field style integer
+
 
 ---**Player Only**
 ---
