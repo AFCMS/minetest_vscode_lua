@@ -7,8 +7,10 @@ local secure_random = {}
 ---Return next `count` many random bytes, as a string.
 ---@param count? integer Default: 1, Max: 2048
 ---@return string
+---@nodiscard
 function secure_random:next_bytes(count) end
 
 ---Returns nil if a secure random device cannot be found on the system.
 ---@return SecureRandom?
+---@nodiscard
 function SecureRandom() end
