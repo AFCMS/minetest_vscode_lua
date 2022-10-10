@@ -449,7 +449,7 @@ function minetest.generate_decorations(vm, pos1, pos2) end
 ---Takes an optional table as an argument with the field `mode`.
 ---* mode = `"full"` : Load and go through every mapblock, clearing objects (default).
 ---* mode = `"quick"`: Clear objects immediately in loaded mapblocks, clear objects in unloaded mapblocks only when the mapblocks are next activated.
----@param options {mode: '"full"'|'"quick"'}
+---@param options? {mode: '"full"'|'"quick"'}
 function minetest.clear_objects(options) end
 
 ---Load the mapblocks containing the area from `pos1` to `pos2`.
