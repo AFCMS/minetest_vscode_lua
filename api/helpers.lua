@@ -174,3 +174,49 @@ function table.key_value_swap(t) end
 ---@param to? integer Defaults to `#table`
 ---@param random_func? function This function receives two integers as arguments and should return a random integer inclusively between them. Defaults to `math.random`
 function table.shuffle(table, from, to, random_func) end
+
+---Returns a position.
+---
+---Returns the exact position on the surface of a pointed node.
+---@param placer ObjectRef
+---@param pointed_thing pointed_thing
+---@return Vector
+---@nodiscard
+function minetest.pointed_thing_to_face_pos(placer, pointed_thing) end
+
+---Simulates a tool being used once and returns the added wear, such that, if only this function is used to calculate wear, the tool will break exactly after `uses` times of uses
+---@param uses integer Number of times the tool can be used
+---@param initial_wear? integer The initial wear the tool starts with (default: 0)
+---@return integer
+---@nodiscard
+function minetest.get_tool_wear_after_use(uses, initial_wear) end
+
+---Simulates an item that digs a node.
+---
+---Returns a table with the following fields:
+---
+---* `diggable`: `true` if node can be dug, `false` otherwise.
+---* `time`: Time it would take to dig the node.
+---* `wear`: How much wear would be added to the tool (ignored for non-tools).
+---
+---`time` and `wear` are meaningless if node's not diggable
+---@param groups table<string, integer> Table of the node groups of the node that would be dug
+---@param tool_capabilities tool_capabilities Tool capabilities table of the item
+---@param wear? integer Amount of wear the tool starts with (default: 0)
+---@return {diggable: boolean, time: number, wear: integer}
+---@nodiscard
+function minetest.get_dig_params(groups, tool_capabilities, wear) end
+
+---Simulates an item that punches an object.
+---
+---Returns a table with the following fields:
+---
+---* `hp`: How much damage the punch would cause (between `-65535` and `65535`).
+---* `wear`: How much wear would be added to the tool (ignored for non-tools).
+---@param groups table<string, integer> Damage groups of the object
+---@param tool_capabilities tool_capabilities Tool capabilities table of the item
+---@param time_from_last_punch? number Time in seconds since last punch action
+---@param wear? integer Amount of wear the item starts with (default: 0)
+---@return {hp: integer, wear: integer}
+---@nodiscard
+function minetest.get_hit_params(groups, tool_capabilities, time_from_last_punch, wear) end
