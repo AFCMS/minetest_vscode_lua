@@ -3,6 +3,7 @@
 ---Returns a `Settings` object
 ---@param filename string
 ---@return Settings
+---@nodiscard
 function Settings(filename) end
 
 ---The settings have the format `key = value`.
@@ -12,6 +13,7 @@ local settings = {}
 ---Returns a value.
 ---@param key string
 ---@return string
+---@nodiscard
 function settings:get(key) end
 
 ---Returns a boolean.
@@ -20,17 +22,20 @@ function settings:get(key) end
 ---@param key string
 ---@param default? boolean
 ---@return boolean?
+---@nodiscard
 function settings:get_bool(key, default) end
 
 ---Returns a `NoiseParams` table.
 ---@param key string
 ---@return noise_params
+---@nodiscard
 function settings:get_np_group(key) end
 
 --- * Returns `{flag = true/false, ...}` according to the set flags.
 --- * Is currently limited to mapgen flags `mg_flags` and mapgen-specific flags like `mgv5_spflags`.
 ---@param key string
 ---@return table
+---@nodiscard
 function settings:get_flags(key) end
 
 --- * Setting names can't contain whitespace or any of `="{}#`.
@@ -56,7 +61,8 @@ function settings:set_np_group(key, value) end
 function settings:remove(key) end
 
 ---Returns `{key1,...}`.
----@return table
+---@return string[]
+---@nodiscard
 function settings:get_names() end
 
 ---Writes changes to file.
@@ -66,7 +72,7 @@ function settings:get_names() end
 function settings:write() end
 
 ---Returns `{[key1]=value1,...}`.
----@return table
+---@return table<string, string>
 function settings:to_table() end
 
 ---Settings object containing all of the settings from the main config file (`minetest.conf`).
@@ -78,4 +84,5 @@ minetest.settings = {}
 ---Returns a position or `nil`.
 ---@param name string
 ---@return Vector?
+---@nodiscard
 function minetest.setting_get_pos(name) end
