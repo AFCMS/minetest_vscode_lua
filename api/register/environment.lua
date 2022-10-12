@@ -190,3 +190,99 @@ function minetest.register_lbm(def) end
 
 ---@type lbm_definition[]
 minetest.registered_lbm = {}
+
+---@class biome_definition
+---@field name string
+---Node dropped onto upper surface after all else is generated
+---@field node_dust string
+---Node forming surface layer of biome
+---@field node_top string
+---Thickness of the surface layer
+---@field depth_top integer
+---Node forming lower layer of biome
+---@field node_filler string
+---Thickness of the lower layer
+---@field depth_filler integer
+---Node that replaces all stone nodes between roughly `y_min` and `y_max`
+---@field node_stone string
+---Node forming a surface layer in seawater
+---@field node_water_top string
+---Thickness of the seawater surface layer
+---@field depth_water_top integer
+---Node that replaces all seawater nodes not in the surface layer
+---@field node_water string
+---Node that replaces river water in mapgens that use it
+---@field node_river_water string
+---Node placed under river water
+---@field node_riverbed string
+---Thickness of layer under river water
+---@field depth_riverbed integer
+---Nodes placed inside 50% of the medium size caves.
+---
+---Multiple nodes can be specified, each cave will use a randomly chosen node from the list.
+---
+---If this field is left out or `nil`, cave liquids fall back to classic behaviour of lava and water distributed using 3D noise.
+---
+---For no cave liquid, specify `"air"`.
+---@field node_cave_liquid string|string[]
+---Node used for primary dungeon structure.
+---
+---If absent, dungeon nodes fall back to the `mapgen_cobble` mapgen alias, if that is also absent, dungeon nodes fall back to the biome `node_stone`.
+---@field node_dungeon string
+---Node used for randomly-distributed alternative structure nodes.
+---
+---If alternative structure nodes are not wanted leave this absent for performance reasons.
+---@field node_dungeon_alt string
+---Node used for dungeon stairs.
+---
+---If absent, stairs fall back to `node_dungeon`.
+---@field node_dungeon_stair string
+---Upper limit for biome.
+---
+---Alternatively you can use the `max_pos` limit.
+---@field y_max integer
+---Lower limit for biome.
+---
+---Alternatively you can use the `min_pos` limit.
+---@field y_min integer
+---Pos limit for biome, an alternative to using `y_min` and `y_max`.
+---
+---Biome is limited to a cuboid defined by `max_pos` and `min_pos`.
+---@field max_pos Vector
+---Pos limit for biome, an alternative to using `y_min` and `y_max`.
+---
+---Biome is limited to a cuboid defined by `max_pos` and `min_pos`.
+---@field min_pos Vector
+---Vertical distance in nodes above 'y_max' over which the biome will blend with the biome above.
+---
+---Set to 0 for no vertical blend. Defaults to 0.
+---@field vertical_blend integer
+---Characteristic temperature for the biome.
+---
+---`heat_point` and `humidity_point` create `biome points` on a voronoi diagram with heat and humidity as axes.
+---
+---The resulting voronoi cells determine the distribution of the biomes.
+---
+---Heat and humidity have average values of 50, vary mostly between 0 and 100 but can exceed these values.
+---@field heat_point integer
+---Characteristic humidity for the biome.
+---
+---`heat_point` and `humidity_point` create `biome points` on a voronoi diagram with heat and humidity as axes.
+---
+---The resulting voronoi cells determine the distribution of the biomes.
+---
+---Heat and humidity have average values of 50, vary mostly between 0 and 100 but can exceed these values.
+---@field humidity_point integer
+
+---Returns an integer object handle uniquely identifying the registered biome on success.
+---
+---To get the biome ID, use `minetest.get_biome_id`.
+---
+---The maximum number of biomes that can be used is 65535.
+---
+---However, using an excessive number of biomes will slow down map generation.
+---
+---Depending on desired performance and computing power the practical limit is much lower.
+---@param def biome_definition
+---@return integer
+function minetest.register_biome(def) end
