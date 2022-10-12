@@ -6,7 +6,7 @@
 ---@param formspec string Formspec to display
 function minetest.show_formspec(playername, formname, formspec) end
 
----Close a formspec.    * `playername`: name of player to close formspec
+---Close a formspec.
 ---
 ---Calling `show_formspec(playername, formname, "")` is equal to this expression.
 ---
