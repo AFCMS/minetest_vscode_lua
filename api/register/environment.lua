@@ -119,3 +119,48 @@
 ---
 ---@param def ore_definition
 function minetest.register_ore(def) end
+
+---@class abm_definition
+---Descriptive label for profiling purposes (optional).
+---
+---Definitions with identical labels will be listed as one.
+---@field label string
+---Apply `action` function to these nodes.
+---
+---`group:groupname` can also be used here.
+---@field nodenames string[]
+---Only apply `action` to nodes that have one of, or any combination of, these neighbors.
+---
+---If left out or empty, any neighbor will do.
+---
+---`group:groupname` can also be used here.
+---@field neighbors string[]
+---Operation interval in seconds.
+---@field interval number
+---Chance of triggering `action` per-node per-interval is 1.0 / this value.
+---@field chance number
+---Min height levels where ABM will be processed.
+---
+---Can be used to reduce CPU usage.
+---@field min_y integer
+---Max height levels where ABM will be processed.
+---
+---Can be used to reduce CPU usage.
+---@field max_y integer
+---If true, catch-up behaviour is enabled.
+---
+---The `chance` value is temporarily reduced when returning to an area to simulate time lost by the area being unattended.
+---
+---Note that the `chance` value can often be reduced to 1.
+---@field catch_up boolean
+---Function triggered for each qualifying node.
+---* `active_object_count` is number of active objects in the node's mapblock.
+---* `active_object_count_wider` is number of active objects in the node's mapblock plus all 26 neighboring mapblocks. If any neighboring mapblocks are unloaded an estimate is calculated for them based on loaded mapblocks.
+---@field action fun(pos: Vector, node: node, active_object_count: integer, active_object_count_wider: integer)
+
+---Register a new Active Block Modifier
+---@param def abm_definition
+function minetest.register_abm(def) end
+
+---@type abm_definition[]
+minetest.registered_abm = {}
