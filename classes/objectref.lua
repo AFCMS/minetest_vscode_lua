@@ -441,12 +441,10 @@ function ObjectRef:set_sprite(start_frame, num_frames, framelenght, select_x_by_
 ---@nodiscard
 function ObjectRef:get_entity_name() end
 
---FIXME
-
 ---**Luaentity Only**
 ---
 ---Returns object luaentity.
----@return table
+---@return Luaentity
 ---@nodiscard
 function ObjectRef:get_luaentity() end
 
