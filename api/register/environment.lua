@@ -158,9 +158,35 @@ function minetest.register_ore(def) end
 ---* `active_object_count_wider` is number of active objects in the node's mapblock plus all 26 neighboring mapblocks. If any neighboring mapblocks are unloaded an estimate is calculated for them based on loaded mapblocks.
 ---@field action fun(pos: Vector, node: node, active_object_count: integer, active_object_count_wider: integer)
 
----Register a new Active Block Modifier
+---Register a new Active Block Modifier (ABM)
 ---@param def abm_definition
 function minetest.register_abm(def) end
 
 ---@type abm_definition[]
 minetest.registered_abm = {}
+
+
+---@class lbm_definition
+---Descriptive label for profiling purposes (optional).
+---
+---Definitions with identical labels will be listed as one.
+---@field label string
+---@field name string
+---List of node names to trigger the LBM on.
+---
+---Also non-registered nodes will work.
+---
+---Groups (as of `group:groupname`) will work as well.
+---@field nodenames string[]
+---Whether to run the LBM's action every time a block gets activated, and not only the first time the block gets activated after the LBM was introduced.
+---@field run_at_every_load boolean
+---@field action fun(pos: Vector, node: node)
+
+---Register a new Loading Block Modifier (LBM)
+---
+---A LBM is used to define a function that is called for specific nodes (defined by `nodenames`) when a mapblock which contains such nodes gets activated (not loaded!)
+---@param def lbm_definition
+function minetest.register_lbm(def) end
+
+---@type lbm_definition[]
+minetest.registered_lbm = {}
