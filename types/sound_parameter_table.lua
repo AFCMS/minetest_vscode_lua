@@ -70,31 +70,12 @@
 ---
 ---`exclude_player = name` can be applied to locationless, positional and object-bound sounds to exclude a single player from hearing them.
 ---@class SoundParameterTable
-local sound_parameter_table = {}
-
----@type string
-sound_parameter_table.to_player = nil
-
----@type ObjectRef
-sound_parameter_table.object = nil
-
----@type number
-sound_parameter_table.gain = nil
-
----@type number
-sound_parameter_table.fade = nil
-
----@type number
-sound_parameter_table.pitch = nil
-
----@type boolean
-sound_parameter_table.loop = nil
-
----@type Vector
-sound_parameter_table.pos = nil
-
----@type number
-sound_parameter_table.max_hear_distance = nil
-
----@type string
-sound_parameter_table.exclude_player = nil
+---@field to_player string
+---@field object ObjectRef
+---@field gain number
+---@field fade number
+---@field pitch number
+---@field loop boolean
+---@field pos Vector
+---@field max_hear_distance number
+---@field exclude_player string
