@@ -973,12 +973,8 @@ function ObjectRef:set_sun(parameters) end
 function ObjectRef:get_sun() end
 
 ---@class moon_parameters
-local moon_parameters = {}
-
 ---Whether the moon is visible. (default: `true`)
----@type boolean
-moon_parameters.visible = nil
-
+---@field visible boolean
 ---A regular texture for the moon.
 ---
 ---Setting to `""` will re-enable the mesh moon.
@@ -986,16 +982,11 @@ moon_parameters.visible = nil
 ---Default: `"moon.png"`, if it exists.
 ---
 ---Note: Relative to the sun, the moon texture is rotated by 180°. You can use the `^[transformR180` texture modifier to achieve the same orientation.
----@type string
-moon_parameters.texture = nil
-
+---@field texture string
 ---A 512x1 texture containing the tonemap for the moon (default: `"sun_tonemap.png"`)
----@type string
-moon_parameters.tonemap = nil
-
+---@field tonemap string
 ---Float controlling the overall size of the moon. (default: `1`)
----@type number
-moon_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
