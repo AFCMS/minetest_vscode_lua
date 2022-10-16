@@ -41,7 +41,7 @@ function ObjectRef:add_velocity(vel) end
 ---
 ---For players this does the same as `set_pos`,`continuous` is ignored.
 ---@param pos Vector
----@param continuous boolean
+---@param continuous? boolean
 function ObjectRef:move_to(pos, continuous) end
 
 ---Simulate a punch of the object.
@@ -61,6 +61,7 @@ function ObjectRef:right_click(clicker) end
 function ObjectRef:get_hp() end
 
 --FIXME: reason table
+
 ---Set number of health points of the object.
 ---@param hp integer
 ---@param reason table
