@@ -15,7 +15,7 @@ function ModChannel:leave() end
 ---Returns true if channel is writeable and mod can send over it.
 ---@return boolean
 ---@nodiscard
-function ModChannel:is_writable() end
+function ModChannel:is_writeable() end
 
 ---If mod channel is not writeable or invalid, message will be dropped.
 ---
