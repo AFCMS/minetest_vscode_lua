@@ -148,7 +148,7 @@ function stack:item_fits(item) end
 ---Take (and remove) up to `n` items from this stack.
 ---
 ---Return taken `ItemStack`.
----@param n integer
+---@param n? integer
 ---@return ItemStack
 function stack:take_item(n) end
 
