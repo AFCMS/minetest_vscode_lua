@@ -286,3 +286,13 @@ minetest.registered_lbm = {}
 ---@param def biome_definition
 ---@return integer
 function minetest.register_biome(def) end
+
+---Array of biome definition tables
+---@type biome_definition[]
+minetest.registered_biomes = {}
+
+---Unregisters the biome from the engine, and deletes the entry with key `name` from `minetest.registered_biomes`.
+---
+---**Warning:** This alters the biome to biome ID correspondences, so any decorations or ores using the 'biomes' field must afterwards be cleared and re-registered.
+---@param name string
+function minetest.unregister_biome(name) end
