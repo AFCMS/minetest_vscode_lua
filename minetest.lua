@@ -1,8 +1,8 @@
 ---@meta
 
----Minetest 7ffc0268 API
+---Minetest 5.6 API
 ---
----[Official Documentation](https://github.com/minetest/minetest/blob/7ffc0268/doc/lua_api.txt)
+---[Official Documentation](https://github.com/minetest/minetest/blob/5.6.0/doc/lua_api.txt)
 ---@class minetest
 minetest = {}
 
