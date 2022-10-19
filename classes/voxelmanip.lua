@@ -34,7 +34,7 @@ function VoxelManip:read_from_map(p1, p2) end
 ---* If `light` is `false`, no light calculations happen, and you should correct all modified blocks with `minetest.fix_light()` as soon as possible.
 ---
 ---Keep in mind that modifying the map where light is incorrect can cause more lighting bugs.
----@param light boolean
+---@param light? boolean
 function VoxelManip:write_to_map(light) end
 
 ---Returns node table of the node currently loaded in the `VoxelManip` at that position.
