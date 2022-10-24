@@ -59,7 +59,7 @@
 ---Default: `0`
 ---@field light_source integer
 ---Define the tool capabilities.
----@field tool_capabilities tool_capabilities
+---@field tool_capabilities tool_capabilities?
 ---Define client-side placement prediction.
 ---
 ---* If `nil` and item is node, prediction is made automatically.
@@ -141,3 +141,15 @@
 ---
 ---The user may be any `ObjectRef` or `nil`.
 ---@field after_use fun(itemstack: ItemStack, user?: ObjectRef, node: node, digparams: table)
+
+---@type item_definition
+minetest.noneitemdef_default = {}
+
+---@type item_definition
+minetest.tooldef_default = {}
+
+---@type item_definition
+minetest.craftitemdef_default = {}
+
+---@type node_definition
+minetest.nodedef_default = {}
