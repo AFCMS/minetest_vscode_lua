@@ -380,3 +380,6 @@ function minetest.register_on_liquid_transformed(func) end
 ---Map of registered on_liquid_transformed.
 ---@type fun(pos_list: Vector[], node_list: node[])[]
 minetest.registered_on_liquid_transformed = {}
+
+---@type table<function, {mod: string|'"??"', name: string|'"??"'}>
+minetest.callback_origins = {}
