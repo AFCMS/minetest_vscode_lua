@@ -408,7 +408,7 @@ function minetest.unregister_biome(name) end
 ---If schematic is a string, it is the filepath relative to the current working directory of the specified Minetest schematic file.
 ---
 ---Could also be the ID of a previously registered schematic or a definition table.
----@field schematic string|table|integer
+---@field schematic schematic_specifier
 ---**`schematic` type only**
 ---@field replacements table<string, string>
 ---**`schematic` type only**
