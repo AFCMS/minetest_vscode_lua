@@ -1,13 +1,33 @@
 ---@meta
 
 ---@class authentication_handler_definition
+---Get authentication data for existing player `name` (`nil` if player doesn't exist).
+---
+---Returns following structure: `{password=<string>, privileges=<table>, last_login=<number or nil>}`
 ---@field get_auth fun(name: string): {password: string, privileges: table<string, boolean>, last_login: integer|nil}
+---Create new auth data for player `name`.
+---
+---Note that `password` is not plain-text but an arbitrary representation decided by the engine.
 ---@field create_auth fun(name: string, password: string)
+---Delete auth data of player `name`.
+---
+---Returns boolean indicating success (`false` if player is nonexistent).
 ---@field delete_auth fun(name: string): boolean
+---Set password of player `name` to `password`.
+---
+---Auth data should be created if not present.
 ---@field set_password fun(name: string, password: string)
+---Set privileges of player `name`.
+---
+---`privileges` is in table form, auth data should be created if not present.
 ---@field set_privileges fun(name: string, privileges: table<string, boolean>)
+---Reload authentication data from the storage location.
+---
+---Returns boolean indicating success.
 ---@field reload fun(): boolean
+---Called when player joins, used for keeping track of last_login.
 ---@field record_login fun(name: string)
+---Returns an iterator (use with `for` loops) for all player names currently in the auth database.
 ---@field iterate fun()
 
 ---Registers an auth handler that overrides the builtin one.
