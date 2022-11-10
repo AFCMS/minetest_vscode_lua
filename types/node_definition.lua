@@ -609,38 +609,3 @@ minetest.register_node("ss", {
 		}
 	},
 })
-
-
---TODO: move this somewhere else
-
----comment
----@param name string
----@param def node_definition
-function minetest.register_node(name, def) end
-
----@param name string
----@param def item_definition
-function minetest.register_craftitem(name, def) end
-
----@param name string
----@param def item_definition
-function minetest.register_tool(name, def) end
-
----@param name string
----@param redefinition node_definition
-function minetest.override_item(name, redefinition) end
-
----@param name string
-function minetest.unregister_item(name) end
-
----@type table<string, node_definition>
-minetest.registered_nodes = {}
-
----@type table<string, node_definition>
-minetest.registered_items = {}
-
----@type table<string, item_definition>
-minetest.registered_tools = {}
-
----@type table<string, item_definition>
-minetest.registered_craftitems = {}

@@ -141,6 +141,11 @@ minetest.features.dynamic_add_media_table = true
 ---**Minetest 5.6.0**
 minetest.features.get_sky_as_table = true
 
+---Particlespawners support texpools and animation of properties, particle textures support smooth fade and scale animations, and sprite-sheet particle animations can by synced to the lifetime of individual particles.
+---
+---**Minetest 5.6.0**
+minetest.features.particlespawner_tweenable = true
+
 
 ---Returns `boolean`, `missing_features`
 ---@param arg string|table<string, boolean>

@@ -682,6 +682,6 @@ function minetest.check_for_falling(pos) end
 ---The spawn level is intentionally above terrain level to cope with full-node biome 'dust' nodes.
 ---@param x integer
 ---@param z integer
----@return integer
+---@return integer?
 ---@nodiscard
 function minetest.get_spawn_level(x, z) end
