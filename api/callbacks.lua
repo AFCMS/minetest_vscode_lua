@@ -288,11 +288,11 @@ minetest.registered_craft_predicts = {}
 ---Return a numeric value to limit the amount of items to be taken, put or moved.
 ---
 ---A value of `-1` for `take` will make the source stack infinite.
----@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer
+---@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer?
 function minetest.register_allow_player_inventory_action(func) end
 
 ---Map of registered allow_player_inventory_action.
----@type (fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer)[]
+---@type (fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer?)[]
 minetest.registered_allow_player_inventory_action = {}
 
 ---Called after a take, put or move event from/to/in a player inventory.
