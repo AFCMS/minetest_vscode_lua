@@ -269,11 +269,11 @@ minetest.registered_on_crafts = {}
 ---Register a function that will be called before a player craft something to make the crafting prediction.
 ---
 ---Similar to `minetest.register_on_craft`.
----@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)
+---@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?
 function minetest.register_craft_predict(func) end
 
 ---Map of registered craft_predicts.
----@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
+---@type (fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?)[]
 minetest.registered_craft_predicts = {}
 
 ---Determines how much of a stack may be taken, put or moved to a player inventory.
