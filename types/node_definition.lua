@@ -596,6 +596,7 @@
 ---
 ---e.g.: if a node is registered as `:othermodname:nodename`, nodename will show `othermodname`, but `mod_origin` will say `modname`.
 ---@field mod_origin string
+---@field [string] any
 
 
 minetest.register_node("ss", {

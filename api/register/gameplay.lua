@@ -127,6 +127,10 @@ function minetest.override_chatcommand(name, redef) end
 ---@param name string
 function minetest.unregister_chatcommand(name) end
 
+---Map of registered chatcommands, indexed by name.
+---@type table<string, chatcommand_definition>
+minetest.registered_chatcommands = {}
+
 ---@class privilege_definition
 ---Privilege description.
 ---@field description string

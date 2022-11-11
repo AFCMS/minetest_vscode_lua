@@ -21,7 +21,7 @@ function minetest.get_pointed_thing_position(pointed_thing, above) end
 ---
 ---Passing `true` for the optional second parameter causes it to take the y component into account.
 ---@param dir Vector
----@param is6d boolean
+---@param is6d? boolean
 ---@return integer
 ---@nodiscard
 function minetest.dir_to_facedir(dir, is6d) end

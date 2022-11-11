@@ -64,7 +64,7 @@ function ObjectRef:get_hp() end
 
 ---Set number of health points of the object.
 ---@param hp integer
----@param reason table
+---@param reason? table
 function ObjectRef:set_hp(hp, reason) end
 
 ---Returns an `InvRef` for players, otherwise returns `nil`

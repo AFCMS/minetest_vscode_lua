@@ -51,7 +51,7 @@ minetest.registered_craftitems = {}
 function minetest.register_entity(name, def) end
 
 ---Registered entities, indexed by name.
----@type table<string, engine_version>
+---@type table<string, entity_definition>
 minetest.registered_entities = {}
 
 
