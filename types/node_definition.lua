@@ -558,7 +558,7 @@
 ---Return `true` to run the timer for another cycle with the same timeout value.
 ---
 ---default: nil
----@field on_timer fun(pos: Vector, elapsed: number): boolean
+---@field on_timer fun(pos: Vector, elapsed: number): boolean?
 ---Called when an UI form (e.g. sign text input) returns data.
 ---
 ---See `minetest.register_on_player_receive_fields` for more info.
