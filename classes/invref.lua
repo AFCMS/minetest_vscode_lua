@@ -72,7 +72,7 @@ function InvRef:set_lists(lists) end
 
 ---Add `stack` somewhere in list, returns leftover `ItemStack`.
 ---@param listname string
----@param stack ItemStack
+---@param stack ItemStack|string
 ---@return ItemStack
 function InvRef:add_item(listname, stack) end
 
