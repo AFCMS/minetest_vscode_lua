@@ -27,7 +27,7 @@ minetest.raycast = Raycast
 ---Is a null vector `vector.zero()` when the pointer is inside the selection box.
 ---@field intersection_normal Vector
 
----@class Raycast
+---@class Raycast: userdata
 local raycast = {}
 
 ---Returns a `pointed_thing` with exact pointing location.
