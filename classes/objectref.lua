@@ -3,7 +3,7 @@
 ---A reference to an entity.
 ---
 ---This is basically a reference to a C++ `ServerActiveObject`.
----@class ObjectRef
+---@class ObjectRef: userdata
 local ObjectRef = {}
 
 -------------

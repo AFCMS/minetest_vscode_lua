@@ -1,7 +1,7 @@
 ---@meta
 
 ---A high resolution persistent per-node timer.
----@class NodeTimerRef
+---@class NodeTimerRef: userdata
 local node_timer_ref = {}
 
 ---Set a timer's state.

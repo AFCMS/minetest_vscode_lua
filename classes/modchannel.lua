@@ -1,6 +1,6 @@
 ---@meta
 
----@class ModChannel
+---@class ModChannel: userdata
 local ModChannel = {}
 
 ---Leave the mod channel.

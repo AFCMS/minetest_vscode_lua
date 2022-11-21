@@ -1,7 +1,7 @@
 ---@meta
 
 ---A reference to an inventory.
----@class InvRef
+---@class InvRef: userdata
 local InvRef = {}
 
 ---Return `true` if list is empty.

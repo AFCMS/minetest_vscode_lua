@@ -7,7 +7,7 @@
 function ItemStack(x) end
 
 ---An `ItemStack` is a stack of items.
----@class ItemStack
+---@class ItemStack: userdata
 local stack = {}
 
 ---Returns `true` if stack is empty.

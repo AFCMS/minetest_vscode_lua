@@ -5,7 +5,7 @@
 -----------------
 
 ---Base class used by `StorageRef`, `NodeMetaRef`, `ItemStackMetaRef`, and `PlayerMetaRef`.
----@class MetaDataRef
+---@class MetaDataRef: userdata
 local MetaDataRef = {}
 
 ---Returns `true` if key present, otherwise `false`.

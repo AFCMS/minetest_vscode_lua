@@ -5,7 +5,7 @@
 ---The `data` field (string) may be used to store and retrieve any mod-relevant information to the specified area.
 ---
 ---Despite its name, mods must take care of persisting AreaStore data. They may use the provided load and write functions for this.
----@class AreaStore
+---@class AreaStore: userdata
 local area_store = {}
 
 ---Returns the area information about the specified ID.
