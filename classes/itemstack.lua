@@ -155,6 +155,6 @@ function stack:take_item(n) end
 ---Copy (don't remove) up to `n` items from this stack.
 ---
 ---Returns taken `ItemStack`.
----@param n integer
+---@param n? integer
 ---@return ItemStack
 function stack:peek_item(n) end
