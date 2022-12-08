@@ -141,6 +141,8 @@
 ---
 ---The user may be any `ObjectRef` or `nil`.
 ---@field after_use fun(itemstack: ItemStack, user?: ObjectRef, node: node, digparams: table)
+---Mod-specific field
+---@field [string] any
 
 ---@type item_definition
 minetest.noneitemdef_default = {}
