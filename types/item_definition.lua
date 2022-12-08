@@ -126,7 +126,7 @@
 ---The default functions handle regular use cases.
 ---
 ---default: `nil`
----@field on_use fun(itemstack: ItemStack, user?: ObjectRef, pointed_thing: pointed_thing)
+---@field on_use fun(itemstack: ItemStack, user?: ObjectRef, pointed_thing: pointed_thing): ItemStack?
 ---If defined, should return an itemstack and will be called instead of wearing out the item (if tool).
 ---
 ---If returns `nil`, does nothing.
