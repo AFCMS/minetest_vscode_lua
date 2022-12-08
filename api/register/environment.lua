@@ -208,3 +208,11 @@ function minetest.clear_registered_ores() end
 
 ---Clears all schematics currently registered.
 function minetest.clear_registered_schematics() end
+
+---Map of object references, indexed by active object id.
+---@type table<userdata, ObjectRef>
+minetest.object_refs = {}
+
+---Map of Lua entities, indexed by active object id.
+---@type table<userdata, Luaentity>
+minetest.luaentities = {}
