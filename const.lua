@@ -43,6 +43,14 @@ minetest.EMERGE_FROM_DISK = 3
 minetest.EMERGE_GENERATED = 4
 
 
+---@alias emerge_status
+---| `minetest.EMERGE_CANCELLED`
+---| `minetest.EMERGE_ERRORED`
+---| `minetest.EMERGE_FROM_MEMORY`
+---| `minetest.EMERGE_FROM_DISK`
+---| `minetest.EMERGE_GENERATED`
+
+
 ---Directory separator in use on the system.
 ---@type '"/"'|'"\\\\"'
 DIR_DELIM = nil

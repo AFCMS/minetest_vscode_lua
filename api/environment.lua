@@ -479,7 +479,7 @@ function minetest.load_area(pos1, pos2) end
 ---* `param` is the user-defined parameter passed to emerge_area (or nil if the parameter was absent).
 ---@param pos1 Vector
 ---@param pos2 Vector
----@param callback? fun(blockpos: Vector, action: 0|1|2|3|4, calls_remaining: integer, param?: any)
+---@param callback? fun(blockpos: Vector, action: emerge_status, calls_remaining: integer, param?: any)
 ---@param param? any
 function minetest.emerge_area(pos1, pos2, callback, param) end
 
