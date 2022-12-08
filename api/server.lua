@@ -3,7 +3,7 @@
 ---Request the server to shutdown.
 ---@param message? string Will display `message` to clients
 ---@param reconnect? boolean Displays a reconnect button to players
----@param delay? any Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown.
+---@param delay? number Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown.
 function minetest.request_shutdown(message, reconnect, delay) end
 
 ---Cancel current delayed shutdown.
@@ -15,7 +15,7 @@ function minetest.cancel_shutdown_requests() end
 ---
 ---This function may be overwritten by mods to customize the status message.
 ---@param name string
----@param joined any Indicates whether the function was called when a player joined.
+---@param joined boolean Indicates whether the function was called when a player joined.
 ---@return string
 ---@nodiscard
 function minetest.get_server_status(name, joined) end
