@@ -111,9 +111,9 @@ function ObjectRef:get_animation() end
 
 ---Set object animation.
 ---@param frame_range {x: number, y: number}
----@param frame_speed number
----@param frame_blend number
----@param frame_loop boolean
+---@param frame_speed? number Default: `15.0`
+---@param frame_blend? number Default: `0.0`
+---@param frame_loop? boolean Default: `true`
 function ObjectRef:set_animation(frame_range, frame_speed, frame_blend, frame_loop) end
 
 ---Set object animation frame speed.
