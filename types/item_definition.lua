@@ -57,7 +57,7 @@
 ---A value outside the range `0` to `minetest.LIGHT_MAX` causes undefined behavior.
 ---
 ---Default: `0`
----@field light_source integer
+---@field light_source integer|`minetest.LIGHT_MAX`
 ---Define the tool capabilities.
 ---@field tool_capabilities tool_capabilities?
 ---Define client-side placement prediction.
