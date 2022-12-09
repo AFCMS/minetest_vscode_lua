@@ -5,7 +5,7 @@
 -----------------
 
 ---Base class used by `StorageRef`, `NodeMetaRef`, `ItemStackMetaRef`, and `PlayerMetaRef`.
----@class MetaDataRef
+---@class MetaDataRef: userdata
 local MetaDataRef = {}
 
 ---Returns `true` if key present, otherwise `false`.
@@ -13,11 +13,13 @@ local MetaDataRef = {}
 ---Returns `nil` when the MetaData is inexistent.
 ---@param key string
 ---@return boolean?
+---@nodiscard
 function MetaDataRef:contains(key) end
 
 ---Returns `nil` if key not present, else the stored string.
 ---@param key string
 ---@return string?
+---@nodiscard
 function MetaDataRef:get(key) end
 
 ---Value of `""` will delete the key.
@@ -28,6 +30,7 @@ function MetaDataRef:set_string(key, value) end
 ---Returns `""` if key not present.
 ---@param key string
 ---@return string
+---@nodiscard
 function MetaDataRef:get_string(key) end
 
 ---@param key string
@@ -37,6 +40,7 @@ function MetaDataRef:set_int(key, value) end
 ---Returns `0` if key not present.
 ---@param key string
 ---@return integer
+---@nodiscard
 function MetaDataRef:get_int(key) end
 
 ---@param key string
@@ -46,11 +50,13 @@ function MetaDataRef:set_float(key, value) end
 ---Returns `0` if key not present.
 ---@param key string
 ---@return number
+---@nodiscard
 function MetaDataRef:get_float(key) end
 
 ---Returns `nil` or a table with keys:
 --- * `fields`: key-value storage
 ---@return {fields: {[string]: any}}?
+---@nodiscard
 function MetaDataRef:to_table() end
 
 ---Any non-table value will clear the metadata.
@@ -64,6 +70,7 @@ function MetaDataRef:from_table(table) end
 ---Returns `true` if this metadata has the same key-value pairs as `other`.
 ---@param other MetaDataRef
 ---@return boolean
+---@nodiscard
 function MetaDataRef:equals(other) end
 
 -----------------
@@ -77,6 +84,7 @@ local NodeMetaRef = {}
 --- * `fields`: key-value storage
 --- * `inventory`: `{list1 = {}, ...}}`
 ---@return {fields: {[string]: any}, inventory: {[string]: {[integer]: string}}}?
+---@nodiscard
 function NodeMetaRef:to_table() end
 
 ---Any non-table value will clear the metadata.
@@ -90,6 +98,7 @@ function NodeMetaRef:from_table(table) end
 
 ---Returns `InvRef`
 ---@return InvRef
+---@nodiscard
 function NodeMetaRef:get_inventory() end
 
 ---Mark specific vars as private.
@@ -118,12 +127,12 @@ function ItemStackMetaRef:set_tool_capabilities(tool_capabilities) end
 ----------------
 
 ---@class StorageRef: MetaDataRef
-local StorageRef = {}
 
 ---Returns reference to mod private `StorageRef`.
 ---
 ---Must be called during mod load time.
 ---@return StorageRef
+---@nodiscard
 function minetest.get_mod_storage() end
 
 -------------------
@@ -131,4 +140,3 @@ function minetest.get_mod_storage() end
 -------------------
 
 ---@class PlayerMetaRef: MetaDataRef
-local PlayerMetaRef = {}

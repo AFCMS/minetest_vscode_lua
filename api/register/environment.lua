@@ -1,121 +1,218 @@
 ---@meta
 
+---Register a new node.
+---@param name string
+---@param def node_definition
+function minetest.register_node(name, def) end
 
----**Scatter**
+---Register a new craftitem.
+---@param name string
+---@param def item_definition
+function minetest.register_craftitem(name, def) end
+
+---Register a new tool.
+---@param name string
+---@param def item_definition
+function minetest.register_tool(name, def) end
+
+---Overrides fields of an item registered with register_node/tool/craftitem.
 ---
----Randomly chooses a location and generates a cluster of ore.
+---Note: Item must already be defined, (opt)depend on the mod defining it.
 ---
----If `noise_params` is specified, the ore will be placed if the 3D perlin noise at that point is greater than the `noise_threshold`, giving the ability to create a non-equal distribution of ore.
----
----**Sheet**
----
----Creates a sheet of ore in a blob shape according to the 2D perlin noise described by `noise_params` and `noise_threshold`.
----
----This is essentially an improved version of the so-called "stratus" ore seen in some unofficial mods.
----
----This sheet consists of vertical columns of uniform randomly distributed height, varying between the inclusive range `column_height_min` and `column_height_max`.
----
----If `column_height_min` is not specified, this parameter defaults to 1.
----
----If `column_height_max` is not specified, this parameter defaults to `clust_size` for reverse compatibility. New code should prefer `column_height_max`.
----
----The `column_midpoint_factor` parameter controls the position of the column at which ore emanates from.
----
----If 1, columns grow upward. If 0, columns grow downward. If 0.5, columns grow equally starting from each direction.
----
----`column_midpoint_factor` is a decimal number ranging in value from 0 to 1. If this parameter is not specified, the default is 0.5.
----
----The ore parameters `clust_scarcity` and `clust_num_ores` are ignored for this ore type.
----
----**Puff**
----
----Creates a sheet of ore in a cloud-like puff shape.
----
----As with the `sheet` ore type, the size and shape of puffs are described by `noise_params` and `noise_threshold` and are placed at random vertical positions within the currently generated chunk.
----
----The vertical top and bottom displacement of each puff are determined by the noise parameters `np_puff_top` and `np_puff_bottom`, respectively.
----
----**Blob**
----
----Creates a deformed sphere of ore according to 3d perlin noise described by `noise_params`.
----
----The maximum size of the blob is `clust_size`, and `clust_scarcity` has the same meaning as with the `scatter` type.
----
----**Vein**
----
----Creates veins of ore varying in density by according to the intersection of two instances of 3d perlin noise with different seeds, both described by `noise_params`.
----
----`random_factor` varies the influence random chance has on placement of an ore inside the vein, which is `1` by default.
----
----Note that modifying this parameter may require adjusting `noise_threshold`.
----
----The parameters `clust_scarcity`, `clust_num_ores`, and `clust_size` are ignored by this ore type.
----
----This ore type is difficult to control since it is sensitive to small changes.
----
----The following is a decent set of parameters to work from:
----
----```lua
----noise_params = {
----	offset  = 0,
----	scale   = 3,
----	spread  = {x=200, y=200, z=200},
----	seed    = 5390,
----	octaves = 4,
----	persistence = 0.5,
----	lacunarity = 2.0,
----	flags = "eased",
----},
----noise_threshold = 1.6
----```
----
----**WARNING**: Use this ore type *very* sparingly since it is ~200x more computationally expensive than any other ore.
----
----**Stratum**
----
----Creates a single undulating ore stratum that is continuous across mapchunk borders and horizontally spans the world.
----
----The 2D perlin noise described by `noise_params` defines the Y co-ordinate of the stratum midpoint.
----
----The 2D perlin noise described by `np_stratum_thickness` defines the stratum's vertical thickness (in units of nodes).
----
----Due to being continuous across mapchunk borders the stratum's vertical thickness is unlimited.
----
----If the noise parameter `noise_params` is omitted the ore will occur from `y_min` to `y_max` in a simple horizontal stratum.
----
----A parameter `stratum_thickness` can be provided instead of the noise parameter `np_stratum_thickness`, to create a constant thickness.
----
----Leaving out one or both noise parameters makes the ore generation less intensive, useful when adding multiple strata.
----
----`y_min` and `y_max` define the limits of the ore generation and for performance reasons should be set as close together as possible but without clipping the stratum's Y variation.
----
----Each node in the stratum has a 1-in-`clust_scarcity` chance of being ore, so a solid-ore stratum would require a `clust_scarcity` of 1.
----
----The parameters `clust_num_ores`, `clust_size`, `noise_threshold` and `random_factor` are ignored by this ore type.
----@class ore_definition
----@field ore_type '"scatter"'|'"sheet"'|'"puff"'|'"blob"'|'"vein"'|'"stratum"'
----@field ore string
----@field ore_param2 integer Facedir rotation. Default is `0` (unchanged rotation)
----@field wherein string|string[]
----@field clust_scarcity number Ore has a 1 out of clust_scarcity chance of spawning in a node. If the desired average distance between ores is 'd', set this to d * d * d.
----@field clust_num_ores integer Number of ores in a cluster
----@field clust_size integer Size of the bounding box of the cluster
----@field y_min integer Lower limit for ore
----@field y_max integer Upper limit for ore
----@field flags flag_specifier
----@field noise_threshold number If noise is above this threshold, ore is placed. Not needed for a uniform distribution.
----@field noise_params noise_params Describe one of the perlin noises used for ore distribution. Needed by "sheet", "puff", "blob" and "vein" ores. Omit from "scatter" ore for a uniform ore distribution. Omit from "stratum" ore for a simple horizontal strata from y_min to y_max.
----@field biomes string|string[] List of biomes in which this ore occurs. Occurs in all biomes if this is omitted, and ignored if the Mapgen being used does not support biomes.
----@field column_height_min integer **sheet only**
----@field column_height_max integer **sheet only**
----@field column_midpoint_factor number **sheet only**
----@field np_puff_top noise_params **puff only**
----@field np_puff_bottom noise_params **puff only**
----@field random_factor number **vein only**
----@field np_stratum_thickness noise_params **stratum only**
----@field stratum_thickness integer **stratum only**
+---Example: `minetest.override_item("default:mese", {light_source=minetest.LIGHT_MAX})`
+---@param name string
+---@param redefinition node_definition
+function minetest.override_item(name, redefinition) end
+
+---Unregisters the item from the engine, and deletes the entry with key `name` from `minetest.registered_items` and from the associated item table according to its nature: `minetest.registered_nodes`, etc.
+---@param name string
+function minetest.unregister_item(name) end
+
+---Registered nodes, indexed by name.
+---@type table<string, node_definition>
+minetest.registered_nodes = {}
+
+---Registered items, indexed by name.
+---@type table<string, node_definition>
+minetest.registered_items = {}
+
+---Registered tools, indexed by name.
+---@type table<string, item_definition>
+minetest.registered_tools = {}
+
+---Registered craftitems, indexed by name.
+---@type table<string, item_definition>
+minetest.registered_craftitems = {}
 
 
+---Register a new entity.
+---@param name string
+---@param def entity_definition
+function minetest.register_entity(name, def) end
+
+---Registered entities, indexed by name.
+---@type table<string, entity_definition>
+minetest.registered_entities = {}
+
+
+---@class abm_definition
+---Descriptive label for profiling purposes (optional).
 ---
+---Definitions with identical labels will be listed as one.
+---@field label string
+---Apply `action` function to these nodes.
+---
+---`group:groupname` can also be used here.
+---@field nodenames string[]
+---Only apply `action` to nodes that have one of, or any combination of, these neighbors.
+---
+---If left out or empty, any neighbor will do.
+---
+---`group:groupname` can also be used here.
+---@field neighbors string[]
+---Operation interval in seconds.
+---@field interval number
+---Chance of triggering `action` per-node per-interval is 1.0 / this value.
+---@field chance number
+---Min height levels where ABM will be processed.
+---
+---Can be used to reduce CPU usage.
+---@field min_y integer
+---Max height levels where ABM will be processed.
+---
+---Can be used to reduce CPU usage.
+---@field max_y integer
+---If true, catch-up behaviour is enabled.
+---
+---The `chance` value is temporarily reduced when returning to an area to simulate time lost by the area being unattended.
+---
+---Note that the `chance` value can often be reduced to 1.
+---@field catch_up boolean
+---Function triggered for each qualifying node.
+---* `active_object_count` is number of active objects in the node's mapblock.
+---* `active_object_count_wider` is number of active objects in the node's mapblock plus all 26 neighboring mapblocks. If any neighboring mapblocks are unloaded an estimate is calculated for them based on loaded mapblocks.
+---@field action fun(pos: Vector, node: node, active_object_count: integer, active_object_count_wider: integer)
+
+---Register a new Active Block Modifier (ABM)
+---@param def abm_definition
+function minetest.register_abm(def) end
+
+---@type abm_definition[]
+minetest.registered_abm = {}
+
+
+---@class lbm_definition
+---Descriptive label for profiling purposes (optional).
+---
+---Definitions with identical labels will be listed as one.
+---@field label string
+---@field name string
+---List of node names to trigger the LBM on.
+---
+---Also non-registered nodes will work.
+---
+---Groups (as of `group:groupname`) will work as well.
+---@field nodenames string[]
+---Whether to run the LBM's action every time a block gets activated, and not only the first time the block gets activated after the LBM was introduced.
+---@field run_at_every_load boolean
+---@field action fun(pos: Vector, node: node)
+
+---Register a new Loading Block Modifier (LBM)
+---
+---A LBM is used to define a function that is called for specific nodes (defined by `nodenames`) when a mapblock which contains such nodes gets activated (not loaded!)
+---@param def lbm_definition
+function minetest.register_lbm(def) end
+
+---@type lbm_definition[]
+minetest.registered_lbm = {}
+
+
+---This adds an alias `alias` for the item called `original_name`
+---@param alias string
+---@param original_name string
+function minetest.register_alias(alias, original_name) end
+
+---Same as `minetest.register_alias` but will unregister the alias if it exists
+---@param alias string
+---@param original_name string
+function minetest.register_alias_force(alias, original_name) end
+
+---Map of registered aliases, indexed by name
+---@type table<string, string>
+minetest.registered_aliases = {}
+
+
+---Register a new ore.
 ---@param def ore_definition
 function minetest.register_ore(def) end
+
+---Returns an integer object handle uniquely identifying the registered biome on success.
+---
+---To get the biome ID, use `minetest.get_biome_id`.
+---
+---The maximum number of biomes that can be used is 65535.
+---
+---However, using an excessive number of biomes will slow down map generation.
+---
+---Depending on desired performance and computing power the practical limit is much lower.
+---@param def biome_definition
+---@return integer
+function minetest.register_biome(def) end
+
+---Map of registered biome definitions, indexed by the `name` field.
+---
+---If `name` is `nil`, the key is the object handle returned by `minetest.register_biome`.
+---@type table<string|integer, biome_definition>
+minetest.registered_biomes = {}
+
+---Unregisters the biome from the engine, and deletes the entry with key `name` from `minetest.registered_biomes`.
+---
+---**Warning:** This alters the biome to biome ID correspondences, so any decorations or ores using the 'biomes' field must afterwards be cleared and re-registered.
+---@param name string
+function minetest.unregister_biome(name) end
+
+---Returns an integer object handle uniquely identifying the registered decoration on success.
+---
+---To get the decoration ID, use `minetest.get_decoration_id`.
+---
+---The order of decoration registrations determines the order of decoration generation.
+---@param def decoration_definition
+---@return integer?
+function minetest.register_decoration(def) end
+
+---Map of registered decoration definitions, indexed by the `name` field.
+---
+---If `name` is nil, the key is the object handle returned by `minetest.register_decoration`.
+---@type table<string|integer, decoration_definition>
+minetest.registered_decorations = {}
+
+---Returns an integer object handle uniquely identifying the registered schematic on success.
+---
+---If the schematic is loaded from a file, the `name` field is set to the filename.
+---
+---If the function is called when loading the mod, and `name` is a relative path, then the current mod path will be prepended to the schematic filename.
+---@param def schematic_table
+---@return integer?
+function minetest.register_schematic(def) end
+
+---Clears all biomes currently registered.
+---
+---**Warning:** Clearing and re-registering biomes alters the biome to biome ID correspondences, so any decorations or ores using the `biomes` field must afterwards be cleared and re-registered.
+function minetest.clear_registered_biomes() end
+
+---Clears all decorations currently registered.
+function minetest.clear_registered_decorations() end
+
+---Clears all ores currently registered.
+function minetest.clear_registered_ores() end
+
+---Clears all schematics currently registered.
+function minetest.clear_registered_schematics() end
+
+---Map of object references, indexed by active object id.
+---@type table<userdata, ObjectRef>
+minetest.object_refs = {}
+
+---Map of Lua entities, indexed by active object id.
+---@type table<userdata, Luaentity>
+minetest.luaentities = {}

@@ -1,7 +1,7 @@
 ---@meta
 
 ---A high resolution persistent per-node timer.
----@class NodeTimerRef
+---@class NodeTimerRef: userdata
 local node_timer_ref = {}
 
 ---Set a timer's state.
@@ -24,12 +24,15 @@ function node_timer_ref:stop() end
 ---
 ---If `timeout` equals `0`, timer is inactive.
 ---@return number
+---@nodiscard
 function node_timer_ref:get_timeout() end
 
 ---Returns current elapsed time in seconds.
 ---@return number
+---@nodiscard
 function node_timer_ref:get_elapsed() end
 
 ---Returns boolean state of the timer.
 ---@return boolean
+---@nodiscard
 function node_timer_ref:is_started() end

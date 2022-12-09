@@ -1,6 +1,6 @@
 ---@meta
 
----@class ModChannel
+---@class ModChannel: userdata
 local ModChannel = {}
 
 ---Leave the mod channel.
@@ -14,7 +14,8 @@ function ModChannel:leave() end
 
 ---Returns true if channel is writeable and mod can send over it.
 ---@return boolean
-function ModChannel:is_writable() end
+---@nodiscard
+function ModChannel:is_writeable() end
 
 ---If mod channel is not writeable or invalid, message will be dropped.
 ---

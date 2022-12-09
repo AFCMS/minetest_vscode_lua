@@ -39,17 +39,20 @@ function minetest.remove_node(pos) end
 ---Returns `{name="ignore", param1=0, param2=0}` for unloaded areas.
 ---@param pos Vector
 ---@return node
+---@nodiscard
 function minetest.get_node(pos) end
 
 ---Same as `minetest.get_node` but returns `nil` for unloaded areas.
 ---@param pos Vector
 ---@return node?
+---@nodiscard
 function minetest.get_node_or_nil(pos) end
 
 ---Gets the light value at the given position. Note that the light value "inside" the node at the given position is returned, so you usually want to get the light value of a neighbor.
 ---@param pos Vector
 ---@param timeofday? number `nil` for current time, `0` for night, `0.5` for day
 ---@return integer? light Between `0` and `15`, `nil` if the area isn't loaded.
+---@nodiscard
 function minetest.get_node_light(pos, timeofday) end
 
 ---Get the sunlight (or moonlight) value at pos at the given time of day.
@@ -58,6 +61,7 @@ function minetest.get_node_light(pos, timeofday) end
 ---@param pos Vector
 ---@param timeofday? number `nil` for current time, `0` for night, `0.5` for day
 ---@return integer? light Between `0` and `15`, `nil` if the area isn't loaded.
+---@nodiscard
 function minetest.get_natural_light(pos, timeofday) end
 
 ---Calculates the artificial light (light from e.g. torches) value from the `param1` value.
@@ -65,6 +69,7 @@ function minetest.get_natural_light(pos, timeofday) end
 ---Currently it's the same as `math.floor(param1 / 16)`, except that it ensures compatibility.
 ---@param param1 integer The param1 value of a `paramtype = "light"` node.
 ---@return integer light Between `0` and `15`.
+---@nodiscard
 function minetest.get_artificial_light(param1) end
 
 ---Place node with the same effects that a player would cause. (like calling `on_place` callbacks)
@@ -95,16 +100,19 @@ function minetest.spawn_falling_node(pos) end
 ---@param pos1 Vector
 ---@param pos2 Vector
 ---@return Vector[]
+---@nodiscard
 function minetest.find_nodes_with_meta(pos1, pos2) end
 
 ---Get a `NodeMetaRef` at that position.
 ---@param pos Vector
 ---@return NodeMetaRef
+---@nodiscard
 function minetest.get_meta(pos) end
 
 ---Get a `NodeTimerRef` at that position.
 ---@param pos Vector
 ---@return NodeTimerRef
+---@nodiscard
 function minetest.get_node_timer(pos) end
 
 --FIXME: staticdata
@@ -129,12 +137,14 @@ function minetest.add_item(pos, item) end
 ---Get `ObjectRef` of player with name `name` or `nil` if player is not connected.
 ---@param name string
 ---@return ObjectRef?
+---@nodiscard
 function minetest.get_player_by_name(name) end
 
 ---Returns a list of ObjectRefs.
 ---@param pos Vector
 ---@param radius number using an euclidean metric
 ---@return ObjectRef[]
+---@nodiscard
 function minetest.get_objects_inside_radius(pos, radius) end
 
 ---Returns a list of ObjectRefs.
@@ -143,6 +153,7 @@ function minetest.get_objects_inside_radius(pos, radius) end
 ---@param pos1 Vector
 ---@param pos2 Vector
 ---@return ObjectRef[]
+---@nodiscard
 function minetest.get_objects_in_area(pos1, pos2) end
 
 ---Set time of day in the minetest world.
@@ -151,16 +162,19 @@ function minetest.set_timeofday(val) end
 
 ---Get time of day in the minetest world.
 ---@return number
+---@nodiscard
 function minetest.get_timeofday() end
 
 ---Returns the time, in seconds, since the world was created.
 ---@return integer
+---@nodiscard
 function minetest.get_gametime() end
 
 ---Returns number days elapsed since world was created.
 ---
 ---Accounts for time changes.
 ---@return integer
+---@nodiscard
 function minetest.get_day_count() end
 
 ---Find a node near specified position.
@@ -169,6 +183,7 @@ function minetest.get_day_count() end
 ---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
 ---@param search_center? boolean is an optional boolean (default: `false`). if true `pos` is also checked for the nodes
 ---@return Vector?
+---@nodiscard
 function minetest.find_node_near(pos, radius, nodenames, search_center) end
 
 ---Find nodes in specified area.
@@ -185,6 +200,7 @@ function minetest.find_node_near(pos, radius, nodenames, search_center) end
 ---@param grouped? boolean default `false`
 ---@return Vector[]|table<string, Vector[]>
 ---@return table<string, integer>?
+---@nodiscard
 function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
 
 ---Find nodes under air in specified area.
@@ -194,12 +210,14 @@ function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
 ---@param pos2 Vector
 ---@param nodenames string|string[] e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
 ---@return Vector[]
+---@nodiscard
 function minetest.find_nodes_in_area_under_air(pos1, pos2, nodenames) end
 
 ---Return world-specific perlin noise.
 ---
 ---The actual seed used is the noiseparams seed plus the world seed.
 ---@param noiseparams noise_params
+---@nodiscard
 function minetest.get_perlin(noiseparams) end
 
 ---Return voxel manipulator object.
@@ -208,6 +226,7 @@ function minetest.get_perlin(noiseparams) end
 ---@param pos1? Vector
 ---@param pos2? Vector
 ---@return VoxelManip
+---@nodiscard
 function minetest.get_voxel_manip(pos1, pos2) end
 
 ---Set the types of on-generate notifications that should be collected.
@@ -229,11 +248,13 @@ function minetest.set_gen_notify(flags, deco_ids) end
 ---Returns a flagstring and a table with the `deco_id`s.
 ---@return string
 ---@return unknown[]
+---@nodiscard
 function minetest.get_gen_notify() end
 
 ---Returns the decoration ID number for the provided decoration name string, or `nil` on failure.
 ---@param decoration_name string
----@return unknown?
+---@return number?
+---@nodiscard
 function minetest.get_decoration_id(decoration_name) end
 
 ---@alias mapgen_object_name
@@ -252,16 +273,22 @@ function minetest.get_decoration_id(decoration_name) end
 ---
 ---If the requested Mapgen object is unavailable, or `get_mapgen_object()` was called outside of an `on_generate()` callback, `nil` is returned.
 ---@param objectname mapgen_object_name
+---@return VoxelManip|integer[]
+---@return Vector?
+---@return Vector?
+---@nodiscard
 function minetest.get_mapgen_object(objectname) end
 
 ---Returns the heat at the position, or `nil` on failure.
 ---@param pos Vector
 ---@return number?
+---@nodiscard
 function minetest.get_heat(pos) end
 
 ---Returns the humidity at the position, or `nil` on failure.
 ---@param pos Vector
 ---@return number?
+---@nodiscard
 function minetest.get_humidity(pos) end
 
 ---Returns a table containing:
@@ -272,11 +299,13 @@ function minetest.get_humidity(pos) end
 ---Returns `nil` on failure.
 ---@param pos Vector
 ---@return {biome: unknown, heat: number, humidity: number}?
+---@nodiscard
 function minetest.get_biome_data(pos) end
 
 ---Returns the biome id, as used in the biomemap Mapgen object and returned by `minetest.get_biome_data(pos)`, for a given biome_name string.
 ---@param biome_name string
 ---@return unknown
+---@nodiscard
 function minetest.get_biome_id(biome_name) end
 
 ---Returns the biome name string for the provided biome id, or `nil` on failure.
@@ -284,6 +313,7 @@ function minetest.get_biome_id(biome_name) end
 ---If no biomes have been registered, such as in mgv6, returns `default`.
 ---@param biome_id unknown
 ---@return string|'"default"'|nil
+---@nodiscard
 function minetest.get_biome_name(biome_id) end
 
 ---**DEPRECATED:** use `minetest.get_mapgen_setting(name)` instead.
@@ -296,6 +326,7 @@ function minetest.get_biome_name(biome_id) end
 ---* `flags`
 ---@deprecated
 ---@return {mgname: string, seed: integer, chunksize: integer, water_level: integer, flags: string}
+---@nodiscard
 function minetest.get_mapgen_params() end
 
 ---**DEPRECATED:** use `minetest.set_mapgen_setting(name, value, override)` instead.
@@ -359,10 +390,12 @@ function minetest.set_mapgen_params(mapgen_params) end
 ---4) Settings set as the user config default
 ---@param name mapgen_settings|string
 ---@return string?
+---@nodiscard
 function minetest.get_mapgen_setting(name) end
 
 ---Same as `minetest.get_mapgen_setting(name)`, but returns the value as a `NoiseParams` table if the setting `name` exists and is a valid `NoiseParams`.
 ---@return noise_params?
+---@nodiscard
 function minetest.get_mapgen_setting_noiseparams(name) end
 
 ---Sets a mapgen param to `value`, and will take effect if the corresponding mapgen setting is not already present in map_meta.txt.
@@ -392,6 +425,7 @@ function minetest.set_noiseparams(name, noiseparams, set_default) end
 ---Returns a table of the noiseparams for `name`.
 ---@param name string
 ---@return noise_params
+---@nodiscard
 function minetest.get_noiseparams(name) end
 
 ---Generate all registered ores within the VoxelManip `vm` and in the area from `pos1` to `pos2`.
@@ -415,7 +449,7 @@ function minetest.generate_decorations(vm, pos1, pos2) end
 ---Takes an optional table as an argument with the field `mode`.
 ---* mode = `"full"` : Load and go through every mapblock, clearing objects (default).
 ---* mode = `"quick"`: Clear objects immediately in loaded mapblocks, clear objects in unloaded mapblocks only when the mapblocks are next activated.
----@param options {mode: '"full"'|'"quick"'}
+---@param options? {mode: '"full"'|'"quick"'}
 function minetest.clear_objects(options) end
 
 ---Load the mapblocks containing the area from `pos1` to `pos2`.
@@ -445,7 +479,7 @@ function minetest.load_area(pos1, pos2) end
 ---* `param` is the user-defined parameter passed to emerge_area (or nil if the parameter was absent).
 ---@param pos1 Vector
 ---@param pos2 Vector
----@param callback? fun(blockpos: Vector, action: 0|1|2|3|4, calls_remaining: integer, param?: any)
+---@param callback? fun(blockpos: Vector, action: emerge_status, calls_remaining: integer, param?: any)
 ---@param param? any
 function minetest.emerge_area(pos1, pos2, callback, param) end
 
@@ -463,6 +497,7 @@ function minetest.delete_area(pos1, pos2) end
 ---@param pos2 Vector
 ---@return boolean
 ---@return Vector?
+---@nodiscard
 function minetest.line_of_sight(pos1, pos2) end
 
 ---Returns table containing path that can be walked on
@@ -484,8 +519,93 @@ function minetest.line_of_sight(pos1, pos2) end
 ---@param max_jump number maximum height difference to consider walkable
 ---@param max_drop number maximum height difference to consider droppable
 ---@param algorithm '"A*_noprefetch"'|'"A*"'|'"Dijkstra"' difference between `"A*"` and `"A*_noprefetch"` is that `"A*"` will pre-calculate the cost-data, the other will calculate it on-the-fly
+---@return Vector[]?
+---@nodiscard
 function minetest.find_path(pos1, pos2, searchdistance, max_jump, max_drop, algorithm) end
 
+---@class tree_definition
+---Initial tree axiom
+---@field axiom string
+---Rules set A
+---@field rules_a string
+---Rules set B
+---@field rules_b string
+---Rules set C
+---@field rules_c string
+---Rules set D
+---@field rules_d string
+---Trunk node name
+---@field trunk string
+---Leaves node name
+---@field leaves string
+---Secondary leaves node name
+---@field leaves2 string
+---Chance (0-100) to replace leaves with leaves2
+---@field leaves2_chance integer
+---Angle in degrees
+---@field angle integer
+---Max amount of iterations, usually 2-5
+---@field iterations integer
+---Factor to lower nr of iterations, usually 0-3
+---@field random_level number
+---Type of trunk: 1 node, 2x2 nodes or 3x3 in cross shape
+---@field trunk_type "'single'"|"'double'"|"'crossed'"
+---true -> use thin (1 node) branches
+---@field thin_branches boolean
+---Fruit node name
+---@field fruit string
+---Chance (0-100) to replace leaves with fruit node
+---@field fruit_chance integer
+---Random seed, if no seed is provided, the engine will create one
+---@field seed integer
+
+---Spawns L-system tree at given `pos` with definition in `treedef` table.
+---
+---```lua
+---pos = {x = 230, y = 20, z = 4}
+---apple_tree = {
+---	axiom         = "FFFFFAFFBF",
+---	rules_a       = "[&&&FFFFF&&FFFF][&&&++++FFFFF&&FFFF][&&&----FFFFF&&FFFF]",
+--	rules_b       = "[&&&++FFFFF&&FFFF][&&&--FFFFF&&FFFF][&&&------FFFFF&&FFFF]",
+---	trunk         = "default:tree",
+---	leaves        = "default:leaves",
+---	angle         = 30,
+---	iterations    = 2,
+---	random_level  = 0,
+---	trunk_type    = "single",
+---	thin_branches = true,
+---	fruit_chance  = 10,
+---	fruit         = "default:apple"
+---}
+---minetest.spawn_tree(pos, apple_tree)
+---```
+---
+---**Key for special L-System symbols used in axioms:**
+---
+---* `G`: move forward one unit with the pen up
+---* `F`: move forward one unit with the pen down drawing trunks and branches
+---* `f`: move forward one unit with the pen down drawing leaves (100% chance)
+---* `T`: move forward one unit with the pen down drawing trunks only
+---* `R`: move forward one unit with the pen down placing fruit
+---* `A`: replace with rules set A
+---* `B`: replace with rules set B
+---* `C`: replace with rules set C
+---* `D`: replace with rules set D
+---* `a`: replace with rules set A, chance 90%
+---* `b`: replace with rules set B, chance 80%
+---* `c`: replace with rules set C, chance 70%
+---* `d`: replace with rules set D, chance 60%
+---* `+`: yaw the turtle right by `angle` parameter
+---* `-`: yaw the turtle left by `angle` parameter
+---* `&`: pitch the turtle down by `angle` parameter
+---* `^`: pitch the turtle up by `angle` parameter
+---* `/`: roll the turtle to the right by `angle` parameter
+---* `*`: roll the turtle to the left by `angle` parameter
+---* `[`: save in stack current state info
+---* `]`: recover from stack state info
+---
+---@param pos Vector
+---@param treedef tree_definition
 function minetest.spawn_tree(pos, treedef) end
 
 ---Add node to liquid flow update queue.
@@ -495,11 +615,13 @@ function minetest.transforming_liquid_add(pos) end
 ---Get max available level for leveled node.
 ---@param pos Vector
 ---@return integer
+---@nodiscard
 function minetest.get_node_max_level(pos) end
 
 ---Get level of leveled node (water, snow).
 ---@param pos Vector
 ---@return integer
+---@nodiscard
 function minetest.get_node_level(pos) end
 
 ---Set level of leveled node, default `level` equals `1`
@@ -560,5 +682,6 @@ function minetest.check_for_falling(pos) end
 ---The spawn level is intentionally above terrain level to cope with full-node biome 'dust' nodes.
 ---@param x integer
 ---@param z integer
----@return integer
+---@return integer?
+---@nodiscard
 function minetest.get_spawn_level(x, z) end

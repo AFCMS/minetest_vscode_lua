@@ -1,13 +1,33 @@
 ---@meta
 
 ---@class authentication_handler_definition
+---Get authentication data for existing player `name` (`nil` if player doesn't exist).
+---
+---Returns following structure: `{password=<string>, privileges=<table>, last_login=<number or nil>}`
 ---@field get_auth fun(name: string): {password: string, privileges: table<string, boolean>, last_login: integer|nil}
+---Create new auth data for player `name`.
+---
+---Note that `password` is not plain-text but an arbitrary representation decided by the engine.
 ---@field create_auth fun(name: string, password: string)
+---Delete auth data of player `name`.
+---
+---Returns boolean indicating success (`false` if player is nonexistent).
 ---@field delete_auth fun(name: string): boolean
+---Set password of player `name` to `password`.
+---
+---Auth data should be created if not present.
 ---@field set_password fun(name: string, password: string)
+---Set privileges of player `name`.
+---
+---`privileges` is in table form, auth data should be created if not present.
 ---@field set_privileges fun(name: string, privileges: table<string, boolean>)
+---Reload authentication data from the storage location.
+---
+---Returns boolean indicating success.
 ---@field reload fun(): boolean
+---Called when player joins, used for keeping track of last_login.
 ---@field record_login fun(name: string)
+---Returns an iterator (use with `for` loops) for all player names currently in the auth database.
 ---@field iterate fun()
 
 ---Registers an auth handler that overrides the builtin one.
@@ -20,6 +40,7 @@ function minetest.register_authentication_handler(authentication_handler) end
 ---
 ---Use this to e.g. get the authentication data for a player: `local auth_data = minetest.get_auth_handler().get_auth(playername)`
 ---@return authentication_handler_definition
+---@nodiscard
 function minetest.get_auth_handler() end
 
 ---Must be called by the authentication handler for privilege changes.
@@ -45,6 +66,7 @@ function minetest.auth_reload() end
 ---The player needs to be online for this to be successful.
 ---@param name string
 ---@return string
+---@nodiscard
 function minetest.get_player_ip(name) end
 
 ---Convert a name-password pair to a password hash that Minetest can use.
@@ -54,6 +76,7 @@ function minetest.get_player_ip(name) end
 ---For this purpose, use `minetest.check_password_entry` instead.
 ---@param name string
 ---@param raw_password string
+---@nodiscard
 function minetest.get_password_hash(name, raw_password) end
 
 ---Returns true if the "password entry" for a player with name matches given password, false otherwise.
@@ -64,23 +87,28 @@ function minetest.get_password_hash(name, raw_password) end
 ---@param name string
 ---@param entry string
 ---@param password string
+---@return boolean
+---@nodiscard
 function minetest.check_password_entry(name, entry, password) end
 
 ---Converts string representation of privs into table form.
 ---@param str string
 ---@param delim? string String separating the privs. Defaults to `","`.
 ---@return table<string, boolean>
+---@nodiscard
 function minetest.string_to_privs(str, delim) end
 
 ---Returns the string representation of `privs`
 ---@param privs table<string, boolean>
 ---@param delim? string String separating the privs. Defaults to `","`.
 ---@return string
+---@nodiscard
 function minetest.privs_to_string(privs, delim) end
 
 ---Returns player privs.
 ---@param name string
 ---@return table<string, boolean>
+---@nodiscard
 function minetest.get_player_privs(name) end
 
 ---Check if player have given privileges.
@@ -88,4 +116,5 @@ function minetest.get_player_privs(name) end
 ---@param ... any Is either a list of strings, e.g. `"priva", "privb"` or a table, e.g. `{ priva = true, privb = true }`.
 ---@return boolean
 ---@return table<string, boolean> missing_privs
+---@nodiscard
 function minetest.check_player_privs(player_or_name, ...) end

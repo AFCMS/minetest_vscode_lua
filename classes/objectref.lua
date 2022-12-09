@@ -3,7 +3,7 @@
 ---A reference to an entity.
 ---
 ---This is basically a reference to a C++ `ServerActiveObject`.
----@class ObjectRef
+---@class ObjectRef: userdata
 local ObjectRef = {}
 
 -------------
@@ -12,6 +12,7 @@ local ObjectRef = {}
 
 ---Return position of the object
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_pos() end
 
 ---Set position of the object
@@ -20,6 +21,7 @@ function ObjectRef:set_pos(pos) end
 
 ---Returns the velocity of the object as a vector.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_velocity() end
 
 ---In comparison to using `get_velocity`, adding the velocity and then using `set_velocity`, `add_velocity` is supposed to avoid synchronization problems.
@@ -39,7 +41,7 @@ function ObjectRef:add_velocity(vel) end
 ---
 ---For players this does the same as `set_pos`,`continuous` is ignored.
 ---@param pos Vector
----@param continuous boolean
+---@param continuous? boolean
 function ObjectRef:move_to(pos, continuous) end
 
 ---Simulate a punch of the object.
@@ -55,28 +57,34 @@ function ObjectRef:right_click(clicker) end
 
 ---Returns number of health points of the object.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_hp() end
 
 --FIXME: reason table
+
 ---Set number of health points of the object.
 ---@param hp integer
----@param reason table
+---@param reason? table
 function ObjectRef:set_hp(hp, reason) end
 
 ---Returns an `InvRef` for players, otherwise returns `nil`
 ---@return InvRef?
+---@nodiscard
 function ObjectRef:get_inventory() end
 
 ---Returns the inventory list the wielded item is in.
 ---@return string
+---@nodiscard
 function ObjectRef:get_wield_list() end
 
 ---Returns the index of the wielded item.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_wield_index() end
 
 ---Returns the wielded `ItemStack`
 ---@return ItemStack
+---@nodiscard
 function ObjectRef:get_wielded_item() end
 
 ---Replaces the wielded item, returns `true` if successful.
@@ -86,6 +94,7 @@ function ObjectRef:set_wielded_item(item) end
 
 ---Returns a table with the armor group ratings.
 ---@return { [string]: integer }
+---@nodiscard
 function ObjectRef:get_armor_groups() end
 
 ---Set armor group ratings.
@@ -97,13 +106,14 @@ function ObjectRef:set_armor_groups(groups) end
 ---@return number frame_speed
 ---@return number frame_blend
 ---@return boolean frame_loop
+---@nodiscard
 function ObjectRef:get_animation() end
 
 ---Set object animation.
 ---@param frame_range {x: number, y: number}
----@param frame_speed number
----@param frame_blend number
----@param frame_loop boolean
+---@param frame_speed? number Default: `15.0`
+---@param frame_blend? number Default: `0.0`
+---@param frame_loop? boolean Default: `true`
 function ObjectRef:set_animation(frame_range, frame_speed, frame_blend, frame_loop) end
 
 ---Set object animation frame speed.
@@ -126,10 +136,12 @@ function ObjectRef:set_attach(parent, bone, position, rotation, forced_visible) 
 ---@return Vector? position
 ---@return Vector? rotation
 ---@return boolean? forced_visible
+---@nodiscard
 function ObjectRef:get_attach() end
 
 ---Returns a list of `ObjectRefs` that are attached to the object.
 ---@return ObjectRef[]
+---@nodiscard
 function ObjectRef:get_children() end
 
 ---Detach object.
@@ -145,65 +157,178 @@ function ObjectRef:set_bone_position(bone, position, rotation) end
 ---@param bone string
 ---@return Vector position
 ---@return Vector rotation
+---@nodiscard
 function ObjectRef:get_bone_position(bone) end
-
---FIXME: document object_properties
 
 ---Object Properties
 ---@class object_properties
+---**Player Only**
+---
+---Defaults to `minetest.PLAYER_MAX_HP_DEFAULT`.
 ---@field hp_max integer
+---**Player Only**
+---
+---Defaults to `minetest.PLAYER_MAX_BREATH_DEFAULT`.
 ---@field breath_max integer
+---**Player Only**
+---
+---Zoom FOV in degrees.
+---
+---Note that zoom loads and/or generates world beyond the server's maximum send and generate distances, so acts like a telescope.
+---
+---Smaller zoom_fov values increase the distance loaded/generated.
+---
+---Defaults to 15 in creative mode, 0 in survival mode.
+---
+---`zoom_fov = 0` disables zooming for the player.
 ---@field zoom_fov number
+---**Player Only**
+---
+---Camera height above feet position in nodes.
+---
+---Defaults to 1.625
 ---@field eye_height number
+---Collide with `walkable` nodes.
 ---@field physical boolean
+---Collide with other objects if `physical = true`
 ---@field collide_with_objects boolean
+---`{xmin, ymin, zmin, xmax, ymax, zmax}` in nodes from object position.
 ---@field collisionbox number[]
+---Selection box uses collision box dimensions when not set.
+---
+---`{xmin, ymin, zmin, xmax, ymax, zmax}` in nodes from object position.
 ---@field selectionbox number[]
+---Overrides selection box when `false`.
 ---@field pointable boolean
+---* `"cube"` is a node-sized cube.
+---* `"sprite"` is a flat texture always facing the player.
+---* `"upright_sprite"` is a vertical flat texture.
+---* `"mesh"` uses the defined mesh model.
+---* `"wielditem"` is used for dropped items. (see builtin/game/item_entity.lua).
+---   * For this use 'wield_item = itemname' (Deprecated: 'textures = {itemname}').
+---   * If the item has a 'wield_image' the object will be an extrusion of that, otherwise:
+---      * If 'itemname' is a cubic node or nodebox the object will appear identical to 'itemname'.
+---      * If 'itemname' is a plantlike node the object will be an extrusion of its texture.
+---   * Otherwise for non-node items, the object will be an extrusion of 'inventory_image'.
+---   * If 'itemname' contains a ColorString or palette index (e.g. from `minetest.itemstring_with_palette()`), the entity will inherit the color.
+---* `"item"` is similar to `"wielditem"` but ignores the 'wield_image' parameter.
 ---@field visual '"cube"'|'"sprite"'|'"upright_sprite"'|'"mesh"'|'"wielditem"'|'"item"'
----@field visual_size Vector
+---Multipliers for the visual size.
+---
+---If `z` is not specified, `x` will be used to scale the entity along both horizontal axes.
+---@field visual_size Vector|{x: number, y: number}
+---File name of mesh when using `"mesh"` visual.
 ---@field mesh string
+---Number of required textures depends on visual.
+---* `"cube"` uses 6 textures just like a node, but all 6 must be defined.
+---* `"sprite"` uses 1 texture.
+---* `"upright_sprite"` uses 2 textures: {front, back}.
+---* `"wielditem"` expects 'textures = {itemname}' (see 'visual' above).
+---* `"mesh"` requires one texture for each mesh buffer/material (in order)
 ---@field textures string[]
+---Number of required colors depends on visual.
 ---@field colors table
+---Use texture's alpha channel.
+---
+---Excludes `"upright_sprite"` and `"wielditem"`.
+---
+---Note: currently causes visual issues when viewed through other semi-transparent materials such as water.
 ---@field use_texture_alpha boolean
+---Used with spritesheet textures for animation and/or frame selection according to position relative to player.
+---
+---Defines the number of columns and rows in the spritesheet: `{x = columns, y = rows}`.
 ---@field spritediv {x: integer, y: integer}
+---Used with spritesheet textures.
+---
+---Defines the `{x = column, y = row}` position of the initially used frame in the spritesheet.
 ---@field initial_sprite_basepos {x: integer, y: integer}
+---If `false`, object is invisible and can't be pointed.
 ---@field is_visible boolean
+---If `true`, is able to make footstep sounds of nodes (see node sound definition for details).
 ---@field makes_footstep_sound boolean
+---Set constant rotation in radians per second, positive or negative.
+---
+---Object rotates along the local Y-axis, and works with set_rotation.
+---
+---Set to 0 to disable constant rotation.
 ---@field automatic_rotate number
+---If positive number, object will climb upwards when it moves horizontally against a `walkable` node, if the height difference is within `stepheight`.
 ---@field stepheight number
+---Automatically set yaw to movement direction, offset in degrees.
+---
+---`false` to disable.
 ---@field automatic_face_movement_dir number
+---Limit automatic rotation to this value in degrees per second.
+---
+---No limit if value <= 0.
 ---@field automatic_face_movement_max_rotation_per_sec number
+---Set to false to disable backface_culling for model.
 ---@field backface_culling boolean
+---Add this much extra lighting when calculating texture color.
+---
+---Value < 0 disables light's effect on texture color.
+---
+---For faking self-lighting, UI style entities, or programmatic coloring in mods.
 ---@field glow integer
+---The name to display on the head of the object. By default empty.
+---
+---If the object is a player, a nil or empty nametag is replaced by the player's name.
+---
+---For all other objects, a nil or empty string removes the nametag.
+---
+---To hide a nametag, set its color alpha to zero. That will disable it entirely.
 ---@field nametag string
+---Text color of nametag.
 ---@field nametag_color ColorSpec
----@field nametag_bgcolor ColorSpec
+---Background color of nametag.
+---
+---`false` will cause the background to be set automatically based on user settings.
+---
+---Default: `false`
+---@field nametag_bgcolor ColorSpec|false
+---Same as infotext for nodes.
+---
+---Empty by default.
 ---@field infotext string
+---If `false`, never save this object statically.
+---
+---It will simply be deleted when the block gets unloaded.
+---
+---The get_staticdata() callback is never called then.
+---
+---Defaults to `true`.
 ---@field static_save boolean
+---Texture modifier to be applied for a short duration when object is hit.
 ---@field damage_texture_modifier string
+---Setting this to `false` disables diffuse lighting of entity.
 ---@field shaded boolean
+---Defaults to `true` for players, `false` for other entities.
+---
+---If set to `true` the entity will show as a marker on the minimap.
 ---@field show_on_minimap boolean
 
 ---Returns object properties.
 ---@return object_properties
+---@nodiscard
 function ObjectRef:get_properties() end
 
 ---Set objects properties.
 ---@param object_properties object_properties
 function ObjectRef:set_properties(object_properties) end
 
----Returns true for players, false otherwise.
+---Returns `true` for players, `false` otherwise.
 ---@return boolean
+---@nodiscard
 function ObjectRef:is_player() end
 
 ---@class nametag_attributes
 ---@field text string
 ---@field color ColorSpec
----@field bgcolor ColorSpec|'false'
+---@field bgcolor ColorSpec|'"false"'
 
 ---Returns a table with the attributes of the nametag of an object.
 ---@return nametag_attributes
+---@nodiscard
 function ObjectRef:get_nametag_attributes() end
 
 ---Sets the attributes of the nametag of the object.
@@ -237,6 +362,7 @@ function ObjectRef:set_acceleration(acc) end
 ---
 ---Returns the acceleration of the object.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_acceleration() end
 
 ---**Luaentity Only**
@@ -257,6 +383,7 @@ function ObjectRef:set_rotation(rot) end
 ---
 ---`X` is pitch (elevation), `Y` is yaw (heading) and `Z` is roll (bank).
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_rotation() end
 
 ---**Luaentity Only**
@@ -269,6 +396,7 @@ function ObjectRef:set_yaw(yaw) end
 ---
 ---Returns the yaw (heading) of the object in radians.
 ---@return number
+---@nodiscard
 function ObjectRef:get_yaw() end
 
 ---**Luaentity Only**
@@ -283,6 +411,7 @@ function ObjectRef:set_texture_mod(mod) end
 ---
 ---Returns the current texture modifier of the object.
 ---@return string
+---@nodiscard
 function ObjectRef:get_texture_mod() end
 
 ---**Luaentity Only**
@@ -310,14 +439,14 @@ function ObjectRef:set_sprite(start_frame, num_frames, framelenght, select_x_by_
 ---**DEPRECATED**, will be removed in a future version.
 ---@deprecated
 ---@return string
+---@nodiscard
 function ObjectRef:get_entity_name() end
-
---FIXME
 
 ---**Luaentity Only**
 ---
 ---Returns object luaentity.
----@return table
+---@return Luaentity
+---@nodiscard
 function ObjectRef:get_luaentity() end
 
 -----------------
@@ -330,6 +459,7 @@ function ObjectRef:get_luaentity() end
 ---
 ---Returns `""` if object isn't a player.
 ---@return string
+---@nodiscard
 function ObjectRef:get_player_name() end
 
 ---**Player Only**
@@ -337,6 +467,7 @@ function ObjectRef:get_player_name() end
 ---**DEPRECATED**, use `get_velocity()` instead.
 ---@deprecated
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_player_velocity() end
 
 ---**Player Only**
@@ -350,6 +481,7 @@ function ObjectRef:add_player_velocity(vel) end
 ---
 ---Get camera direction as a unit vector.
 ---@return Vector
+---@nodiscard
 function ObjectRef:get_look_dir() end
 
 ---**Player Only**
@@ -358,6 +490,7 @@ function ObjectRef:get_look_dir() end
 ---
 ---Angle ranges between `-pi/2` and `pi/2`, which are straight up and down respectively.
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_vertical() end
 
 ---**Player Only**
@@ -374,6 +507,7 @@ function ObjectRef:set_look_vertical(radians) end
 ---
 ---Angle is counter-clockwise from the +z direction.
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_horizontal() end
 
 ---**Player Only**
@@ -393,6 +527,7 @@ function ObjectRef:set_look_horizontal(radians) end
 ---**DEPRECATED AS BROKEN**, use `get_look_vertical()`.
 ---@deprecated
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_pitch() end
 
 ---**Player Only**
@@ -415,6 +550,7 @@ function ObjectRef:set_look_pitch(rad) end
 ---**DEPRECATED AS BROKEN**, use `get_look_horizontal()`.
 ---@deprecated
 ---@return number
+---@nodiscard
 function ObjectRef:get_look_yaw() end
 
 ---**Player Only**
@@ -435,6 +571,7 @@ function ObjectRef:set_look_yaw(rad) end
 --- * max: bubbles bar is not shown
 --- * see [object_properties] for more information
 ---@return integer
+---@nodiscard
 function ObjectRef:get_breath() end
 
 ---**Player Only**
@@ -460,6 +597,7 @@ function ObjectRef:set_fov(fov, is_multiplier, transition_time) end
 ---@return number fov FOV value. Returns `0` if an FOV override doesn't exist.
 ---@return boolean is_multiplier Set to `true` if the FOV value is a multiplier.
 ---@return number transition_time Time (in seconds) to reach target FOV.
+---@nodiscard
 function ObjectRef:get_fov() end
 
 ---**Player Only**
@@ -486,12 +624,14 @@ function ObjectRef:set_attribute(attribute, value) end
 ---@deprecated
 ---@param attribute string
 ---@return string?
+---@nodiscard
 function ObjectRef:get_attribute(attribute) end
 
 ---**Player Only**
 ---
 ---Returns a `PlayerMetaRef`
 ---@return PlayerMetaRef
+---@nodiscard
 function ObjectRef:get_meta() end
 
 ---**Player Only**
@@ -524,6 +664,7 @@ function ObjectRef:set_formspec_prepend(formspec) end
 ---
 ---Returns `{}` if object isn't a player.
 ---@return {up: boolean, down: boolean, left: boolean, right: boolean, jump: boolean, aux1: boolean, sneak: boolean, dig: boolean, place: boolean, LMB: boolean, RMB: boolean, zoom: boolean}
+---@nodiscard
 function ObjectRef:get_player_control() end
 
 ---**Player Only**
@@ -544,34 +685,22 @@ function ObjectRef:get_player_control() end
 ---
 ---Returns `0` (no bits set) if the object is not a player.
 ---@return integer
+---@nodiscard
 function ObjectRef:get_player_control_bits() end
 
 ---@class physics_override
-local physics_override = {}
-
 ---Multiplier to default walking speed value (default: `1`)
----@type number
-physics_override.speed = nil
-
+---@field speed number
 ---Multiplier to default jump value (default: `1`)
----@type number
-physics_override.jump = nil
-
+---@field jump number
 ---Multiplier to default gravity value (default: `1`)
----@type number
-physics_override.gravity = nil
-
+---@field gravity number
 ---Whether player can sneak (default: `true`)
----@type boolean
-physics_override.sneak = nil
-
+---@field sneak boolean
 ---Whether player can use the new move code replications of the old sneak side-effects: sneak ladders and 2 node sneak jump (default: `false`)
----@type boolean
-physics_override.sneak_glitch = nil
-
+---@field sneak_glitch boolean
 ---Use new move/sneak code. When `false` the exact old code is used for the specific old sneak behaviour (default: `true`)
----@type boolean
-physics_override.new_move = nil
+---@field new_move boolean
 
 ---**Player Only**
 ---
@@ -583,66 +712,48 @@ function ObjectRef:set_physics_override(override_table) end
 ---
 ---Returns the table given to `set_physics_override`.
 ---@return physics_override
+---@nodiscard
 function ObjectRef:get_physics_override() end
 
 --TODO: improve self documentation of hud definition using minetest modding book
 
+
 ---@class hud_definition
-local hud_definition = {}
-
 ---Type of element.
----@type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"waypoint"'|'"image_waypoint"'|'"compass"'|'"minimap"'
-hud_definition.type = nil
-
+---@field type '"image"'|'"text"'|'"statbar"'|'"inventory"'|'"waypoint"'|'"image_waypoint"'|'"compass"'|'"minimap"'
 ---Position of the element, starting from the top left corner of the screen.
 ---
 ---`{x=0.5, y=0.5}` would place the element at the center of the screen while `{x=0, y=0}` would keep it in the top left corner.
----@type {x: number, y: number}
-hud_definition.position = nil
-
----Name of the element
----@type string
-hud_definition.name = nil
-
----@type {x: number, y: number}
-hud_definition.scale = nil
-
----@type string
-hud_definition.text = nil
-
----@type string
-hud_definition.text2 = nil
-
----@type number
-hud_definition.number = nil
-
+---@field position {x: number, y: number}
+---Name of the element.
+---@field name string
+---@field scale {x: number, y: number}
+---@field text string
+---@field text2 string
+---@field number number
 ---**TYPE: inventory**
 ---
 ---Selected item in inventory. 0 for no item selected.
----@type integer
-hud_definition.item = nil
-
+---@field item integer
 ---Direction: `0`: left-right, `1`: right-left, `2`: top-bottom, `3`: bottom-top
----@type 0|1|2|3
-hud_definition.direction = nil
-
----@type {x: number, y: number}
-hud_definition.alignment = nil
-
----@type {x: number, y: number}
-hud_definition.offset = nil
-
----Size of the element in pixels.
----@type {x: number, y: number}
-hud_definition.size = nil
-
+---@field direction 0|1|2|3
+---@field alignment {x: number, y: number}
+---@field offset {x: number, y: number}
+---@field size {x: number, y: number}
 ---Lower z-index HUDs are displayed behind higher z-index HUDs.
----@type integer
-hud_definition.z_index = nil
-
+---
+---* `-400`: Graphical effects, such as vignette
+---* `-300`: Name tags, waypoints
+---* `-200`: Wieldhand
+---* `-100`: Things that block the player's view, e.g. masks
+---* `0`: Default. For standard in-game HUD elements like crosshair, hotbar, minimap, builtin statbars, etc
+---* `100`: Temporary text messages or notification icons
+---* `1000`: Full-screen effects such as full-black screen or credits. This includes effects that cover the entire screen
+---* `Other`: If your HUD element doesn't fit into any category, pick a number between the suggested values
+---@field z_index integer
 ---Defint font style for "text" elements: bitfield with `1` = bold, `2` = italic, `4` = monospace
----@type integer
-hud_definition.style = nil
+---@field style integer
+
 
 ---**Player Only**
 ---
@@ -661,7 +772,7 @@ function ObjectRef:hud_remove(id) end
 ---
 ---Change a value of a previously added HUD element.
 ---@param id integer
----@param stat '"position"'|'"name"'|'"scale"'|'"text"'|'"number"'|'"item"'
+---@param stat '"position"'|'"name"'|'"scale"'|'"text"'|'"text2"'|'"number"'|'"item"'|'"direction"'|'"alignment"'|'"offset"'|'"world_pos"'|'"size"'|'"z_index"'|'"style"'
 ---@param value any
 function ObjectRef:hud_change(id, stat, value) end
 
@@ -670,6 +781,7 @@ function ObjectRef:hud_change(id, stat, value) end
 ---Returns the HUD element definition structure of the specified ID
 ---@param id integer
 ---@return hud_definition?
+---@nodiscard
 function ObjectRef:hud_get(id) end
 
 ---@class hud_flags
@@ -692,6 +804,7 @@ function ObjectRef:hud_set_flags(flags) end
 ---
 ---Returns player HUD flags.
 ---@return hud_flags
+---@nodiscard
 function ObjectRef:hud_get_flags() end
 
 ---**Player Only**
@@ -704,6 +817,7 @@ function ObjectRef:hud_set_hotbar_itemcount(count) end
 ---
 ---Returns number of slots shown in builtin hotbar.
 ---@return integer
+---@nodiscard
 function ObjectRef:hud_get_hotbar_itemcount() end
 
 ---**Player Only**
@@ -716,6 +830,7 @@ function ObjectRef:hud_set_hotbar_image(texturename) end
 ---
 ---Returns hotbar background image.
 ---@return string
+---@nodiscard
 function ObjectRef:hud_get_hotbar_image() end
 
 ---**Player Only**
@@ -728,6 +843,7 @@ function ObjectRef:hud_set_hotbar_selected_image(texturename) end
 ---
 ---Returns selected hotbar background image.
 ---@return string
+---@nodiscard
 function ObjectRef:hud_get_hotbar_selected_image() end
 
 --FIXME: unclear lua_api doc
@@ -740,93 +856,61 @@ function ObjectRef:hud_get_hotbar_selected_image() end
 function ObjectRef:set_minimap_modes(modes, selected_mode) end
 
 ---@class sky_parameters
-local sky_parameters = {}
-
 ---Fog color in "skybox" and "plain" modes.
----@type ColorSpec
-sky_parameters.base_color = nil
-
+---@field base_color ColorSpec
 --- Available types:
 ---* `"regular"`: Uses 0 textures, `base_color` ignored
 ---* `"skybox"`: Uses 6 textures, `base_color` used as fog.
 ---* `"plain"`: Uses 0 textures, `base_color` used as both fog and sky.
----@type '"regular"'|'"skybox"'|'"plain"'
-sky_parameters.type = nil
-
+---@field type '"regular"'|'"skybox"'|'"plain"'
 ---A table containing up to six textures in the following order:
 ---
 ---Y+ (top), Y- (bottom), X- (west), X+ (east), Z+ (north), Z- (south)
----@type string[]
-sky_parameters.textures = nil
-
+---@field textures string[]
 ---Whether clouds appear. (default: `true`)
----@type boolean
-sky_parameters.clouds = nil
-
+---@field clouds boolean
 ---A table used in `"regular"` type only, containing sky color values (alpha is ignored):
----@type sky_color
-sky_parameters.sky_color = {}
+---@field sky_color sky_color
 
 ---@class sky_color
-local sky_color = {}
-
 ---For the top half of the sky during the day. (default: `#61b5f5`)
----@type ColorSpec
-sky_color.day_sky = nil
-
+---@field day_sky ColorSpec
 ---For the bottom half of the sky during the day. (default: `#90d3f6`)
----@type ColorSpec
-sky_color.day_horizon = nil
-
+---@field day_horizon ColorSpec
 ---For the top half of the sky during dawn/sunset. (default: `#b4bafa`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.dawn_sky = nil
-
+---@field dawn_sky ColorSpec
 ---For the bottom half of the sky during dawn/sunset. (default: `#bac1f0`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.dawn_horizon = nil
-
+---@field dawn_horizon ColorSpec
 ---For the top half of the sky during the night. (default: `#006bff`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.night_sky = nil
-
+---@field night_sky ColorSpec
 ---For the bottom half of the sky during the night. (default: `#4090ff`)
 ---
 ---The resulting sky color will be a dark version of the ColorSpec.
 ---
 ---**Warning:** The darkening of the ColorSpec is subject to change.
----@type ColorSpec
-sky_color.night_horizon = nil
-
+---@field night_horizon ColorSpec
 ---For when you're either indoors or underground. (default: `#646464`)
----@type ColorSpec
-sky_color.indoors = nil
-
+---@field indoors ColorSpec
 ---Changes the fog tinting for the sun at sunrise and sunset. (default: `#f47d1d`)
----@type ColorSpec
-sky_color.fog_sun_tint = nil
-
+---@field fog_sun_tint ColorSpec
 ---Changes the fog tinting for the moon at sunrise and sunset. (default: `#7f99cc`)
----@type ColorSpec
-sky_color.fog_moon_tint = nil
-
+---@field fog_moon_tint ColorSpec
 ---Changes which mode the directional fog abides by, `"custom"` uses `sun_tint` and `moon_tint`, while `"default"` uses the classic Minetest sun and moon tinting.
 ---
 ---Will use tonemaps, if set to `"default"`. (default: `"default"`)
----@type '"default"'|'"custom"'
-sky_color.fog_tint_type = nil
+---@field fog_tint_type '"default"'|'"custom"'
 
 ---**Player Only**
 ---
@@ -841,6 +925,7 @@ function ObjectRef:set_sky(sky_parameters) end
 ---Returns sky settings.
 ---@param as_table? boolean Determines whether the deprecated version of this function is being used. (see lua_api.txt for more infos)
 ---@return sky_parameters
+---@nodiscard
 function ObjectRef:get_sky(as_table) end
 
 ---**Player Only**
@@ -850,38 +935,26 @@ function ObjectRef:get_sky(as_table) end
 ---**DEPRECATED:** Use `get_sky(as_table)` instead.
 ---@deprecated
 ---@return sky_color
+---@nodiscard
 function ObjectRef:get_sky_color() end
 
 ---@class sun_parameters
-local sun_parameters = {}
-
 ---Whether the sun is visible. (default: `true`)
----@type boolean
-sun_parameters.visible = nil
-
+---@field visible boolean
 ---A regular texture for the sun.
 ---
 ---Setting to `""` will re-enable the mesh sun.
 ---
 ---Default: `"sun.png"`, if it exists.
----@type string
-sun_parameters.texture = nil
-
+---@field texture string
 ---A 512x1 texture containing the tonemap for the sun (default: `"sun_tonemap.png"`)
----@type string
-sun_parameters.tonemap = nil
-
+---@field tonemap string
 ---A regular texture for the sunrise texture. (default: `"sunrisebg.png"`)
----@type string
-sun_parameters.sunrise = nil
-
+---@field sunrise string
 ---Whether the sunrise texture is visible. (default: `true`)
----@type boolean
-sun_parameters.sunrise_visible = nil
-
+---@field sunrise_visible boolean
 ---Float controlling the overall size of the sun. (default: `1`)
----@type number
-sun_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
@@ -895,15 +968,12 @@ function ObjectRef:set_sun(parameters) end
 ---
 ---Returns the current sun settings.
 ---@return sun_parameters
+---@nodiscard
 function ObjectRef:get_sun() end
 
 ---@class moon_parameters
-local moon_parameters = {}
-
 ---Whether the moon is visible. (default: `true`)
----@type boolean
-moon_parameters.visible = nil
-
+---@field visible boolean
 ---A regular texture for the moon.
 ---
 ---Setting to `""` will re-enable the mesh moon.
@@ -911,16 +981,11 @@ moon_parameters.visible = nil
 ---Default: `"moon.png"`, if it exists.
 ---
 ---Note: Relative to the sun, the moon texture is rotated by 180°. You can use the `^[transformR180` texture modifier to achieve the same orientation.
----@type string
-moon_parameters.texture = nil
-
+---@field texture string
 ---A 512x1 texture containing the tonemap for the moon (default: `"sun_tonemap.png"`)
----@type string
-moon_parameters.tonemap = nil
-
+---@field tonemap string
 ---Float controlling the overall size of the moon. (default: `1`)
----@type number
-moon_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
@@ -934,28 +999,20 @@ function ObjectRef:set_moon(parameters) end
 ---
 ---Returns the current moon settings.
 ---@return moon_parameters
+---@nodiscard
 function ObjectRef:get_moon() end
 
 ---@class star_parameters
-local star_parameters = {}
-
 ---Whether the stars are visible. (default: `true`)
----@type boolean
-star_parameters.visible = nil
-
+---@field visible boolean
 ---The number of stars in the skybox.
 ---
 ---Only applies to `"skybox"` and `"regular"` sky types. (default: `1000`)
----@type integer
-star_parameters.count = nil
-
+---@field count integer
 ---The color of the stars, alpha channel is used to set overall star brightness. (default: `#ebebff69`)
----@type ColorSpec
-star_parameters.star_color = nil
-
+---@field star_color ColorSpec
 ---Float controlling the overall size of the stars. (default: `1`)
----@type number
-star_parameters.scale = nil
+---@field scale number
 
 ---**Player Only**
 ---
@@ -969,36 +1026,24 @@ function ObjectRef:set_stars(parameters) end
 ---
 ---Returns the current star settings.
 ---@return star_parameters
+---@nodiscard
 function ObjectRef:get_stars() end
 
 ---@class cloud_parameters
-local cloud_parameters = {}
-
 ---Cloud density.
 ---
 ---From `0` (no clouds) to `1` (full clouds) (default `0.4`)
----@type number
-cloud_parameters.density = nil
-
+---@field density number
 ---Cloud color with alpha channel (default `#fff0f0e5`).
----@type ColorSpec
-cloud_parameters.color = nil
-
+---@field color ColorSpec
 ---Cloud color lower bound, use for a "glow at night" effect (alpha ignored, default `#000000`).
----@type ColorSpec
-cloud_parameters.ambient = nil
-
+---@field ambient ColorSpec
 ---Cloud height (default per conf, usually `120`).
----@type integer
-cloud_parameters.height = nil
-
+---@field height integer
 ---Cloud thickness in nodes (default `16`).
----@type integer
-cloud_parameters.thickness = nil
-
+---@field thickness integer
 ---2D cloud speed + direction in nodes per second (default `{x=0, z=-2}`).
----@type {x: number, y: number}
-cloud_parameters.speed = nil
+---@field speed {x: number, y: number}
 
 ---**Player Only**
 ---
@@ -1012,6 +1057,7 @@ function ObjectRef:set_clouds(parameters) end
 ---
 ---Returns the current cloud settings.
 ---@return cloud_parameters
+---@nodiscard
 function ObjectRef:get_clouds() end
 
 ---**Player Only**
@@ -1026,6 +1072,7 @@ function ObjectRef:override_day_night_ratio(ratio) end
 ---
 ---Returns the current day-night ratio or `nil` if no override is active.
 ---@return number?
+---@nodiscard
 function ObjectRef:get_day_night_ratio() end
 
 ---**Player Only**
@@ -1048,6 +1095,7 @@ function ObjectRef:set_local_animation(idle, walk, dig, walk_while_dig, frame_sp
 ---@return {x: integer, y: integer} dig
 ---@return {x: integer, y: integer} walk_while_dig
 ---@return integer frame_speed
+---@nodiscard
 function ObjectRef:get_local_animation() end
 
 ---**Player Only**
@@ -1064,6 +1112,7 @@ function ObjectRef:set_eye_offset(firstperson, thirdperson) end
 ---Returns first and third person offsets.
 ---@return Vector firstperson
 ---@return Vector thirdperson
+---@nodiscard
 function ObjectRef:get_eye_offset() end
 
 ---**Player Only**
@@ -1080,12 +1129,9 @@ function ObjectRef:get_eye_offset() end
 function ObjectRef:send_mapblock(blockpos) end
 
 ---@class light_definition
-local light_definition = {}
-
 ---Controls ambient shadows.
 ---* `intensity` sets the intensity of the shadows from 0 (no shadows, default) to 1 (blackness)
----@type {intensity: number}
-light_definition.shadows = nil
+---@field shadows {intensity: number}
 
 ---**Player Only**
 ---
@@ -1097,4 +1143,5 @@ function ObjectRef:set_lighting(definition) end
 ---
 ---Returns the current lighting of the player.
 ---@return light_definition
+---@nodiscard
 function ObjectRef:get_lighting() end

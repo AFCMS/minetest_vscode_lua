@@ -5,7 +5,7 @@
 ---The `data` field (string) may be used to store and retrieve any mod-relevant information to the specified area.
 ---
 ---Despite its name, mods must take care of persisting AreaStore data. They may use the provided load and write functions for this.
----@class AreaStore
+---@class AreaStore: userdata
 local area_store = {}
 
 ---Returns the area information about the specified ID.
@@ -18,6 +18,7 @@ local area_store = {}
 ---@param include_corners boolean
 ---@param include_data boolean
 ---@return nil|true|{min: Vector, max: Vector, data: string}
+---@nodiscard
 function area_store:get_area(id, include_corners, include_data) end
 
 ---Returns all areas as table, indexed by the area ID.
@@ -27,6 +28,7 @@ function area_store:get_area(id, include_corners, include_data) end
 ---@param include_corners boolean
 ---@param include_data boolean
 ---@return table<integer, nil|true|{min: Vector, max: Vector, data: string}>
+---@nodiscard
 function area_store:get_areas_for_pos(pos, include_corners, include_data) end
 
 ---Returns all areas that contain all nodes inside the area specified by`corner1 and `corner2` (inclusive).
@@ -40,6 +42,7 @@ function area_store:get_areas_for_pos(pos, include_corners, include_data) end
 ---@param include_corners boolean
 ---@param include_data boolean
 ---@return table<integer, nil|true|{min: Vector, max: Vector, data: string}>
+---@nodiscard
 function area_store:get_areas_in_area(corner1, corner2, accept_overlap, include_corners, include_data) end
 
 ---Returns the new area's ID, or nil if the insertion failed.
@@ -94,4 +97,5 @@ function area_store:from_file(filename) end
 ---
 ---@param type_name? '"LibSpatial"' Forces the internally used API
 ---@return AreaStore
+---@nodiscard
 function AreaStore(type_name) end

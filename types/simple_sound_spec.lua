@@ -24,16 +24,9 @@
 ---@alias SimpleSoundSpec SimpleSoundSpecTable|string
 
 ---@class SimpleSoundSpecTable
-local simple_sound_spec = {}
-
 ---Sound name.
----@type string
-simple_sound_spec.name = nil
-
+---@field name string
 ---Volume (`1.0` = `100%`)
----@type number
-simple_sound_spec.gain = nil
-
+---@field gain number
 ---Pitch (`1.0` = `100%`)
----@type number
-simple_sound_spec.pitch = nil
+---@field pitch number

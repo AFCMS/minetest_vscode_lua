@@ -34,12 +34,13 @@ function VoxelManip:read_from_map(p1, p2) end
 ---* If `light` is `false`, no light calculations happen, and you should correct all modified blocks with `minetest.fix_light()` as soon as possible.
 ---
 ---Keep in mind that modifying the map where light is incorrect can cause more lighting bugs.
----@param light boolean
+---@param light? boolean
 function VoxelManip:write_to_map(light) end
 
 ---Returns node table of the node currently loaded in the `VoxelManip` at that position.
 ---@param pos Vector
 ---@return node
+---@nodiscard
 function VoxelManip:get_node_at(pos) end
 
 ---Sets a specific node in the `VoxelManip` at that position.
@@ -54,6 +55,7 @@ function VoxelManip:set_node_at(pos, node) end
 ---If the param `buffer` is present, this table will be used to store the result instead.
 ---@param buffer? table
 ---@return integer[]
+---@nodiscard
 function VoxelManip:get_data(buffer) end
 
 ---Sets the data contents of the `VoxelManip` object.
@@ -82,6 +84,7 @@ function VoxelManip:set_lighting(light, p1, p2) end
 ---
 ---`light = day + (night * 16)`
 ---@return integer[]
+---@nodiscard
 function VoxelManip:get_light_data() end
 
 ---Sets the light data of each node in the `VoxelManip` object.
@@ -97,6 +100,7 @@ function VoxelManip:set_light_data(light_data) end
 ---If the param `buffer` is present, this table will be used to store the result instead.
 ---@param buffer? table
 ---@return integer[]?
+---@nodiscard
 function VoxelManip:get_param2_data(buffer) end
 
 ---Sets the `param2` contents of each node in the `VoxelManip` object.
@@ -122,9 +126,11 @@ function VoxelManip:update_liquids() end
 
 ---Returns `true` or `false` if the data in the voxel manipulator had been modified since the last read from map, due to a call to `minetest.set_data()` on the loaded area elsewhere.
 ---@return boolean
+---@nodiscard
 function VoxelManip:was_modified() end
 
 ---Returns actual emerged minimum and maximum positions.
 ---@return Vector pmin
 ---@return Vector pmax
+---@nodiscard
 function VoxelManip:get_emerged_area() end

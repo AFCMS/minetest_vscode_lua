@@ -89,7 +89,7 @@ minetest.registered_on_newplayers = {}
 ---Note: This callback is invoked even if the punched player is dead.
 ---
 ---Callback should return `true` to prevent the default damage mechanism.
----@param func fun(player: ObjectRef, hitter: ObjectRef, time_from_last_punch: number, tool_capabilities: tool_capabilities, dir: Vector, damage: number): boolean
+---@param func fun(player: ObjectRef, hitter: ObjectRef, time_from_last_punch: number, tool_capabilities: tool_capabilities, dir: Vector, damage: number): boolean?
 function minetest.register_on_punchplayer(func) end
 
 ---Map of registered on_punchplayer.
@@ -107,7 +107,7 @@ minetest.registered_on_rightclickplayers = {}
 
 ---Register a function that will be called when a player is damaged or healed.
 ---@param func fun(player: ObjectRef, hp_change: integer, reason: PlayerHPChangeReason): integer?, boolean?
----@param modifier boolean  When true, the function should return the actual `hp_change`.
+---@param modifier? boolean  When true, the function should return the actual `hp_change`.
 ---Note: modifiers only get a temporary `hp_change` that can be modified by later modifiers.
 ---
 ---Modifiers can return true as a second argument to stop the execution of further functions.
@@ -132,7 +132,7 @@ minetest.registered_on_dieplayers = {}
 ---Called **before** repositioning of player occurs.
 ---
 ---Return `true` in func to disable regular player placement.
----@param func fun(player: ObjectRef): boolean
+---@param func fun(player: ObjectRef): boolean?
 function minetest.register_on_respawnplayer(func) end
 
 ---Map of registered on_respawnplayer.
@@ -162,7 +162,7 @@ minetest.registered_on_joinplayers = {}
 ---Register a function that will be called when a player leaves the game.
 ---
 ---`timed_out`: True for timeout, false for other reasons.
----@param func fun(player: ObjectRef, timed_out: boolean)
+---@param func fun(player: ObjectRef, timed_out?: boolean)
 function minetest.register_on_leaveplayer(func) end
 
 ---Map of registered on_leaveplayer.
@@ -247,7 +247,7 @@ minetest.registered_on_chatcommands = {}
 ---Newest functions are called first.
 ---
 ---If function returns `true`, remaining functions are not called.
----@param func fun(player: ObjectRef, formname: string, fields: table<string, any>): boolean
+---@param func fun(player: ObjectRef, formname: string, fields: table<string, any>): boolean?
 function minetest.register_on_player_receive_fields(func) end
 
 ---Map of registered on_player_receive_fields.
@@ -269,11 +269,11 @@ minetest.registered_on_crafts = {}
 ---Register a function that will be called before a player craft something to make the crafting prediction.
 ---
 ---Similar to `minetest.register_on_craft`.
----@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)
+---@param func fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?
 function minetest.register_craft_predict(func) end
 
 ---Map of registered craft_predicts.
----@type fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef)[]
+---@type (fun(itemstack: ItemStack, player: ObjectRef, old_craft_grid: table, craft_inv: InvRef): ItemStack?)[]
 minetest.registered_craft_predicts = {}
 
 ---Determines how much of a stack may be taken, put or moved to a player inventory.
@@ -288,11 +288,11 @@ minetest.registered_craft_predicts = {}
 ---Return a numeric value to limit the amount of items to be taken, put or moved.
 ---
 ---A value of `-1` for `take` will make the source stack infinite.
----@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer
+---@param func fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer?
 function minetest.register_allow_player_inventory_action(func) end
 
 ---Map of registered allow_player_inventory_action.
----@type (fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer)[]
+---@type (fun(player: ObjectRef, action: '"move"'|'"put"'|'"take"', inventory: InvRef, inventory_info: {from_list: string, to_list: string, from_index: integer, to_index: integer, count: integer}|{listname: string, index: integer, stack: ItemStack}): integer?)[]
 minetest.registered_allow_player_inventory_action = {}
 
 ---Called after a take, put or move event from/to/in a player inventory.
@@ -380,3 +380,6 @@ function minetest.register_on_liquid_transformed(func) end
 ---Map of registered on_liquid_transformed.
 ---@type fun(pos_list: Vector[], node_list: node[])[]
 minetest.registered_on_liquid_transformed = {}
+
+---@type table<function, {mod: string|'"??"', name: string|'"??"'}>
+minetest.callback_origins = {}

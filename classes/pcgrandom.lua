@@ -2,7 +2,7 @@
 
 ---A 32-bit pseudorandom number generator.
 ---Uses PCG32, an algorithm of the permuted congruential generator family, offering very strong randomness.
----@class PcgRandom
+---@class PcgRandom: userdata
 local pcg_random = {}
 
 ---Returns next random integer.
@@ -11,6 +11,7 @@ local pcg_random = {}
 ---@param min? integer
 ---@param max? integer
 ---@return integer
+---@nodiscard
 function pcg_random:next(min, max) end
 
 ---Return normally distributed random number between `min` and `max`.
@@ -23,6 +24,7 @@ function pcg_random:next(min, max) end
 ---@param max integer
 ---@param num_trials integer Default: 6
 ---@return integer
+---@nodiscard
 function pcg_random:rand_normal_dist(min, max, num_trials) end
 
 --FIXME: document params
@@ -31,4 +33,5 @@ function pcg_random:rand_normal_dist(min, max, num_trials) end
 ---@param seed number
 ---@param sequence? any
 ---@return PcgRandom
+---@nodiscard
 function PcgRandom(seed, sequence) end

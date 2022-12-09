@@ -16,9 +16,11 @@ local pseudo_random = {}
 ---@param min? integer
 ---@param max? integer
 ---@return integer
+---@nodiscard
 function pseudo_random:next(min, max) end
 
 ---Create a PseudoRandom generator.
 ---@param seed number
 ---@return PseudoRandom
+---@nodiscard
 function PseudoRandom(seed) end

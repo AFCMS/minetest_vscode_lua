@@ -3,7 +3,7 @@
 ---Request the server to shutdown.
 ---@param message? string Will display `message` to clients
 ---@param reconnect? boolean Displays a reconnect button to players
----@param delay? any Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown.
+---@param delay? number Adds an optional delay (in seconds) before shutdown. Negative delay cancels the current active shutdown. Zero delay triggers an immediate shutdown.
 function minetest.request_shutdown(message, reconnect, delay) end
 
 ---Cancel current delayed shutdown.
@@ -15,16 +15,19 @@ function minetest.cancel_shutdown_requests() end
 ---
 ---This function may be overwritten by mods to customize the status message.
 ---@param name string
----@param joined any Indicates whether the function was called when a player joined.
+---@param joined boolean Indicates whether the function was called when a player joined.
 ---@return string
+---@nodiscard
 function minetest.get_server_status(name, joined) end
 
 ---Returns the server uptime in seconds.
 ---@return integer
+---@nodiscard
 function minetest.get_server_uptime() end
 
 ---Returns the current maximum lag.
 ---@return number
+---@nodiscard
 function minetest.get_server_max_lag() end
 
 ---Remove player from database if he is not connected.
@@ -44,20 +47,12 @@ function minetest.remove_player(name) end
 function minetest.remove_player_auth(name) end
 
 ---@class dynamic_add_media_options
-local dynamic_add_media_options = {}
-
 ---Path to a media file on the filesystem.
----@type string
-dynamic_add_media_options.filepath = nil
-
+---@field filepath string
 ---Name of the player the media should be sent to instead of all players (optional)
----@type string
-dynamic_add_media_options.to_player = nil
-
+---@field to_player string
 ---Marks the media as ephemeral, it will not be cached on the client (optional, default: false)
----@type boolean
-dynamic_add_media_options.ephemeral = nil
-
+---@field ephemeral boolean
 
 ---Pushes the specified media file to client(s).
 ---

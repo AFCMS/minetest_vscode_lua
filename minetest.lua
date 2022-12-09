@@ -1,11 +1,9 @@
 ---@meta
 
----Minetest 7ffc0268 API
+---Minetest 5.6 API
 ---
----[Documentation](https://github.com/minetest/minetest/blob/7ffc0268/doc/lua_api.txt)
----@class minetest
+---[Official Documentation](https://github.com/minetest/minetest/blob/5.6.0/doc/lua_api.txt)
 minetest = {}
 
 ---@deprecated
----@type minetest
-core = {}
+core = minetest
