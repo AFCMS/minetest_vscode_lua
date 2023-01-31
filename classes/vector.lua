@@ -183,9 +183,9 @@ function vector.multiply(v, s) end
 ---@nodiscard
 function vector.divide(v, s) end
 
----Applies the rotation `r` (in radians) to `v` and returns the result.
+---Applies the rotation vector `r` {x = pitch, y = yaw, z = roll} (in radians) to `v`, and returns the result.
 ---@param v Vector
----@param r number
+---@param r Vector
 ---@return Vector
 ---@nodiscard
 function vector.rotate(v, r) end
